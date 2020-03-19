@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_KEY = 'AIzaSyD09tfK-pjT-G6kEZmXRfeicoKR-neGKNU';
 
 export const youtubeApiService = {
-   youtubeQuery
+   
 }
 
 
