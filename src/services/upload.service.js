@@ -13,7 +13,7 @@ async function uploadImg(ev) {
     formData.append('upload_preset', UPLOAD_PRESET);
 
     try {
-        //// change to use axios
+        ////    change to use axios
         const res = await fetch(UPLOAD_URL, {
             method: 'POST',
             body: formData
