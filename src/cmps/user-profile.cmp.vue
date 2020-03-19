@@ -1,6 +1,6 @@
 <template>
-    <section class="home" >
-        HOMEPAGE
+    <section class="user-profile">
+        profile
     </section>
 </template>
 

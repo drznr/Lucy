@@ -1,23 +1,46 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import home from '@/views/home';
+import stationApp from '@/views/station-app';
+import stationDetails from '@/views/station-details';
+import userDetails from '@/views/user-details';
+import signUp from '@/views/signup';
+import chatRoom from '@/cmps/chat-room.cmp';
+import stationEdit from '@/cmps/station-edit.cmp';
+import stationSettings from '@/cmps/station-settings.cmp';
+import userProfile from '@/cmps/user-profile.cmp';
+import userStats from '@/cmps/user-stats.cmp';
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
+  { path: '/', name: 'home', component: home },
+  { path: '/station', name: 'station-app', component: stationApp },
+  { path: '/station/:id',name: 'station-details', component: stationDetails,
+    children:[
+      { path: '', name: 'chat-room', component: chatRoom },
+      { path: 'edit', name: 'station-edit', component: stationEdit },
+      { path: 'settings', name: 'station-settings', component: stationSettings },
+    ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  { path: '/signup', name: 'signup', component: signUp },
+  { path: '/user/:id', name: 'user-details', component: userDetails,
+    children:[
+      { path: '', name: 'user-profile', component: userProfile }, // crudl on user stations ( admin has extra options )
+      { path: 'stats', name: 'user-stats', component: userStats },
+    ] 
   }
+
+
+    // DONT ERASE
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // }
 ]
 
 const router = new VueRouter({

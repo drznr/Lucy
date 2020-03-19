@@ -1,6 +1,6 @@
 <template>
-    <section class="home" >
-        HOMEPAGE
+    <section class="main-footer">
+        fooooooooooooter
     </section>
 </template>
 

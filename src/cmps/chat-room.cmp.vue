@@ -1,6 +1,6 @@
 <template>
-    <section class="home" >
-        HOMEPAGE
+    <section class="chat-room">
+        CHAT ROOM
     </section>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-    <section class="home" >
-        HOMEPAGE
+    <section class="station-app">
+            STATIONS APPP
     </section>
 </template>
 
