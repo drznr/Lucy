@@ -67,8 +67,100 @@
     }
     &-teaser {
         padding: $pad-small-x;
+        width: 100%;
         display: grid;
-        grid-template-columns: repeat(1fr, 12);
-        grid-template-rows: repeat(1fr, 2);
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        &-figures {
+            grid-column: 2 / 8;
+            grid-row: 1 / 2;
+            display: flex;
+            
+            figure:first-child {
+                flex-basis: 50%;
+                background-image: url('../assets/imgs/player.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: 100%;
+            }
+            figure:last-child  {
+                flex-basis: 50%;
+                background-image: url('../assets/imgs/jukebox.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: 0;
+            }
+        }
+        &-info {
+            grid-column: 8 / 11;
+            grid-row: 1 / 2;
+            margin-bottom: 40px;
+            text-align: left;
+
+            p {
+                width: 30ch;
+                font-size: rem(24px);
+            }
+        }
+        &-teaser {
+            grid-column: 2 / 12;
+            grid-row: 2 / -1;
+            height: 350px;
+            background-color:  #303841;
+            padding: 0 40px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+
+            figure {
+                background-image: url('../assets/imgs/crowd.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                opacity: .1;
+                mix-blend-mode: color-dodge;
+            }
+            &-img {
+                height: 90%;
+                align-self: flex-end;
+            }
+            &-txt {
+                z-index: 9;
+                color: $clr-white;
+                align-self: center;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            
+                p {
+                    margin-bottom: 40px;
+                    width: 30ch;
+                    font-size: rem(24px);
+                }
+                &-btn {
+                    font-size: rem(18px);
+                    background-color: transparent;
+                    border: 2px solid $clr-white;
+                    padding: rem(15px) rem(20px);
+                    border-radius: 3px;
+                    transition: all .3s;
+
+                    @include hover-supported {
+                        background-color: $clr-white;
+                        color: $clr-black;
+                        transform: translateY(-3px);
+                    }
+                    &:active {
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
     }
 }

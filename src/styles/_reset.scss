@@ -20,17 +20,26 @@ ul {
 p {
     margin: 0;
 }
-img {
-    width: 100%;
+figure {
+    margin: 0;
 }
 button {
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    cursor: pointer;
 
     &:focus {
         outline: none;
     }
 }
 input {
-
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    
     &:focus {
         outline: none;
     }

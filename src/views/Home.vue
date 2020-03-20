@@ -12,7 +12,27 @@
         <main>
             <station-slider></station-slider>
             <article class="home-teaser">
-                
+                <div class="home-teaser-figures">
+                    <figure></figure>
+                    <figure></figure>
+                </div>
+                <div class="home-teaser-info">
+                    <h2>Never stop listening</h2>
+                    <p>
+                        Lucy let's you hear music as playlist or jukebox and share your own playlists with the world.
+                    </p>
+                </div>
+                <div class="home-teaser-teaser">
+                    <figure></figure>
+                    <div class="home-teaser-teaser-txt">
+                        <h2>Calling all creators</h2>
+                        <p>
+                            Get on Lucy to share your sounds, and grow your audience. What are you waiting for?
+                        </p>
+                        <button class="home-teaser-teaser-txt-btn">Find out more</button>
+                    </div>
+                    <img src="@/assets/imgs/chapman.jpg" alt="artist" class="home-teaser-teaser-img" />
+                </div>
             </article>
         </main>
     </section>
