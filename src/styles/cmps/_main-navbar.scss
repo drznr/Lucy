@@ -5,7 +5,8 @@
   width: 100%;
   color: $clr1;
   font-size: rem(24px);
-  padding: $pad-small-x;
+  padding: 10px 20px;
+  transition: background-color .4s linear;
 
   .main-logo {
     font-size: rem(48px);
@@ -37,11 +38,10 @@
     }
     &-link {
       text-transform: uppercase;
-      mix-blend-mode: hue;
       border: 1px solid transparent;
       border-radius: 100px;
       padding: rem(2px) rem(10px);
-      transition: color 0.4s linear, border-color 0.4s linear;
+      transition: color .4s linear, border-color .4s linear;
         
       @include hover-supported {
         color: lighten($clr1, 15%);
@@ -80,6 +80,9 @@
   }
   [type="checkbox"]:checked ~ &-nav {
       transform: translateX(0);
+  }
+  &.colored {
+      background-color: $clr3;
   }
 }
 

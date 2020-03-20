@@ -29,6 +29,16 @@
                 color: $clr-black;
                 animation: slide-right .8s ease;
             }
+            &-link {
+                font-size: .4em;
+                font-family: baloo, sans-serif;
+                color: $clr1;
+                text-transform: uppercase;
+                border: 1px solid $clr1;
+                border-radius: 100px;
+                padding: rem(3px) rem(10px);
+            }
         }
     }
+  
 }
