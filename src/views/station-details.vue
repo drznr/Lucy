@@ -3,7 +3,6 @@
     MUSIC PLAYER
     <div class="player-container">
       <youtube
-        :video-id="videoId"
         ref="youtube"
         :fitParent="true"
         :player-vars="playerVars"
@@ -12,7 +11,9 @@
       ></youtube>
     </div>
     <div class="player-controller">
+      <button @click.prevent="changeSong(-1)">Prev</button>
       <button @click.prevent="togglePlaying">{{playPause}}</button>
+      <button @click.prevent="changeSong(1)">Next</button>
     </div>
     <router-view></router-view>
   </section>
@@ -20,34 +21,55 @@
 
 <script>
 export default {
-  props: {},
+  // props: { playlist: Array },
   data() {
     return {
+      player: null,
       isPlaying: false,
-      videoId: "aYDfwUJzYQg",
+      isLoopQue: true,
+      playlist: ["jHfOqqQ1DLQ", "7s65Zc6ULbo", "l9BxObmqejw"],
       playerVars: {
-        autoplay: 1
+        autoplay: 1,
+        loop: 1,
+        controls: 1,
+        playlist: this.videoId    // change this and fix auto play
       }
     };
   },
-  computed:{
-    playPause(){
-      return this.isPlaying ? 'Pause' : 'Play'
-    }
+  computed: {
+    playPause() {
+      return this.isPlaying ? "Pause" : "Play";
+    },
   },
   methods: {
+    setPlayer() {
+      this.player = this.$refs.youtube.player;
+    },
     togglePlaying() {
-      let player = this.$refs.youtube.player
-      this.isPlaying ? player.pauseVideo() : player.playVideo()
+      this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
     },
     playing() {
-      this.isPlaying = true
+      this.isPlaying = true;
     },
-    paused(){
-        this.isPlaying = false
-      
-    }
+    paused() {
+      this.isPlaying = false;
+    },
+    loadPlaylist() {
+      this.playerVars.playlist= this.playlist.join(',') ; //this.playlist will be changed from data to prop
+    },
+    changeSong(diff) {
+      (diff > 0 )? this.player.nextVideo() : this.player.previousVideo();
+    },
+  },
+  mounted() {
+    this.setPlayer();
+    this.loadPlaylist();
   }
 };
 </script>
 
+<style scoped>
+.player-container {
+  width: 400px;
+}
+</style>
