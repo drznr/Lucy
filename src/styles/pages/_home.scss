@@ -98,9 +98,12 @@
             margin-bottom: 40px;
             text-align: left;
 
+            h2 {
+                white-space: pre;
+            }
             p {
-                width: 30ch;
-                font-size: rem(24px);
+                width: 24ch;
+                font-size: rem(28px);
             }
         }
         &-teaser {
