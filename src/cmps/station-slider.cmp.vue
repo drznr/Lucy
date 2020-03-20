@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
 export default {
@@ -31,6 +31,10 @@ export default {
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
+        },
+        keyboard: {
+            enabled: true,
+            onlyInViewport: false,
         }
       }
     };
@@ -38,9 +42,6 @@ export default {
   components: {
     Swiper,
     SwiperSlide
-  },
-  directives: {
-    //swiper: directive
   }
 };
 </script>

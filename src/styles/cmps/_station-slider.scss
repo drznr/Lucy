@@ -5,5 +5,7 @@
     align-items: center;
     padding: 0 rem(60px);
 
-    
+    &-button-prev, &-button-next {
+        color: $clr3;
+    }
 }

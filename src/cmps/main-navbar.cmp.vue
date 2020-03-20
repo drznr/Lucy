@@ -8,6 +8,9 @@
       </label>
       <ul class="main-nav-nav">
         <li>
+          <router-link to="/" class="main-nav-nav-link">Home</router-link>
+        </li>
+        <li>
           <router-link to="/signup" class="main-nav-nav-link">Signup</router-link>
         </li>
         <li>
