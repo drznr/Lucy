@@ -5,12 +5,15 @@
                 <h1>Meet Lucy</h1>
                 <span>Discover our live jukeboxes & playlist's and share your own with the world</span>
                 <router-link to="/station" class="home-header-heading-link">
-                    Check it outs
+                    Check it out
                 </router-link>
             </div>
         </header>
         <main>
             <station-slider></station-slider>
+            <article class="home-teaser">
+                
+            </article>
         </main>
     </section>
 </template>
