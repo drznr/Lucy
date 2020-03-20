@@ -10,6 +10,10 @@
         @playing="playing"
       ></youtube>
     </div>
+    <div class="player-controller">
+        <button @click="play">Play</button>
+        <button @click="pause">Pause</button>
+    </div>
     <router-view></router-view>
   </section>
 </template>
@@ -26,11 +30,11 @@ export default {
     };
   },
   methods: {
-    // playVideo() {
-    //   this.player.playVideo()
-    // },
-    playing() {
-      console.log("o/ we are watching!!!");
+    play() {
+      this.player.playVideo()
+    },
+    pause(){
+        this.player.pauseVideo()
     }
   },
   computed: {
