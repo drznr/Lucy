@@ -47,7 +47,7 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    border: 1px solid $clr1;
+                    border: 2px solid $clr1;
                     border-radius: 100px;
                     transition: transform .4s linear;
                 }
@@ -65,5 +65,10 @@
             }
         }
     }
-  
+    &-teaser {
+        padding: $pad-small-x;
+        display: grid;
+        grid-template-columns: repeat(1fr, 12);
+        grid-template-rows: repeat(1fr, 2);
+    }
 }
