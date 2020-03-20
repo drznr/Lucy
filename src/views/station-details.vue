@@ -8,11 +8,11 @@
         :fitParent="true"
         :player-vars="playerVars"
         @playing="playing"
+        @paused="paused"
       ></youtube>
     </div>
     <div class="player-controller">
-        <button @click="play">Play</button>
-        <button @click="pause">Pause</button>
+      <button @click.prevent="togglePlaying">{{playPause}}</button>
     </div>
     <router-view></router-view>
   </section>
@@ -20,27 +20,34 @@
 
 <script>
 export default {
-    props: {},
+  props: {},
   data() {
     return {
+      isPlaying: false,
       videoId: "aYDfwUJzYQg",
       playerVars: {
         autoplay: 1
       }
     };
   },
-  methods: {
-    play() {
-      this.player.playVideo()
-    },
-    pause(){
-        this.player.pauseVideo()
+  computed:{
+    playPause(){
+      return this.isPlaying ? 'Pause' : 'Play'
     }
   },
-  computed: {
-    player() {
-      return this.$refs.youtube.player;
+  methods: {
+    togglePlaying() {
+      let player = this.$refs.youtube.player
+      this.isPlaying ? player.pauseVideo() : player.playVideo()
+    },
+    playing() {
+      this.isPlaying = true
+    },
+    paused(){
+        this.isPlaying = false
+      
     }
   }
 };
 </script>
+
