@@ -1,9 +1,18 @@
 <template>
   <section class="station-app">
     STATIONS APPP
-    <!-- <iframe :src="'https://www.youtube.com/embed/naoknj1ebqI'"></iframe> -->
     <div class="player-container">
-      <youtube :video-id="videoId" ref="youtube" :fitParent="true" :player-vars="playerVars" @playing="playing"></youtube>
+      <youtube 
+        :video-id="videoId" 
+        ref="youtube" 
+        :fitParent="true" 
+        :player-vars="playerVars" 
+        @playing="playing"
+        @paused="paused"
+      ></youtube>
+    </div>
+    <div class="player-controler">
+      <button @click.prevent="togglePlaying">{{playPause}}</button>
     </div>
   </section>
 </template>
@@ -13,23 +22,29 @@ export default {
   props: {},
   data() {
     return {
+      isPlaying: false,
       videoId: "naoknj1ebqI",
       playerVars: {
         autoplay: 1
       }
     };
   },
-  methods: {
-    // playVideo() {
-    //   this.player.playVideo()
-    // },
-    playing() {
-      console.log("o/ we are watching!!!");
+  computed:{
+    playPause(){
+      return this.isPlaying ? 'Pause' : 'Play'
     }
   },
-  computed: {
-    player() {
-      return this.$refs.youtube.player;
+  methods: {
+    togglePlaying() {
+      let player = this.$refs.youtube.player
+      this.isPlaying ? player.pauseVideo() : player.playVideo()
+    },
+    playing() {
+      this.isPlaying = true
+    },
+    paused(){
+        this.isPlaying = false
+      
     }
   }
 };
