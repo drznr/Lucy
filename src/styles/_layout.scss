@@ -1,4 +1,9 @@
 .container {
-    max-width: 1400px;
+    max-width: rem(1400px);
     margin: 0 auto;
+}
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

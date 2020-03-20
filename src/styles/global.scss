@@ -1,8 +1,18 @@
+/// SASS Setup
 @import './setup/variables';
 @import './setup/mixins';
 @import './setup/functions';
+
+/// General SCSS
 @import './fonts';
+@import './animations';
 @import './reset';
 @import './base';
 @import './helpers';
 @import './layout';
+
+// CMPS
+@import './cmps/main-navbar';
+
+// Pages
+@import './pages/home';

@@ -1,0 +1,10 @@
+@keyframes slide-left {
+    0% {transform: translateX(-70vw);}
+    90% {transform: translateX(3vw)}
+    100% {transform: translateX(0)}
+}
+@keyframes slide-right {
+    0% {transform: translateX(70vw);}
+    90% {transform: translateX(-3vw)}
+    100% {transform: translateX(0)}
+}

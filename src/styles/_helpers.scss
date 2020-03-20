@@ -11,3 +11,13 @@
 .ratio-poster {
   @include aspect-ratio(100, 150);
 }
+
+.btn-link {
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
