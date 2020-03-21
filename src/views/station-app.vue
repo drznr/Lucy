@@ -1,71 +1,63 @@
 <template>
   <section class="station-app">
-    STATIONS APPP
-    <div class="player-container">
-      <youtube :video-id="videoId" ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
-    </div>
-    <div class="player-controler">
+    <header class="station-app-header">
+      <!-- also make astation input? -->
+      <!-- filter and whatnot -->
+    </header>
+    <section class="sliders-wrap">
+      <station-app-slider :stations="playlist"></station-app-slider>
+      <station-app-slider :stations="playlist"></station-app-slider>
+      <station-app-slider :stations="playlist"></station-app-slider>
+    </section>
 
-
-      <button @click.prevent="handleSongChange(false)">Prev</button>
-      <button @click.prevent="togglePlaying">{{playPause}}</button>
-      <button @click.prevent="handleSongChange(true)">Next</button>
-    </div>
+    <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
   </section>
 </template>
+
 <script>
-// import d from ''
+import stationAppSlider from "@/cmps/station-app-slider.cmp";
+import stationAppPlayer from '@/cmps/station-app-player.cmp'
+
 export default {
   props: {},
   data() {
     return {
-      player: null,
-      isPlaying: false,
-      videoId: "naoknj1ebqI",
-      playerVars: {
-        autoplay: 1
-      }
+      // this i gonna come from the store and should be a list of stations not a playlist
+      playlist: [
+        "naoknj1ebqI",
+        "eZXS8Jpkiac",
+        "jHfOqqQ1DLQ",
+        "7s65Zc6ULbo",
+        "l9BxObmqejw"
+      ],
     };
   },
-  computed: {
-    playPause() {
-      return this.isPlaying ? "Pause" : "Play";
-    }
-  },
-  methods: {
-    togglePlaying() {
-      this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
-    },
-    handleSongChange(nextSong) {
-      nextSong ? console.log("next") : console.log("prev");
-      // nextSong ? this.videoId = _ : this.videoId = _
-    },
-    handleStateShange(ev) {
-      switch (ev.data) {
-        case -1:
-        case 0:
-          this.isPlaying = false;
-          break;
-        case 1:
-          this.isPlaying = true;
-          break;
-        case 2:
-          this.isPlaying = false;
-      }
-    }
-  },
-  mounted() {
-    this.player = this.$refs.youtube.player;
-    this.player.addEventListener("onStateChange", this.handleStateShange);
+  components: {
+    stationAppSlider,
+    stationAppPlayer
   }
 };
 </script>
 
+
+
+
+
+
 <style scoped>
-.player-container {
-  display: none;
+.station-app-header {
+  height: 35vh;
+  background-color: #5cdb95;
 }
-.player-controler {
-  margin-top: 200px;
+.sliders-wrap {
+  max-width: 700px;
+  padding: 0 20px 0 20px;
+  margin: auto;
+  position: sticky;
+}
+.station-app-player{
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 </style>
