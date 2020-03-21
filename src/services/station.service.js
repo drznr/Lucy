@@ -1,8 +1,10 @@
-import httpService from './HttpService';
+import { httpService } from './http.service';
 
 
 export const stationService = {
-    query
+    query,
+    getById,
+    getNewStation
 }
 
 function query(creterea) {
@@ -22,6 +24,19 @@ async function save(station) {
         prm = httpService.post('station', station);
     }
     return await prm;
+}
+function getNewStation() {
+    return {
+        title: '',
+        description: '',
+        createdAt: 13854354,
+        labels: [],
+        owner: null,
+        followers: [],
+        rate: 0,
+        songs: [],
+        chatHistory: []
+    }
 }
 function getEmptyCritirea() {
     return {
