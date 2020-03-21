@@ -13,6 +13,11 @@ import mainFooter from '@/cmps/main-footer.cmp';
 import modal from '@/cmps/modal.cmp';
 
 export default {
+   created() {
+    this.$store.dispatch({
+      type: "loadStations"
+    });
+  },
    components: {
      mainNavbar,
      mainFooter,

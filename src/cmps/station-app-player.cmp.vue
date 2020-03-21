@@ -1,9 +1,9 @@
 <template>
   <section class="station-app-player">
-    <div class="player-container">
+    <div class="station-app-player-youtube-warp">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
-    <div class="player-controler">
+    <div class="station-app-player-controler">
       <label for="volume">Volume</label>
       <input
         type="range"
@@ -11,7 +11,7 @@
         name="volume"
         min="0"
         max="100"
-        v-model="volume"
+        v-model="volume" 
         @input="handleVolume"
       />
       <button @click.prevent="seek(-15)">Skip -</button>
@@ -19,9 +19,14 @@
       <button @click.prevent="togglePlaying">{{playPause}}</button>
       <button @click.prevent="handleSongChange(true)">Next</button>
       <button @click.prevent="seek(15)">Skip +</button>
-      <span class="time-elapsed-digital">{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
-      <div class="playback-timeline">
-        <div :style="playbackTimelineStyle" class="playback-timeline-progress-bar"></div>
+      <span
+        class="station-app-player-time-elapsed-digital"
+      >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
+      <div class="station-app-player-playback-timeline">
+        <div
+          :style="playbackTimelineStyle"
+          class="station-app-player-playback-timeline-progress-bar"
+        ></div>
       </div>
     </div>
   </section>
@@ -29,6 +34,7 @@
 
 <script>
 export default {
+  // TODO: make video quality lowest for faster loading time
   props: { playlist: Array },
   data() {
     return {
@@ -72,8 +78,7 @@ export default {
   },
   methods: {
     handleVolume() {
-        console.log('vol', this.volume);
-        this.player.setVolume(this.volume)
+      this.player.setVolume(this.volume);
     },
     seek(diff) {
       this.player.seekTo(parseInt(this.timeElapsed) + diff, true);
@@ -98,15 +103,13 @@ export default {
       if (ev.data === 2) this.isPlaying = false;
       if (ev.data === 3) console.log("buffering"); // (buffering)
     },
-    setTimeElapsed() {
-      this.player.getDuration().then(fullRunTime => {
-        this.fullRunTime = fullRunTime.toFixed();
-      });
+    async setTimeElapsed() {
+      const fullRunTime = await this.player.getDuration();
+      this.fullRunTime = fullRunTime.toFixed();
       if (this.isPlaying) {
-        var incTime = setInterval(() => {
-          this.player.getCurrentTime().then(timeElapsed => {
-            this.timeElapsed = timeElapsed.toFixed();
-          });
+        const incTime = setInterval(async () => {
+          const timeElapsed = await this.player.getCurrentTime();
+          this.timeElapsed = timeElapsed.toFixed();
         }, 0);
       } else {
         clearInterval(incTime);
@@ -130,10 +133,10 @@ export default {
 .station-app-player {
   background-color: white;
 }
-.player-container {
+.station-app-player-youtube-warp {
   display: none;
 }
-.player-controler {
+.station-app-player-controler {
   max-width: 960px;
   padding: 10px 20px 10px 20px;
   display: flex;
@@ -141,18 +144,18 @@ export default {
   align-items: center;
   margin: auto;
 }
-.playback-timeline {
+.station-app-player-playback-timeline {
   width: 300px;
   height: 7px;
   border-radius: 10px;
   border: 1px inset;
 }
-.playback-timeline-progress-bar {
+.station-app-player-playback-timeline-progress-bar {
   background-color: lightgreen;
   height: 100%;
   width: 0%;
 }
-.time-elapsed-digital {
+.station-app-player-time-elapsed-digital {
   font-family: monospace;
 }
 </style>
