@@ -13,6 +13,6 @@ async function youtubeQuery(query) {
         return res.data;
     } catch (err) {
         //////  HANDLE ERR
-        console.log(err);
+        console.log(err); //////////////////////////////// < handle error
     }
 }
