@@ -8,6 +8,7 @@
 <script>
 import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
 import { stationService } from '@/services/station.service';
+import { eventBusService } from '@/services/event-bus.service';
 
 export default {
   data() {

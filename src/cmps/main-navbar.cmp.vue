@@ -14,7 +14,7 @@
           <router-link to="/signup" class="main-nav-nav-link">Signup</router-link>
         </li>
         <li>
-          <button class="main-nav-nav-link btn-link">Login</button>
+          <button class="main-nav-nav-link btn-link" @click="openModal">Login</button>
         </li>
         <li>
           <router-link to="/station" class="main-nav-nav-link">Stations</router-link>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { eventBusService } from '@/services/event-bus.service';
+
 export default {
   data() {
     return {
@@ -34,6 +36,9 @@ export default {
   methods: {
     animateNavbar(ev) {
       this.isColored = window.scrollY > 100 ? true : false;
+    },
+    openModal() {
+      eventBusService.$emit('open-modal');
     }
   },
   created() {
