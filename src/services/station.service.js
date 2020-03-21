@@ -29,7 +29,7 @@ function getNewStation() {
     return {
         title: '',
         description: '',
-        createdAt: 13854354,
+        createdAt: null,
         labels: [],
         owner: null,
         followers: [],
