@@ -18,6 +18,12 @@
   }
 }
 
+/* Layout  Mixins */
+@mixin nav-clearfix {
+  margin-top: 80px;
+}
+
+
 /* Media  Mixins */
 
 //aspect ratio mixin

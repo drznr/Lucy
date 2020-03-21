@@ -11,6 +11,7 @@ export default {
 
   data() {
     return {
+
     };
   },
   computed: {
@@ -18,6 +19,10 @@ export default {
   },
   methods: {
 
+  },
+  created() {
+    const stationId = this.$route.params.id;
+      
   },
   components:{
     playlistPlayer
