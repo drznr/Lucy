@@ -29,7 +29,8 @@ function getNewStation() {
     return {
         title: '',
         description: '',
-        createdAt: 13854354,
+        createdAt: null,
+        currSong: null,
         labels: [],
         owner: null,
         followers: [],
