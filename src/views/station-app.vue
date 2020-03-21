@@ -7,7 +7,7 @@
     <section class="sliders-wrap">
       <station-slider v-if="stations" :stations="stations"></station-slider>
       <!-- <station-slider :stations="playlist"></station-slider>
-      <station-slider :stations="playlist"></station-slider> -->
+      <station-slider :stations="playlist"></station-slider>-->
     </section>
 
     <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
@@ -16,24 +16,25 @@
 
 <script>
 import stationSlider from "@/cmps/station-slider.cmp";
-import stationAppPlayer from '@/cmps/station-app-player.cmp'
+import stationAppPlayer from "@/cmps/station-app-player.cmp";
 
 export default {
   data() {
     return {
       // this i gonna come from the store and should be a list of stations not a playlist
-      stations: null,
       playlist: [
         "naoknj1ebqI",
         "eZXS8Jpkiac",
         "jHfOqqQ1DLQ",
         "7s65Zc6ULbo",
         "l9BxObmqejw"
-      ],
+      ]
     };
   },
-  mounted(){
-    this.stations = this.$store.getters.stations    
+  computed: {
+    stations() {
+      return this.$store.getters.stations;
+    }
   },
   components: {
     stationSlider,
@@ -58,7 +59,7 @@ export default {
   margin: auto;
   position: sticky;
 }
-.station-app-player{
+.station-app-player {
   position: fixed;
   bottom: 0;
   width: 100vw;

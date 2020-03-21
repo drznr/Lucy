@@ -51,8 +51,8 @@ export default {
     if (stationId && stationId !== "new") this.loadStation(stationId);
     else {
       this.station = stationService.getNewStation();
-      eventBusService.$emit("open-modal", <h1>STATION</h1>);
-    }
+      eventBusService.$emit('open-station-info');
+      }
   },
   components: {
     playlistPlayer

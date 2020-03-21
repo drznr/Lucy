@@ -21,3 +21,29 @@
   font-weight: inherit;
   cursor: pointer;
 }
+
+
+
+.form-inp {
+  padding: rem(5px) rem(10px);
+  background-color: transparent;
+  border: none;
+  border-bottom: 4px solid $clr2;
+  color: $clr-black;
+  margin-bottom: rem(20px);
+
+  &::placeholder {
+    color: $clr2;
+  }
+  & + label {
+    position: relative;
+    top: rem(-85px);
+    left: -32%;
+    transition: all .4s ease-out;
+  }
+  &:placeholder-shown + label {
+    top: -45px;
+    left: -30%;
+    opacity: 0;
+  }
+}
