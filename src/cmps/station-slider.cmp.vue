@@ -44,9 +44,6 @@ export default {
       }
     };
   },
-  mounted(){
-    console.log(this.stations);
-  },
   components: {
     Swiper,
     SwiperSlide
