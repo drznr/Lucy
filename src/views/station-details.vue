@@ -7,6 +7,8 @@
 
 <script>
 import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
+import { stationService } from '@/services/station.service';
+
 export default {
   data() {
     return {
@@ -16,20 +18,18 @@ export default {
   },
   computed: {},
   methods: {
-    async loadStation() {
-      const stationId = this.$route.params.id;
-      if (stationId) {
+    async loadStation(stationId) {
         const station = await this.$store.dispatch({
-          type: "loadStation",
+          type: 'loadStation',
           stationId
         });
         this.station = station;
       }
-    }
   },
   created() {
     const stationId = this.$route.params.id;
-      
+    if (stationId && stationId !== 'new') this.loadStation(stationId);
+    else this.station = stationService.getNewStation();
   },
   components: {
     playlistPlayer
