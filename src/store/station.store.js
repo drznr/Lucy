@@ -11,10 +11,6 @@ export const stationStore = {
         },
         currStation(state) {
             return state.setCurrStation;
-        },
-        playlistById(state) {
-            if (state.currStation) return state.currStation.songs.map(song => song.embedId)
-            else return []
         }
     },
     mutations: {

@@ -1,6 +1,6 @@
 <template>
   <section v-if="station" class="station-details">
-    <playlist-player :playlist="playlistById"></playlist-player>
+    <playlist-player :playlist="playlistIds"></playlist-player>
     <router-view></router-view>
   </section>
 </template>
@@ -16,8 +16,8 @@ export default {
     };
   },
   computed: {
-      playlistById(){
-        return this.$store.getters.playlistById
+      playlistIds(){
+        return this.station.songs.map(song => song.embedId);
       }
   },
   methods: {
@@ -26,7 +26,7 @@ export default {
           type: 'loadStation',
           stationId
         });
-        this.station = station;
+        this.station = station; 
       }
   },
   created() {
