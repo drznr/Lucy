@@ -4,7 +4,7 @@
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <div class="player-controler">
-      <label for="volume">{{volume}}</label>
+      <label for="volume">Volume</label>
       <input
         type="range"
         id="volume"
