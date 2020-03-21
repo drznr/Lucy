@@ -1,6 +1,6 @@
 <template>
-  <section class="station-details">
-    <playlist-player></playlist-player>
+  <section v-if="station" class="station-details">
+    <playlist-player :playlist="playlistById"></playlist-player>
     <router-view></router-view>
   </section>
 </template>
@@ -12,11 +12,14 @@ import { stationService } from '@/services/station.service';
 export default {
   data() {
     return {
-
       station: null
     };
   },
-  computed: {},
+  computed: {
+      playlistById(){
+        return this.$store.getters.playlistById
+      }
+  },
   methods: {
     async loadStation(stationId) {
         const station = await this.$store.dispatch({
