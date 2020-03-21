@@ -1,5 +1,5 @@
 .station-details {
     @include  nav-clearfix;
-    
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

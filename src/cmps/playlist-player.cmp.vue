@@ -1,6 +1,6 @@
 <template>
-  <section class="station-details">
-    <div class="player-container ratio-16-9">
+  <section class="playlist-player">
+    <div class="youtube-container ratio-16-9">
       <youtube
         ref="youtube"
         :fitParent="true"
@@ -22,13 +22,13 @@ export default {
   props: { playlist: Array },
   data() {
     return {
-      player: null,
+      elPlayer: null,
       isPlaying: false,
       playerVars: {
         autoplay: 1,
         loop: 1,
         controls: 1,//later will be change to 0
-        playlist: this.videoId    // change this and fix auto play
+        playlist: []    // change this and fix auto play
       }
     };
   },
@@ -39,10 +39,10 @@ export default {
   },
   methods: {
     setPlayer() {
-      this.player = this.$refs.youtube.player;
+      this.elPlayer = this.$refs.youtube.player;
     },
     togglePlaying() {
-      this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
+      this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
     },
     playing() {
       this.isPlaying = true;
@@ -54,7 +54,7 @@ export default {
       this.playerVars.playlist= this.playlist.join(',') ; //this.playlist will be changed from data to prop
     },
     changeSong(diff) {
-      (diff > 0 )? this.player.nextVideo() : this.player.previousVideo();
+      (diff > 0 )? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
     },
   },
   mounted() {
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style scoped>
-.player-container {
+.youtube-container {
   width: 400px;
 }
 </style>
