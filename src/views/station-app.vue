@@ -32,7 +32,7 @@ export default {
       ],
     };
   },
-  created(){
+  mounted(){
     this.stations = this.$store.getters.stations    
   },
   components: {
