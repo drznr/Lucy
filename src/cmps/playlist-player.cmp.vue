@@ -19,12 +19,11 @@
 
 <script>
 export default {
-  // props: { playlist: Array },
+  props: { playlist: Array },
   data() {
     return {
       player: null,
       isPlaying: false,
-      playlist: ["eZXS8Jpkiac","jHfOqqQ1DLQ", "7s65Zc6ULbo", "l9BxObmqejw"],
       playerVars: {
         autoplay: 1,
         loop: 1,
