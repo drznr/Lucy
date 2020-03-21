@@ -1,8 +1,9 @@
-import httpService from './HttpService';
+import httpService from './http.service';
 
 
 export const stationService = {
-
+    query,
+    getById
 }
 
 function query(creterea) {
