@@ -4,19 +4,21 @@
       <playlist-player :playlist="playlistIds"></playlist-player>
       <div class="-songs-container">
         <ul>
-          <li>Song1</li>
-          <li>Song2</li>
-          <li>Song3</li>
+          <li v-for="(song, idx) in station.songs" :key="idx">
+            {{song.title}}
+            <button @click="removeSong(song)">x</button>
+          </li>
         </ul>
       </div>
     </section>
-    
+
     <section class="-side-window">
       <nav>
         <router-link :to="'/station/' + station._id ">Chat</router-link>|
         <router-link :to="'/station/' + station._id + '/search'">Search Song</router-link>
+        <router-link :to="'/station/' + station._id + '/settings'">Settings</router-link>
       </nav>
-      <router-view></router-view>
+      <router-view @search-song="getYoutubeSongs" @add-song="addSong" :songs="youtubeSongs"></router-view>
     </section>
   </section>
 </template>
@@ -29,7 +31,8 @@ import { eventBusService } from "@/services/event-bus.service";
 export default {
   data() {
     return {
-      station: null
+      station: null,
+      youtubeSongs: []
     };
   },
   computed: {
@@ -44,6 +47,20 @@ export default {
         stationId
       });
       this.station = station;
+    },
+    async getYoutubeSongs(queryStr) {
+      if (!queryStr) return;
+      const songs = await this.$store.dispatch({
+        type: "getYoutubeSongs",
+        queryStr
+      });
+      this.youtubeSongs = songs;
+    },
+    async addSong(song) {
+      console.log(song.snippet.title, "will be added soon!");
+    },
+    async removeSong(song) {
+      console.log(song.title, "will be removed soon!");
     }
   },
   created() {
@@ -51,8 +68,8 @@ export default {
     if (stationId && stationId !== "new") this.loadStation(stationId);
     else {
       this.station = stationService.getNewStation();
-      eventBusService.$emit('open-station-info');
-      }
+      eventBusService.$emit("open-station-info");
+    }
   },
   components: {
     playlistPlayer
