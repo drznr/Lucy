@@ -38,7 +38,7 @@ export default {
       this.isColored = window.scrollY > 100 ? true : false;
     },
     openModal() {
-      eventBusService.$emit('open-modal');
+      eventBusService.$emit('open-modal', <h1>LOGIN</h1>);
     }
   },
   created() {

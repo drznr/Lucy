@@ -3,7 +3,7 @@
         <transition name="fade">
             <div class="cover" v-if="isActive" @click="isActive = false">
                 <aside class="modal">
-                    
+                   
                 </aside>
             </div>
         </transition>
@@ -21,8 +21,8 @@ export default {
         }
     },
     created() {
-        eventBusService.$on('open-modal', () => {
-            this.isActive = true;
+        eventBusService.$on('open-modal', (el) => {
+            this.isActive = true;console.log(el)
         });
     }
 };

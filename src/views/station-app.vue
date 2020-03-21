@@ -5,9 +5,9 @@
       <!-- filter and whatnot -->
     </header>
     <section class="sliders-wrap">
-      <station-app-slider :stations="playlist"></station-app-slider>
-      <station-app-slider :stations="playlist"></station-app-slider>
-      <station-app-slider :stations="playlist"></station-app-slider>
+      <station-slider :stations="playlist"></station-slider>
+      <station-slider :stations="playlist"></station-slider>
+      <station-slider :stations="playlist"></station-slider>
     </section>
 
     <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import stationAppSlider from "@/cmps/station-app-slider.cmp";
+import stationSlider from "@/cmps/station-slider.cmp";
 import stationAppPlayer from '@/cmps/station-app-player.cmp'
 
 export default {
@@ -33,7 +33,7 @@ export default {
     };
   },
   components: {
-    stationAppSlider,
+    stationSlider,
     stationAppPlayer
   }
 };

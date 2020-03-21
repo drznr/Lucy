@@ -33,7 +33,10 @@ export default {
   created() {
     const stationId = this.$route.params.id;
     if (stationId && stationId !== 'new') this.loadStation(stationId);
-    else this.station = stationService.getNewStation();
+    else {
+      this.station = stationService.getNewStation();
+      eventBusService.$emit('open-modal', <h1>STATION</h1>);
+      }
   },
   components: {
     playlistPlayer

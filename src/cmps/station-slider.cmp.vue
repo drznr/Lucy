@@ -1,14 +1,14 @@
 <template>
   <section>
     <swiper :options="swiperOptions" class="swiper container">
-      <swiper-slide>Slide 1</swiper-slide>
-      <swiper-slide>Slide 2</swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
-      <swiper-slide>Slide 4</swiper-slide>
-      <swiper-slide>Slide 5</swiper-slide>
-      <swiper-slide>Slide 6</swiper-slide>
-      <swiper-slide>Slide 7</swiper-slide>
-      <swiper-slide>Slide 8</swiper-slide>
+      <swiper-slide v-for="station in stations" v-bind:key="station._id">
+        {{station}}
+        <!-- <img src="{{station.coverImg}}"> -->
+        <!-- <section class="app-slider-card-hover-controls"> -->
+          <!-- <button @click="pausePlay">pausePlay</button> -->
+          <!-- <p class="title">{{currSong.title}}</p> -->
+        <!-- </section> -->
+      </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
@@ -22,6 +22,10 @@ import "swiper/css/swiper.css";
 export default {
   name: 'swiper-example-loop',
   title: 'Loop mode / Infinite loop',
+  props: {
+    stations: Array,
+    // currSong
+  },
   data() {
     return {
       swiperOptions: {
