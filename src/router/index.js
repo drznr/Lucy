@@ -6,7 +6,7 @@ import stationDetails from '@/views/station-details';
 import userDetails from '@/views/user-details';
 import signUp from '@/views/signup';
 import chatRoom from '@/cmps/chat-room.cmp';
-import stationEdit from '@/cmps/station-edit.cmp';
+import searchSong from '@/cmps/search-song.cmp';
 import stationSettings from '@/cmps/station-settings.cmp';
 import userProfile from '@/cmps/user-profile.cmp';
 import userStats from '@/cmps/user-stats.cmp';
@@ -19,7 +19,7 @@ const routes = [
   { path: '/station/:id',name: 'station-details', component: stationDetails,
     children:[
       { path: '', name: 'chat-room', component: chatRoom },
-      { path: 'edit', name: 'station-edit', component: stationEdit },
+      { path: 'search', name: 'search-song', component: searchSong },
       { path: 'settings', name: 'station-settings', component: stationSettings },
     ]
   },
