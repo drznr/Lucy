@@ -6,25 +6,31 @@
 </template>
 
 <script>
-  import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
+import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
 export default {
-
   data() {
     return {
+      station: null
     };
   },
-  computed: {
-  
-  },
+  computed: {},
   methods: {
-
+    async loadStation() {
+      const stationId = this.$route.params.id;
+      if (stationId) {
+        const station = await this.$store.dispatch({
+          type: "loadStation",
+          stationId
+        });
+        this.station = station;
+      }
+    }
   },
-  components:{
+  components: {
     playlistPlayer
   }
 };
 </script>
 
 <style scoped>
-
 </style>
