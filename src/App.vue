@@ -15,6 +15,11 @@ import loginModal from '@/cmps/login-modal.cmp';
 import stationInfo from '@/cmps/station-info.cmp';
 
 export default {
+   created() {
+    this.$store.dispatch({
+      type: "loadStations"
+    });
+  },
    components: {
      mainNavbar,
      mainFooter,

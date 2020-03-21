@@ -5,9 +5,9 @@
       <!-- filter and whatnot -->
     </header>
     <section class="sliders-wrap">
-      <station-slider :stations="playlist"></station-slider>
-      <station-slider :stations="playlist"></station-slider>
-      <station-slider :stations="playlist"></station-slider>
+      <station-slider v-if="stations" :stations="stations"></station-slider>
+      <!-- <station-slider :stations="playlist"></station-slider>
+      <station-slider :stations="playlist"></station-slider> -->
     </section>
 
     <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
@@ -19,10 +19,10 @@ import stationSlider from "@/cmps/station-slider.cmp";
 import stationAppPlayer from '@/cmps/station-app-player.cmp'
 
 export default {
-  props: {},
   data() {
     return {
       // this i gonna come from the store and should be a list of stations not a playlist
+      stations: null,
       playlist: [
         "naoknj1ebqI",
         "eZXS8Jpkiac",
@@ -31,6 +31,9 @@ export default {
         "l9BxObmqejw"
       ],
     };
+  },
+  created(){
+    this.stations = this.$store.getters.stations    
   },
   components: {
     stationSlider,
