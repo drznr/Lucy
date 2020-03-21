@@ -25,9 +25,9 @@ export default {
       player: null,
       isPlaying: false,
       playerVars: {
-        autoplay: 1,
+        autoplay: 1, // not working
         loop: 1,
-        controls: 1,//later will be change to 0
+        controls: 1, //later will be change to 0
         playlist: this.videoId    // change this and fix auto play
       }
     };
@@ -51,7 +51,7 @@ export default {
       this.isPlaying = false;
     },
     loadPlaylist() {
-      this.playerVars.playlist= this.playlist.join(',') ; //this.playlist will be changed from data to prop
+      this.playerVars.playlist = this.playlist.join(',') ; //this.playlist will be changed from data to prop
     },
     changeSong(diff) {
       (diff > 0 )? this.player.nextVideo() : this.player.previousVideo();

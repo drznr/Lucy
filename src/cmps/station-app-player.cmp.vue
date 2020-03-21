@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     handleVolume() {
-        console.log('vol', this.volume);
         this.player.setVolume(this.volume)
     },
     seek(diff) {
@@ -98,15 +97,17 @@ export default {
       if (ev.data === 2) this.isPlaying = false;
       if (ev.data === 3) console.log("buffering"); // (buffering)
     },
-    setTimeElapsed() {
+    async setTimeElapsed() {
       this.player.getDuration().then(fullRunTime => {
         this.fullRunTime = fullRunTime.toFixed();
       });
       if (this.isPlaying) {
-        var incTime = setInterval(() => {
-          this.player.getCurrentTime().then(timeElapsed => {
-            this.timeElapsed = timeElapsed.toFixed();
-          });
+        const incTime = setInterval(() => {
+          const timeElapsed = await this.player.getCurrentTime()
+          this.timeElapsed = timeElapsed.toFixed();
+          // this.player.getCurrentTime().then(timeElapsed => {
+          //   this.timeElapsed = timeElapsed.toFixed();
+          // });
         }, 0);
       } else {
         clearInterval(incTime);

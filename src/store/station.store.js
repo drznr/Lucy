@@ -3,7 +3,7 @@ import { stationService } from '@/services/station.service';
 export const stationStore = {
     state: {
         stations: [],
-        currStation: null
+        currStation: null,
     },
     getters: {
         stations(state) {
