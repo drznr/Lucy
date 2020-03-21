@@ -30,6 +30,7 @@ function getNewStation() {
         title: '',
         description: '',
         createdAt: null,
+        currSong: null,
         labels: [],
         owner: null,
         followers: [],
