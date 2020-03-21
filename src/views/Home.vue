@@ -5,7 +5,7 @@
                 <h1>Meet Lucy</h1>
                 <span>Discover our live jukeboxes & playlist's and share your own with the world</span>
                 <router-link to="/station/new" class="home-header-heading-link">
-                    Check it out
+                    Get started
                 </router-link>
             </div>
         </header>
