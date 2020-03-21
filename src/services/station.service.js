@@ -2,7 +2,7 @@ import httpService from './HttpService';
 
 
 export const stationService = {
-
+    query
 }
 
 function query(creterea) {
