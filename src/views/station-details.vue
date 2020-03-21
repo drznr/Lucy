@@ -46,13 +46,13 @@ export default {
       this.station = station;
     }
   },
-  created() {
-    const stationId = this.$route.params.id;
-    if (stationId && stationId !== "new") this.loadStation(stationId);
-    else {
+  created() {  
+    const stationId = this.$route.params.id; 
+    if (stationId && stationId === "new") {
       this.station = stationService.getNewStation();
-      eventBusService.$emit('open-station-info');
-      }
+      eventBusService.$emit('open-station-info'); //// sometimes not executing.. (maybe put this in mounted)
+
+    } else this.loadStation(stationId);    /// take care of a case where invalid id is given via URL (other than 'new')
   },
   components: {
     playlistPlayer
