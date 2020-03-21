@@ -1,6 +1,6 @@
 <template>
   <section class="station-details">
-    <div class="player-container">
+    <div class="player-container ratio-16-9">
       <youtube
         ref="youtube"
         :fitParent="true"
