@@ -26,7 +26,7 @@ export const stationStore = {
             const stations = await stationService.query({});
             context.commit('setStations', stations);
         },
-        async getStation(context, { stationId }) {
+        async loadStation(context, { stationId }) {
             const station = stationService.getById(stationId);
             context.commit('setCurrStation', station);
             return station;
