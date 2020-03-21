@@ -1,7 +1,7 @@
-import httpService from './http.service';
+import { httpService } from './http.service';
 
-export default {
-    
+export const userService = {
+    getEmptyCredentials
 }
 
 function getById(userId) {
@@ -30,7 +30,12 @@ async function logout() {
 function getUsers() {
     return httpService.get('user')
 }
-
+function getEmptyCredentials() {
+    return {
+        username: '',
+        password: ''
+    }
+}
 function _handleLogin(user) {
     if (user) sessionStorage.setItem('user', JSON.stringify(user))
     return user;

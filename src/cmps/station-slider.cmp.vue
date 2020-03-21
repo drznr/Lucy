@@ -31,6 +31,7 @@ export default {
       swiperOptions: {
         slidesPerView: 3,
         spaceBetween: 60,
+        grabCursor: true,
         loop: true,
         navigation: {
           nextEl: ".swiper-button-next",

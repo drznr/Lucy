@@ -2,11 +2,13 @@ html {
     font-weight: 300;
     color: $clr-black;
     font-family: baloo, sans-serif;
-    overflow-x: hidden;
 }
 h2, h3 {
     font-family: overpass, serif;
     font-size: rem(36px);
     text-transform: capitalize;
     margin-bottom: 20px;
+}
+#app {
+    overflow-x: hidden;
 }

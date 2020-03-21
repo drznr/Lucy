@@ -43,4 +43,10 @@ input {
     &:focus {
         outline: none;
     }
+    &::placeholder {
+        font-size: inherit;
+        color: inherit;
+        font-weight: inherit;
+        font-family: inherit;
+    }
 }

@@ -14,7 +14,7 @@
           <router-link to="/signup" class="main-nav-nav-link">Signup</router-link>
         </li>
         <li>
-          <button class="main-nav-nav-link btn-link" @click="openModal">Login</button>
+          <button class="main-nav-nav-link btn-link" @click="openLogin">Login</button>
         </li>
         <li>
           <router-link to="/station" class="main-nav-nav-link">Stations</router-link>
@@ -37,8 +37,8 @@ export default {
     animateNavbar(ev) {
       this.isColored = window.scrollY > 100 ? true : false;
     },
-    openModal() {
-      eventBusService.$emit('open-modal', <h1>LOGIN</h1>);
+    openLogin() {
+      eventBusService.$emit('open-login');
     }
   },
   created() {
