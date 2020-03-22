@@ -11,7 +11,7 @@
         </header>
         <main>
             <station-slider :stations="stations"></station-slider>
-
+            
             <article class="home-teaser">
                 <div class="home-teaser-figures">
                     <figure></figure>
@@ -50,6 +50,7 @@ export default {
         stations() {
             return this.$store.getters.stations;
         }
-    }
+    },
 };
 </script>
+
