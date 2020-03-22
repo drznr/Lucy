@@ -5,9 +5,11 @@
       <!-- filter and whatnot -->
     </header>
     <section class="sliders-wrap">
-      <station-slider v-if="stations" :stations="stations"></station-slider>
-      <!-- <station-slider :stations="playlist"></station-slider>
-      <station-slider :stations="playlist"></station-slider>-->
+      <station-slider
+        v-if="stations"
+        :stations="stations"
+        :isPlaying="isPlaying"
+      ></station-slider>
     </section>
 
     <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
@@ -34,14 +36,33 @@ export default {
   computed: {
     stations() {
       return this.$store.getters.stations;
-    }
+    },
+    isPlaying() {
+      return this.$store.getters.isPlaying;
+    },
+    // playlistIds() {
+    //   return this.station.songs.map(song => song.embedId);
+    // }
   },
+  // methods: {
+  //   setPlaying(bool) {
+  //     // this has a bug - btn dosnt always work
+  //     // this.$store.commit('setIsPlaying', bool)
+  //   },
+  //   async getStation(stationId) {      
+  //     const station = await this.$store.dispatch({
+  //       type: "loadStation",
+  //       stationId
+  //     });
+  //     this.station = station;
+  //   }
+  // },
   components: {
     stationSlider,
     stationAppPlayer
   }
 };
-</script>
+</script> 
 
 
 

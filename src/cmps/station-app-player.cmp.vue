@@ -11,7 +11,7 @@
         name="volume"
         min="0"
         max="100"
-        v-model="volume" 
+        v-model="volume"
         @input="handleVolume"
       />
       <button @click.prevent="seek(-15)">Skip -</button>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { eventBusService } from "@/services/event-bus.service";
+
 export default {
   // TODO: make video quality lowest for faster loading time
   props: { playlist: Array },
@@ -41,7 +43,7 @@ export default {
       volume: 70,
       timeElapsed: 0,
       fullRunTime: 0,
-      player: null,
+      elPlayer: null,
       isPlaying: false,
       currSong: null, // this needs to go in the store
       playerVars: {
@@ -78,16 +80,16 @@ export default {
   },
   methods: {
     handleVolume() {
-      this.player.setVolume(this.volume);
+      this.elPlayer.setVolume(this.volume);
     },
     seek(diff) {
-      this.player.seekTo(parseInt(this.timeElapsed) + diff, true);
+      this.elPlayer.seekTo(parseInt(this.timeElapsed) + diff, true);
     },
     togglePlaying() {
-      this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
+      this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
     },
     handleSongChange(nextSong) {
-      nextSong ? this.player.nextVideo() : this.player.previousVideo();
+      nextSong ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
     },
     loadPlaylist() {
       this.playerVars.playlist = this.playlist.join(",");
@@ -104,11 +106,12 @@ export default {
       if (ev.data === 3) console.log("buffering"); // (buffering)
     },
     async setTimeElapsed() {
-      const fullRunTime = await this.player.getDuration();
+      // this function runs the digital clock
+      const fullRunTime = await this.elPlayer.getDuration();
       this.fullRunTime = fullRunTime.toFixed();
       if (this.isPlaying) {
         const incTime = setInterval(async () => {
-          const timeElapsed = await this.player.getCurrentTime();
+          const timeElapsed = await this.elPlayer.getCurrentTime();
           this.timeElapsed = timeElapsed.toFixed();
         }, 0);
       } else {
@@ -117,13 +120,24 @@ export default {
     },
     loadPlaylist() {
       this.playerVars.playlist = this.playlist.join(","); //this.playlist will be changed from data to prop
-    }
+    },
   },
   mounted() {
-    this.player = this.$refs.youtube.player;
-    this.player.addEventListener("onStateChange", this.handleStateShange);
+    this.elPlayer = this.$refs.youtube.player;
+    this.elPlayer.addEventListener("onStateChange", this.handleStateShange);
     this.loadPlaylist();
-  }
+  },
+  // watch: {
+  //   isPlaying() {
+  //     this.$emit("isPlaying", this.isPlaying);
+  //   },
+  //   propIsPlaying() {
+  //     this.isPlaying = this.propIsPlaying;
+  //   }
+  // },
+  // created() {
+  //   this.$emit("isPlaying", this.isPlaying);
+  // }
 };
 </script>
 
