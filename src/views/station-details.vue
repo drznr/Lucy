@@ -68,10 +68,14 @@ export default {
       });
       this.station = JSON.parse(JSON.stringify(station));
     },
-    async addSong(song) {
+    addSong(song) {
       this.station.songs.push(song);
       this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
     },
+    removeSong(idx) {
+      this.station.songs.splice(idx, 1);
+      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+    } 
   },
   created() {
     const stationId = this.$route.params.id;
