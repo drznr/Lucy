@@ -1,8 +1,8 @@
 <template>
   <section v-if="station" class="station-details container">
-    <section class="-player-container">
+    <section class="station-details-player">
       <playlist-player :playlist="playlistIds"></playlist-player>
-      <div class="-songs-container">
+      <div class="station-details-player-playlist">
         <ul>
           <li v-for="(song, idx) in station.songs" :key="idx">
             {{song.title}}
@@ -12,11 +12,11 @@
       </div>
     </section>
 
-    <section class="-side-window">
+    <section class="station-details-side-window">
       <nav>
-        <router-link :to="'/station/' + station._id ">Chat</router-link>|
-        <router-link :to="'/station/' + station._id + '/search'">Search Song</router-link>
-        <router-link :to="'/station/' + station._id + '/settings'">Settings</router-link>
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id ">Chat</router-link> |
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/search'">Search Song</router-link> |
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/settings'">Settings</router-link>
       </nav>
       <router-view @search-song="getYoutubeSongs" @add-song="addSong" :songs="youtubeSongs"></router-view>
     </section>

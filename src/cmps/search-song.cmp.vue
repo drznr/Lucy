@@ -1,17 +1,17 @@
 <template>
   <section class="search-song">
-    <h1>Searchhhh</h1>
     <input type="txt" v-model="queryStr" v-debounce:500ms="emitSearchSong" />
     <ul>
       <li v-for="(song, idx) in songs" :key="idx">
         {{song.snippet.title}}
-        <button @click="emitAddSong(song)">+</button>
+        <button class="add-song-btn" @click="emitAddSong(song)"><plus-icon></plus-icon></button>
       </li>
     </ul>
   </section>
 </template>
 
 <script>
+import plusIcon from "@/cmps/icons/plus.cmp.vue";
 export default {
   props: { songs: Array },
   data() {
@@ -28,6 +28,9 @@ export default {
      console.log('emitting add song with', song.snippet.title)
      this.$emit('add-song', song)
     }
+  },
+  components:{
+    plusIcon
   }
 };
 </script>
