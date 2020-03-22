@@ -71,9 +71,6 @@ export default {
     async addSong(song) {
       this.station.songs.push(song)
     },
-    async removeSong(idx) {
-      this.$store.commit('removeSong', idx)
-    }
   },
   created() {
     const stationId = this.$route.params.id;

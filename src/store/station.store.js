@@ -20,10 +20,6 @@ export const stationStore = {
         setCurrStation(state, station) {
             state.currStation = station;
         },
-        removeSong(state, {idx}) {
-            state.currStation.songs.splice(idx, 1)
-            stationService.save(state.currStation)
-        }
     },
     actions: {
         async loadStations(context) { ///// get critirea from state later
