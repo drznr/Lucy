@@ -27,15 +27,15 @@ export default {
       playerVars: {
         autoplay: 1, // not working
         loop: 1,
-        controls: 1,//later will be change to 0
-        playlist: []    // change this and fix auto play
+        controls: 1, //later will be change to 0
+        playlist: [] //  fix auto play
       }
     };
   },
   computed: {
     playPause() {
-      return this.isPlaying ? "Pause" : "Play";
-    },
+      return this.isPlaying ? 'Pause' : 'Play';
+    }
   },
   methods: {
     setPlayer() {
@@ -50,12 +50,18 @@ export default {
     paused() {
       this.isPlaying = false;
     },
-    loadPlaylist() {
-      this.playerVars.playlist = this.playlist.join(',') ; //this.playlist will be changed from data to prop
+    loadPlaylist() {                      
+      this.playerVars.playlist = this.playlist.join(',');
     },
     changeSong(diff) {
-      (diff > 0 )? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
-    },
+      diff > 0 ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
+    }
+  },
+  watch: {
+    playlist() {
+      this.setPlayer();
+      this.loadPlaylist();
+    }
   },
   mounted() {
     this.setPlayer();

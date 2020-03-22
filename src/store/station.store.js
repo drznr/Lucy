@@ -1,5 +1,4 @@
 import { stationService } from '@/services/station.service';
-import { storageService } from '@/services/storage.service';
 
 const STATION_KEY = 'guest-station';
 
@@ -17,7 +16,7 @@ export const stationStore = {
             return state.setCurrStation;
         },
         isPlaying(state){
-            return state.isPlaying
+            return state.isPlaying;
         }
     },
     mutations: {
@@ -29,6 +28,13 @@ export const stationStore = {
         },
         setIsPlaying(state, isPlaying){
             state.isPlaying = isPlaying
+        },
+        addStation(state, { station }) {
+            state.stations.push(station);
+        },
+        updateStation(state, { station }) {
+            const idx = state.stations.findIndex(currStation => currStation._id === station._id);
+            state.stations.splice(idx, 1, station);
         }
     },
     actions: {
@@ -37,25 +43,17 @@ export const stationStore = {
             context.commit('setStations', stations);
         },
         async loadStation(context, { stationId }) {
-            let station = await stationService.getById(stationId);
-            if (!station) {
-               station = storageService.load(STATION_KEY) || stationService.getNewStation();
-            }
+            let station = await stationService.getById(stationId) || stationService.getNewStation();
             context.commit('setCurrStation', station);
             return station;
         },
         async saveStation(context, { station }) {
-            const isEdit = !!station._id;
-            if (!context.getters.loggedUser) {
-                storageService.store(STATION_KEY, station);
-                context.commit({type: 'setCurrStation', station});
-                return station;
-            }
+            const isEdit = !!station._id;   /////  add owner at the server from session and createdAt also in server
             const savedStation = await stationService.save(station);
             context.commit({
                 type: (isEdit) ? 'updateStation' : 'addStation',
                 station: savedStation
-            })
+            });
             return savedStation;
         }
     }

@@ -61,25 +61,38 @@ export default {
     }
   },
   methods: {
-    async loadStation(stationId) {
+    async loadStation(stationId) {       
       const station = await this.$store.dispatch({
         type: 'loadStation',
         stationId
       });
-      this.station = JSON.parse(JSON.stringify(station));
+      this.station = JSON.parse(JSON.stringify(station));            
+      if (!this.station._id) eventBusService.$emit('station-opened');
     },
-    addSong(song) {
+    async addSong(song) {
       this.station.songs.push(song);
-      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      this.station = JSON.parse(JSON.stringify(savedStation));
     },
-    removeSong(idx) {
+    async removeSong(idx) {
       this.station.songs.splice(idx, 1);
-      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      this.station = savedStation;
     } 
   },
   created() {
     const stationId = this.$route.params.id;
     this.loadStation(stationId);
+    eventBusService.$on('create-station', async ({ type, title }) => {
+      this.station.type = type;
+      this.station.title = title;
+      const newStation = await this.$store.dispatch({
+        type: 'saveStation',
+        station: JSON.parse(JSON.stringify(this.station))
+      });
+      this.$router.push('/station/' + newStation._id);
+      this.loadStation(newStation._id);
+    });
   },
   components: {
     playlistPlayer

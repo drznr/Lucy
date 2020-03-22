@@ -9,7 +9,7 @@
                             <label>Username</label>
                             <input type="password" placeholder="Password" class="login-modal-inp form-inp" v-model="credentials.password" />
                             <label>Password</label>
-                        <button class="login-modal-btn">Login</button>
+                        <button class="btn">Login</button>
                     </form>
                 </aside>
             </div>

@@ -1,18 +1,20 @@
 <template>
     <section class="station-info" v-if="isActive">
         <form @submit.prevent="emitInfo">
-            <input type="text" placeholder="Station's Name" v-model="stationInfo.title" />
-            <label>Station's Name</label>
-                Type: 
+            <div class="station-info-type">
             <label>
-                Playlist
                 <input type="radio" value="playlist" v-model="stationInfo.type" />
+                <img src="@/assets/imgs/icons/playlist.svg" alt="playlist" title="Playlist" class="station-info-type-icon" />
+                <span>Playlist</span>
             </label>
             <label>
-                Jukebox
                 <input type="radio" value="jukebox" v-model="stationInfo.type" />
+                <img src="@/assets/imgs/icons/jukebox.svg" alt="jukebox" title="Jukebox" class="station-info-type-icon" />
+                <span>Jukebox</span>
             </label>
-            <!--MAYBE GET description & labels also here... -->
+            </div>
+            <input type="text" placeholder="Station's Name" v-model="stationInfo.title" class="station-info-inp" />
+            <button class="station-info-btn btn">Publish</button>
         </form>
     </section>
 </template>
@@ -26,18 +28,18 @@ export default {
             isActive: false,
             stationInfo: {
                 title: '',
-                type: 'playlist',
-                description: ''
+                type: 'playlist'
             }
         }
     },
     methods: {
         emitInfo() {
-            debugger
+            eventBusService.$emit('create-station', JSON.parse(JSON.stringify(this.stationInfo)));
+            this.isActive = false;
         }
     },
     created() {
-        eventBusService.$on('open-station-info', () => {
+        eventBusService.$on('station-opened', () => {
             this.isActive = true;
         });
     }
