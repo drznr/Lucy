@@ -1,4 +1,7 @@
 import { stationService } from '@/services/station.service';
+import { storageService } from '@/services/storage.service';
+
+const STATION_KEY = 'guest-station';
 
 export const stationStore = {
     state: {
@@ -18,7 +21,7 @@ export const stationStore = {
             state.stations = stations;
         },
         setCurrStation(state, station) {
-            state.currStation = station;
+            state.currStation = JSON.parse(JSON.stringify(station));
         }
     },
     actions: {
@@ -27,19 +30,27 @@ export const stationStore = {
             context.commit('setStations', stations);
         },
         async loadStation(context, { stationId }) {
-            const station = stationService.getById(stationId);
+            let station = await stationService.getById(stationId);
+            if (!station) {
+               station = storageService.load(STATION_KEY) || stationService.getNewStation();
+            }
             context.commit('setCurrStation', station);
             return station;
         },
         async saveStation(context, { station }) {
-            const savedStation = await stationService.save(station)
-            console.log('Saved: ', savedStation)
+            const isEdit = !!station._id;
+            if (!context.getters.loggedUser) {
+                storageService.store(STATION_KEY, station);
+                context.commit({type: 'setCurrStation', station});
+                return station;
+            }
+            const savedStation = await stationService.save(station);
             context.commit({
-                type: (isEdit) ? 'updateToy' : 'addToy',
+                type: (isEdit) ? 'updateStation' : 'addStation',
                 station: savedStation
             })
-            return savedToy
-        },
+            return savedStation;
+        }
     }
 }
 
