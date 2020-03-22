@@ -7,7 +7,7 @@
         <ul>
           <li v-for="(song, idx) in station.songs" :key="idx">
             {{song.title}}
-            <button @click="removeSong(song)">x</button>
+            <button @click="removeSong(idx)">x</button>
           </li>
         </ul>
       </div>
@@ -72,9 +72,6 @@ export default {
       this.station.songs.push(song);
       this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
     },
-    async removeSong(song) {
-      console.log(song.title, 'will be removed soon!');
-    }
   },
   created() {
     const stationId = this.$route.params.id;
