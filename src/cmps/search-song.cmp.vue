@@ -2,10 +2,10 @@
   <section class="search-song">
     <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" />
     <ul>
-      <li v-for="(song, idx) in songs" :key="idx">
+      <li v-for="(song, idx) in songs" :key="idx" class="search-song-item">
         {{song.snippet.title}}
-        <button class="search-song-add-btn" @click="emitAddSong(song)">
-          <plus-icon></plus-icon>
+        <button class="search-song-item-btn" @click="emitAddSong(song)">
+          <img src="@/assets/imgs/icons/plus.svg" alt="add song" title="Add Song" class="icon" />
         </button>
       </li>
     </ul>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import plusIcon from "@/cmps/icons/plus.cmp.vue";
 import { youtubeApiService } from '@/services/youtube-api.service';
 
 export default {
@@ -32,9 +31,6 @@ export default {
      console.log('emitting add song with', song.snippet.title)
      this.$emit('add-song', song)
     }
-  },
-  components:{
-    plusIcon
   }
 };
 </script>

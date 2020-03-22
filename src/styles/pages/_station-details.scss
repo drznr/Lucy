@@ -1,12 +1,46 @@
 .station-details {
     @include  nav-clearfix;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    height: 100vh;    
+    background-color: $clr-white;
+    color: $clr-black;
+    overflow-y: hidden;
     
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        height: 100%;
+    }
     &-side-window{
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
         
-        &-link{
-            
+        &-link:not(:last-child) {
+            margin-right: rem(-10px);
+        }
+        &-link {
+            padding: rem(3px) rem(30px);
+            clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+
+            @include hover-supported {
+                color: lighten($clr-black, 20%);
+            }
+            &.chat, &.settings, &.search {
+                background-repeat: no-repeat;
+                background-size: 15px;
+                background-position: 5px;
+            }
+            &.chat { background-image: url('../assets/imgs/icons/chat.svg'); }
+            &.search { background-image: url('../assets/imgs/icons/search.svg'); }
+            &.settings { background-image: url('../assets/imgs/icons/wheel.svg'); }
+        }
+        .router-link-exact-active {
+            background-color: darken($clr-white, 30%);
         }
     }
 }
