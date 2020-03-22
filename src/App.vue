@@ -4,7 +4,7 @@
     <router-view></router-view>
     <main-footer></main-footer>
     <login-modal></login-modal>
-    <station-info></station-info>
+    <station-create-modal></station-create-modal>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 import mainNavbar from '@/cmps/main-navbar.cmp';
 import mainFooter from '@/cmps/main-footer.cmp';
 import loginModal from '@/cmps/login-modal.cmp';
-import stationInfo from '@/cmps/station-info.cmp';
+import stationCreateModal from '@/cmps/station-create-modal.cmp';
 
 export default {
    created() {
@@ -24,7 +24,7 @@ export default {
      mainNavbar,
      mainFooter,
      loginModal,
-     stationInfo
+     stationCreateModal
    }
 };
 </script>

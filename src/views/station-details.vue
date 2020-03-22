@@ -1,23 +1,33 @@
 <template>
-  <section v-if="station" class="station-details container">
-    <section class="-player-container">
+  <section v-if="station" class="station-details">
+    <div class="container">
+    <section class="station-details-player">
       <playlist-player :playlist="playlistIds"></playlist-player>
-      <div class="-songs-container">
+      <div class="station-details-player-playlist">
         <ul>
-          <li>Song1</li>
-          <li>Song2</li>
-          <li>Song3</li>
+          <li v-for="(song, idx) in station.songs" :key="idx">
+            {{song.title}}
+            <button @click="removeSong(song)">x</button>
+          </li>
         </ul>
       </div>
     </section>
-    
-    <section class="-side-window">
+
+    <aside class="station-details-side-window">
       <nav>
-        <router-link :to="'/station/' + station._id ">Chat</router-link>|
-        <router-link :to="'/station/' + station._id + '/search'">Search Song</router-link>
+        <router-link class="station-details-side-window-link chat" :to="'/station/' + station._id ">Chat</router-link>
+        <router-link
+          class="station-details-side-window-link search"
+          :to="'/station/' + station._id + '/search'"
+        >Search Song</router-link>
+        <router-link
+          class="station-details-side-window-link settings"
+          :to="'/station/' + station._id + '/settings'"
+        >Settings</router-link>
       </nav>
-      <router-view></router-view>
-    </section>
+      <router-view @add-song="addSong"></router-view>
+    </aside>
+    </div>
   </section>
 </template>
 
@@ -35,24 +45,39 @@ export default {
   computed: {
     playlistIds() {
       return this.station.songs.map(song => song.embedId);
+    },
+    routesProps() {   /// PASS PROPS TO ROUTER VIEW WITH THIS
+      switch (this.$route.name) {
+        case 'station-settings':
+          break;
+        case 'search-song':
+            return
+          break;
+        case 'char-room':
+          break;
+        default:
+          break;
+      }
     }
   },
   methods: {
     async loadStation(stationId) {
       const station = await this.$store.dispatch({
-        type: "loadStation",
-        stationId 
+        type: 'loadStation',
+        stationId
       });
-      this.station = station;
+      this.station = station || stationService.getNewStation();
+    },
+    async addSong(song) {
+      this.station.songs.push(song)
+    },
+    async removeSong(song) {
+      console.log(song.title, 'will be removed soon!');
     }
   },
   created() {
     const stationId = this.$route.params.id;
-    if (stationId && stationId !== "new") this.loadStation(stationId);
-    else {
-      this.station = stationService.getNewStation();
-      eventBusService.$emit('open-station-info');
-      }
+    this.loadStation(stationId);
   },
   components: {
     playlistPlayer

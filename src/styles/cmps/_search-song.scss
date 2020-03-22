@@ -1,0 +1,14 @@
+.search-song {
+    &-item {
+
+        &-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            .icon {
+                width: 25px;
+            }
+        }
+    }
+}

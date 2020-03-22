@@ -37,6 +37,16 @@ export const stationStore = {
             const station = stationService.getById(stationId);
             context.commit('setCurrStation', station);
             return station;
-        }
+        },
+        async saveStation(context, { station }) {
+            const savedStation = await stationService.save(station)
+            console.log('Saved: ', savedStation)
+            context.commit({
+                type: (isEdit) ? 'updateToy' : 'addToy',
+                station: savedStation
+            })
+            return savedToy
+        },
     }
 }
+

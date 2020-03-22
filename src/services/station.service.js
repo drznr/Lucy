@@ -1,10 +1,12 @@
 import { httpService } from './http.service';
+import { storageService } from './storage.service';
 
 
 export const stationService = {
     query,
     getById,
-    getNewStation
+    getNewStation,
+    save
 }
 
 function query(creterea) {
@@ -44,3 +46,4 @@ function getEmptyCritirea() {
 
     }
 }
+

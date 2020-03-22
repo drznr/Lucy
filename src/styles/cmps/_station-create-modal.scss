@@ -7,4 +7,7 @@
     background-image: linear-gradient(to left top, $clr4,  $clr3, $clr3);
     z-index: 999;
     color: $clr-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

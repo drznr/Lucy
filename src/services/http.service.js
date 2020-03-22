@@ -34,7 +34,7 @@ async function ajax(endpoint, method='get', data=null) {
     } catch (err) {
         /////////////////////////   ERROR HANDLING HERE
         if (err.response.status === 401) {
-            console.log(err);
+            console.log(err); //////////////////////////////// < handle error
         }
     }
 }

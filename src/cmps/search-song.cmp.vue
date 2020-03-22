@@ -1,26 +1,44 @@
 <template>
   <section class="search-song">
-    <h1>Searchhhh</h1>
-    <input type="txt" v-model="queryStr" v-debounce:500ms="searchSongs"/>
-    {{queryStr}}
+    <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" />
+    <ul>
+      <li v-for="(youtubeSong, idx) in songs" :key="idx" class="search-song-item">
+          {{youtubeSong.snippet.title}}
+          <button class="search-song-item-btn" @click="emitAddSong(youtubeSong)">
+          <img src="@/assets/imgs/icons/plus.svg" alt="add song" title="Add Song" class="icon" />
+        </button>
+      </li>
+    </ul>
   </section>
 </template>
 
 <script>
+import { youtubeApiService } from '@/services/youtube-api.service';
+
 export default {
- data(){
-     return {
-       queryStr: ''
-     }
- },
- methods:{
-     searchSongs(){
-         console.log('searching', this.queryStr)
-     }
- }
-}
+  data() {
+    return {
+      queryStr: "",
+      songs: []
+    };
+  },
+  methods: {
+    async searchSong() {
+      if (!this.queryStr) return (this.songs = []);
+      this.songs = await youtubeApiService.youtubeQuery(this.queryStr);
+    },
+    emitAddSong(youtubeSong) {
+      const song = {
+        title: youtubeSong.snippet.title,
+        embedId: youtubeSong.id.videoId,
+        thumbnail: youtubeSong.snippet.thumbnails.default.url
+      };
+      console.log('ready:', song)
+      this.$emit("add-song", song);
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

@@ -10,7 +10,7 @@
             </div>
         </header>
         <main>
-            <station-slider></station-slider>
+            <station-slider :stations="stations"></station-slider>
             <article class="home-teaser">
                 <div class="home-teaser-figures">
                     <figure></figure>
@@ -44,6 +44,11 @@ import stationSlider from '@/cmps/station-slider.cmp';
 export default {
     components: {
         stationSlider
+    },
+    computed: {
+        stations() {
+            return this.$store.getters.stations;
+        }
     }
 };
 </script>
