@@ -1,5 +1,4 @@
 import { stationService } from '@/services/station.service';
-import { storageService } from '@/services/storage.service';
 
 const STATION_KEY = 'guest-station';
 
@@ -17,7 +16,7 @@ export const stationStore = {
             return state.setCurrStation;
         },
         isPlaying(state){
-            return state.isPlaying
+            return state.isPlaying;
         }
     },
     mutations: {
@@ -37,10 +36,7 @@ export const stationStore = {
             context.commit('setStations', stations);
         },
         async loadStation(context, { stationId }) {
-            let station = await stationService.getById(stationId);
-            if (!station) {
-               station = storageService.load(STATION_KEY) || stationService.getNewStation();
-            }
+            let station = await stationService.getById(stationId) || stationService.getNewStation();
             context.commit('setCurrStation', station);
             return station;
         },
