@@ -41,7 +41,7 @@ export default {
     async loadStation(stationId) {
       const station = await this.$store.dispatch({
         type: "loadStation",
-        stationId
+        stationId 
       });
       this.station = station;
     }

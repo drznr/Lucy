@@ -6,7 +6,7 @@
   @include aspect-ratio(100, 100);
 }
 .ratio-card {
-  @include aspect-ratio(100, 80);
+  @include aspect-ratio(80, 100);
 }
 .ratio-poster {
   @include aspect-ratio(100, 150);

@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             isActive: false
-        }
+        } 
     },
     created() {
         eventBusService.$on('open-station-info', () => {

@@ -4,6 +4,7 @@ export const stationStore = {
     state: {
         stations: [],
         currStation: null,
+        isPlaying: false
     },
     getters: {
         stations(state) {
@@ -11,6 +12,9 @@ export const stationStore = {
         },
         currStation(state) {
             return state.setCurrStation;
+        },
+        isPlaying(state){
+            return state.isPlaying
         }
     },
     mutations: {
@@ -19,6 +23,9 @@ export const stationStore = {
         },
         setCurrStation(state, station) {
             state.currStation = station;
+        },
+        setIsPlaying(state, isPlaying){
+            state.isPlaying = isPlaying
         }
     },
     actions: {
