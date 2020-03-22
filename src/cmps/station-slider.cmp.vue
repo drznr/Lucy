@@ -3,7 +3,7 @@
     <swiper :options="swiperOptions" class="swiper container">
       <swiper-slide v-for="station in stations" :key="station._id">
         <section class="swiper-card ratio-card">
-            <figure class="swiper-card-img-wrap ratio-square" :style="{backgroundImage: `url(${require('@/assets/imgs/station-default-thumb.png')})` }">
+            <figure class="swiper-card-img-wrap ratio-square" :style="{backgroundImage: (station.imgUrl) ? `url('${station.imgUrl}')` : `url(${require('@/assets/imgs/station-default-thumb.png')})` }">
             <span>
               <router-link :to="'/station/' + station._id">
                 <h3 class="swiper-title">{{station.title}}</h3>
