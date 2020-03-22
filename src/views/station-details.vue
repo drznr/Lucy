@@ -67,19 +67,25 @@ export default {
         stationId
       });
       this.station = JSON.parse(JSON.stringify(station));
+      if (!this.station._id) eventBusService.$emit('station-opened');
     },
-    addSong(song) {
-      this.station.songs.push(song);
-      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+    async addSong(song) {
+      // this.station.songs.push(song);
+      // const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      // this.station = JSON.parse(JSON.stringify(savedStation));
     },
-    removeSong(idx) {
-      this.station.songs.splice(idx, 1);
-      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+    async removeSong(idx) {
+      // this.station.songs.splice(idx, 1);
+      // const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      // this.station = savedStation;
     } 
   },
   created() {
     const stationId = this.$route.params.id;
     this.loadStation(stationId);
+    eventBusService.$on('create-station', (info) => {
+      debugger
+    });
   },
   components: {
     playlistPlayer

@@ -28,6 +28,8 @@ async function save(station) {
 function getNewStation() {
     return {
         title: '',
+        type: 'playlist',
+        imgUrl: '../assets/imgs/station-default-thumb.png',
         description: '',
         createdAt: null,
         currSong: null,
