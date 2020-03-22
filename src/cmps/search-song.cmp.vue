@@ -1,10 +1,12 @@
 <template>
   <section class="search-song">
-    <input type="txt" v-model="queryStr" v-debounce:500ms="emitSearchSong" />
+    <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" />
     <ul>
       <li v-for="(song, idx) in songs" :key="idx">
         {{song.snippet.title}}
-        <button class="add-song-btn" @click="emitAddSong(song)"><plus-icon></plus-icon></button>
+        <button class="search-song-add-btn" @click="emitAddSong(song)">
+          <plus-icon></plus-icon>
+        </button>
       </li>
     </ul>
   </section>
@@ -12,17 +14,19 @@
 
 <script>
 import plusIcon from "@/cmps/icons/plus.cmp.vue";
+import { youtubeApiService } from '@/services/youtube-api.service';
+
 export default {
-  props: { songs: Array },
   data() {
     return {
-      queryStr: ""
+      queryStr: "",
+      songs: []
     };
   },
   methods: {
-    emitSearchSong() {
-      this.$emit("search-song", this.queryStr);
-      console.log("inside search cmp youtube results:", this.songs);
+    async searchSong() {
+      if (!this.queryStr) return this.songs = []
+      this.songs = await youtubeApiService.youtubeQuery(this.queryStr);
     },
     emitAddSong(song){
      console.log('emitting add song with', song.snippet.title)

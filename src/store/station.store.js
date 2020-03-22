@@ -1,5 +1,4 @@
 import { stationService } from '@/services/station.service';
-import { youtubeApiService } from '@/services/youtube-api.service';
 
 export const stationStore = {
     state: {
@@ -31,14 +30,6 @@ export const stationStore = {
             const station = stationService.getById(stationId);
             context.commit('setCurrStation', station);
             return station;
-        },
-        async getYoutubeSongs(context, { queryStr }) {
-            const songs = await youtubeApiService.youtubeQuery(queryStr);
-            return songs;
-        },
-        async removeSong(context, { song }) {
-            const songs = await youtubeApiService.youtubeQuery(queryStr);
-            return songs;
         },
     }
 }
