@@ -7,7 +7,7 @@
         <ul>
           <li v-for="(song, idx) in station.songs" :key="idx">
             {{song.title}}
-            <button @click="removeSong(song)">x</button>
+            <button @click="removeSong(idx)">x</button>
           </li>
         </ul>
       </div>
@@ -71,8 +71,8 @@ export default {
     async addSong(song) {
       this.station.songs.push(song)
     },
-    async removeSong(song) {
-      console.log(song.title, 'will be removed soon!');
+    async removeSong(idx) {
+      this.$store.commit('removeSong', idx)
     }
   },
   created() {

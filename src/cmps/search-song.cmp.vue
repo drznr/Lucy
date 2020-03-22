@@ -33,7 +33,6 @@ export default {
         embedId: youtubeSong.id.videoId,
         thumbnail: youtubeSong.snippet.thumbnails.default.url
       };
-      console.log('ready:', song)
       this.$emit("add-song", song);
     }
   }
