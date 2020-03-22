@@ -7,7 +7,7 @@
         <ul>
           <li v-for="(song, idx) in station.songs" :key="idx">
             {{song.title}}
-            <button @click="removeSong(song)">x</button>
+            <button @click="removeSong(idx)">x</button>
           </li>
         </ul>
       </div>
@@ -53,7 +53,7 @@ export default {
         case 'search-song':
             return
           break;
-        case 'char-room':
+        case 'chat-room':
           break;
         default:
           break;
@@ -66,14 +66,12 @@ export default {
         type: 'loadStation',
         stationId
       });
-      this.station = station || stationService.getNewStation();
+      this.station = JSON.parse(JSON.stringify(station));
     },
     async addSong(song) {
-      this.station.songs.push(song)
+      this.station.songs.push(song);
+      this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
     },
-    async removeSong(song) {
-      console.log(song.title, 'will be removed soon!');
-    }
   },
   created() {
     const stationId = this.$route.params.id;
