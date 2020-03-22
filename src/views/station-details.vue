@@ -1,5 +1,6 @@
 <template>
-  <section v-if="station" class="station-details container">
+  <section v-if="station" class="station-details">
+    <div class="container">
     <section class="station-details-player">
       <playlist-player :playlist="playlistIds"></playlist-player>
       <div class="station-details-player-playlist">
@@ -12,20 +13,21 @@
       </div>
     </section>
 
-    <section class="station-details-side-window">
+    <aside class="station-details-side-window">
       <nav>
-        <router-link class="station-details-side-window-link" :to="'/station/' + station._id ">Chat</router-link>|
+        <router-link class="station-details-side-window-link chat" :to="'/station/' + station._id ">Chat</router-link>
         <router-link
-          class="station-details-side-window-link"
+          class="station-details-side-window-link search"
           :to="'/station/' + station._id + '/search'"
-        >Search Song</router-link>|
+        >Search Song</router-link>
         <router-link
-          class="station-details-side-window-link"
+          class="station-details-side-window-link settings"
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
       <router-view @add-song="addSong"></router-view>
-    </section>
+    </aside>
+    </div>
   </section>
 </template>
 
@@ -37,8 +39,7 @@ import { eventBusService } from "@/services/event-bus.service";
 export default {
   data() {
     return {
-      station: null,
-      youtubeSongs: []
+      station: null
     };
   },
   computed: {
@@ -46,7 +47,7 @@ export default {
       return this.station.songs.map(song => song.embedId);
     },
     routesProps() {   /// PASS PROPS TO ROUTER VIEW WITH THIS
-      switch (this.$route.params) {
+      switch (this.$route.name) {
         case 'station-settings':
           break;
         case 'search-song':
