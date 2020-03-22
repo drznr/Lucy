@@ -1,21 +1,21 @@
 <template>
 <section class="station-filter">
-
+  <input type="text" placeholder="Search Startions!">
 </section>
 </template>
 
 <script>
 
 export default {
-  data() {
+  // data() {
  
-  },
-  computed: {
-  },
-  methods: {
-  },
-  components: {
-  }
+  // },
+  // computed: {
+  // }, 
+  // methods: {
+  // },
+  // components: {
+  // }
 };
 </script>
 

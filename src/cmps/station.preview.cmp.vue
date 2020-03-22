@@ -1,7 +1,7 @@
 <template>
   <section class="station-preview">
     <section @click.prevent="stationDetails" :style="setBgi" class="station-preview-card-img ratio-square">
-      <button @click.stop="sendSongsList">Play</button>
+      <button @click.stop="sendSongsList">Play Station</button>
       <!-- <div class="swiper-overlay"></div> -->
     </section>
     <h3 class="station-preview-title">{{station.title}}</h3>
@@ -25,6 +25,9 @@ export default {
     }
   },
   methods: {
+    playPause() {
+      return this.isPlaying ? "pause" : "play";
+    },
     sendSongsList() {
         const readyPlaylist = this.station.songs.map(song => song.embedId);
         eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)

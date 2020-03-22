@@ -6,7 +6,7 @@
                 <span>Discover our live jukeboxes & playlist's and share your own with the world</span>
                 <router-link to="/station" class="home-header-heading-link">
                     Get started
-                </router-link>
+                </router-link> 
             </div>
         </header>
         <main>
@@ -31,7 +31,7 @@
                             Get on Lucy to share your sounds, and grow your audience. What are you waiting for?
                         </p>
                         <router-link to="/station/new" class="home-teaser-teaser-txt-btn">Share your own</router-link>
-                    </div>
+                    </div> 
                     <img src="@/assets/imgs/chapman.jpg" alt="artist" class="home-teaser-teaser-img" />
                 </div>
             </article>

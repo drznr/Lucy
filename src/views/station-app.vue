@@ -1,19 +1,25 @@
 <template>
   <section class="station-app">
     <header class="station-app-header">
-      <!-- also make astation input? -->
+      <router-link to="/station/new" class="station-app-header-link">Create A Station</router-link>
       <!-- filter and whatnot -->
+      <station-filter class="station-app-header-filter-cmp"></station-filter>
     </header>
-    <section class="staions-app-list-wrap">
+    <section class="station-app-list-wrap">
       <station-list :stations="stations"></station-list>
     </section>
 
-    <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
+    <station-app-player
+      class="station-app-player"
+      :playlist="playlist"
+      @playingStatusChanged="updatePlayigStatus"
+    ></station-app-player>
   </section>
 </template>
 
 <script>
-import stationList from '../cmps/station-list.cmp'
+import stationList from "../cmps/station-list.cmp";
+import stationFilter from "../cmps/station-filter.cmp";
 import stationAppPlayer from "@/cmps/station-app-player.cmp";
 
 export default {
@@ -31,21 +37,20 @@ export default {
   computed: {
     stations() {
       return this.$store.getters.stations;
-    },
+    }
     // isPlaying() {
     //   return this.$store.getters.isPlaying;
     // },
   },
   methods: {
-    // getSongIds(songs) {
-    //   const readyPlaylist = songs.map(song => song.embedId);
-    //   this.playlist = readyPlaylist
-    //   console.log('mapped', readyPlaylist);
-    // }
+    updatePlayigStatus(bool) {
+      this.$store.commit("setIsPlaying", bool);
+    }
   },
   components: {
     stationList,
-    stationAppPlayer
+    stationAppPlayer,
+    stationFilter
   }
 };
 </script> 
@@ -56,7 +61,7 @@ export default {
 
 
 <style scoped>
-.station-app-header {
+/* .station-app-header {
   height: 35vh;
   background-color: #5cdb95;
   margin-bottom: 20px;
@@ -71,5 +76,5 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100vw;
-}
+} */
 </style>

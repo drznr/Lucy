@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { eventBusService } from "@/services/event-bus.service";
+
 export default {
   props: { playlist: Array },
   data() {
@@ -50,8 +52,8 @@ export default {
     paused() {
       this.isPlaying = false;
     },
-    loadPlaylist() {                      
-      this.playerVars.playlist = this.playlist.join(',');
+    setPlaylist() {     
+      this.elPlayer.loadPlaylist(this.playlist.join(','));
     },
     changeSong(diff) {
       diff > 0 ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
@@ -59,13 +61,17 @@ export default {
   },
   watch: {
     playlist() {
-      this.setPlayer();
-      this.loadPlaylist();
+     this.setPlaylist();
     }
+  },
+  created() {
+    eventBusService.$on('play-song', (idx) => {
+      this.elPlayer.loadPlaylist(this.playlist.join(','), idx);
+    })
   },
   mounted() {
     this.setPlayer();
-    this.loadPlaylist();
+    this.setPlaylist();
   }
 };
 </script>
