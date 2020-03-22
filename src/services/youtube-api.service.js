@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'AIzaSyD09tfK-pjT-G6kEZmXRfeicoKR-neGKNU';
+const API_KEY = 'AIzaSyDD1nIJuc1thshvoaRykKhVDjI8-kbDSFM';  ////     /// daniel key --> AIzaSyD09tfK-pjT-G6kEZmXRfeicoKR-neGKNU
 
 export const youtubeApiService = {
     youtubeQuery
