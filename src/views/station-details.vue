@@ -14,11 +14,17 @@
 
     <section class="station-details-side-window">
       <nav>
-        <router-link class="station-details-side-window-link" :to="'/station/' + station._id ">Chat</router-link> |
-        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/search'">Search Song</router-link> |
-        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/settings'">Settings</router-link>
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id ">Chat</router-link>|
+        <router-link
+          class="station-details-side-window-link"
+          :to="'/station/' + station._id + '/search'"
+        >Search Song</router-link>|
+        <router-link
+          class="station-details-side-window-link"
+          :to="'/station/' + station._id + '/settings'"
+        >Settings</router-link>
       </nav>
-      <router-view @search-song="getYoutubeSongs" @add-song="addSong" :songs="youtubeSongs"></router-view>
+      <router-view @add-song="addSong"></router-view>
     </section>
   </section>
 </template>
@@ -38,37 +44,39 @@ export default {
   computed: {
     playlistIds() {
       return this.station.songs.map(song => song.embedId);
+    },
+    routesProps() {   /// PASS PROPS TO ROUTER VIEW WITH THIS
+      switch (this.$route.params) {
+        case 'station-settings':
+          break;
+        case 'search-song':
+            return
+          break;
+        case 'char-room':
+          break;
+        default:
+          break;
+      }
     }
   },
   methods: {
     async loadStation(stationId) {
       const station = await this.$store.dispatch({
-        type: "loadStation",
+        type: 'loadStation',
         stationId
       });
-      this.station = station;
-    },
-    async getYoutubeSongs(queryStr) {
-      if (!queryStr) return;
-      const songs = await this.$store.dispatch({
-        type: "getYoutubeSongs",
-        queryStr
-      });
-      this.youtubeSongs = songs;
+      this.station = station || stationService.getNewStation();
     },
     async addSong(song) {
-      console.log(song.snippet.title, "will be added soon!");
+      console.log(song.snippet.title, 'will be added soon!');
     },
     async removeSong(song) {
-      console.log(song.title, "will be removed soon!");
+      console.log(song.title, 'will be removed soon!');
     }
   },
-  created() {  
-    const stationId = this.$route.params.id; 
-    if (stationId && stationId === 'new') {
-      this.station = stationService.getNewStation();
-
-    } else this.loadStation(stationId);  
+  created() {
+    const stationId = this.$route.params.id;
+    this.loadStation(stationId);
   },
   components: {
     playlistPlayer

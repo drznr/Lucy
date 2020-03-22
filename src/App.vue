@@ -4,7 +4,7 @@
     <router-view></router-view>
     <main-footer></main-footer>
     <login-modal></login-modal>
-    <station-info></station-info>
+    <station-create-modal></station-create-modal>
   </div>
 </template>
 
