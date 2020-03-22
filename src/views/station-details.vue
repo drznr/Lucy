@@ -8,6 +8,7 @@
           <li v-for="(song, idx) in station.songs" :key="idx">
             {{song.title}}
             <button @click="removeSong(idx)">x</button>
+            <button @click="playSong(idx)">&#9654;</button>
           </li>
         </ul>
       </div>
@@ -25,7 +26,7 @@
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
-      <router-view @add-song="addSong"></router-view>
+      <router-view @add-song="addSong" class="station-details-side-window-content"></router-view>
     </aside>
     </div>
   </section>
@@ -78,6 +79,9 @@ export default {
       this.station.songs.splice(idx, 1);
       const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = savedStation;
+    },
+    playSong(idx) {
+      eventBusService.$emit('play-song', idx);
     } 
   },
   created() {

@@ -127,7 +127,7 @@ export default {
       }
     },
     updatePlayerPlaylist() {
-      this.elPlayer.loadPlaylist(this.playlist.join(","))
+      this.elPlayer.loadPlaylist(this.playlist.join(","));
     },
     reciveNewPlaylist(playlist) {
       this.playlist = playlist

@@ -1,13 +1,36 @@
 .search-song {
-    &-item {
+    &-inp {
+        width: calc(100% - 6px);
+        margin: 3px;
+        padding: rem(5px) rem(10px);
+        text-transform: capitalize;
 
-        &-btn {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
+        &:focus {
+            border-color: $clr2;
+        }
+    }
+    &-list {
 
-            .icon {
-                width: 25px;
+        &-item {
+            padding: rem(10px) rem(20px);
+            display: flex;
+            align-items: center;
+            
+            &:not(:last-child) {
+                border-bottom: 1px solid gray;
+            }
+            &-btn {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+    
+                .icon {
+                    width: 20px;
+
+                    svg {
+                        fill: red;
+                    }
+                }
             }
         }
     }
