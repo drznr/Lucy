@@ -2,9 +2,9 @@
   <section class="search-song">
     <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" />
     <ul>
-      <li v-for="(song, idx) in songs" :key="idx">
-        {{song.snippet.title}}
-        <button class="search-song-add-btn" @click="emitAddSong(song)">
+      <li v-if="songs.length" v-for="(youtubeSong, idx) in songs" :key="idx" >
+        {{youtubeSong.snippet.title}}
+        <button class="search-song-add-btn" @click="emitAddSong(youtubeSong)">
           <plus-icon></plus-icon>
         </button>
       </li>
@@ -14,7 +14,7 @@
 
 <script>
 import plusIcon from "@/cmps/icons/plus.cmp.vue";
-import { youtubeApiService } from '@/services/youtube-api.service';
+import { youtubeApiService } from "@/services/youtube-api.service";
 
 export default {
   data() {
@@ -25,15 +25,20 @@ export default {
   },
   methods: {
     async searchSong() {
-      if (!this.queryStr) return this.songs = []
+      if (!this.queryStr) return (this.songs = []);
       this.songs = await youtubeApiService.youtubeQuery(this.queryStr);
     },
-    emitAddSong(song){
-     console.log('emitting add song with', song.snippet.title)
-     this.$emit('add-song', song)
+    emitAddSong(youtubeSong) {
+      const song = {
+        title: youtubeSong.snippet.title,
+        embedId: youtubeSong.id.videoId,
+        thumbnail: youtubeSong.snippet.thumbnails.default.url
+      };
+      console.log('ready:', song)
+      this.$emit("add-song", song);
     }
   },
-  components:{
+  components: {
     plusIcon
   }
 };

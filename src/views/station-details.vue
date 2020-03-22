@@ -68,7 +68,7 @@ export default {
       this.station = station || stationService.getNewStation();
     },
     async addSong(song) {
-      console.log(song.snippet.title, 'will be added soon!');
+      this.station.songs.push(song)
     },
     async removeSong(song) {
       console.log(song.title, 'will be removed soon!');
