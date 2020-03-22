@@ -36,19 +36,28 @@
 import { eventBusService } from "@/services/event-bus.service";
 
 export default {
-  // TODO: make video quality lowest for faster loading time
-  props: { playlist: Array },
+  // props: {
+    //   playlist: {
+      //     type: Array
+  //   }
+  // },
   data() {
     return {
+      playlist: [
+        "jHfOqqQ1DLQ",
+        "eZXS8Jpkiac",
+        "naoknj1ebqI",
+        "7s65Zc6ULbo",
+        "l9BxObmqejw"
+      ],
       volume: 70,
       timeElapsed: 0,
       fullRunTime: 0,
       elPlayer: null,
       isPlaying: false,
-      currSong: null, // this needs to go in the store
       playerVars: {
-        autoplay: 1,
-        playlist: []
+  // TODO: make video quality lowest for faster loading time
+        // playlist: ''
       }
     };
   },
@@ -91,9 +100,6 @@ export default {
     handleSongChange(nextSong) {
       nextSong ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
     },
-    loadPlaylist() {
-      this.playerVars.playlist = this.playlist.join(",");
-    },
     handleStateShange(ev) {
       if (ev.data === -1) this.isPlaying = false; // (unstarted)
       if (ev.data === 0) this.isPlaying = false; // (ended)
@@ -112,32 +118,36 @@ export default {
       if (this.isPlaying) {
         const incTime = setInterval(async () => {
           const timeElapsed = await this.elPlayer.getCurrentTime();
+          // When songs change this prevents .toFixed of undefined
+          if(!timeElapsed) return
           this.timeElapsed = timeElapsed.toFixed();
         }, 0);
       } else {
         clearInterval(incTime);
       }
     },
-    loadPlaylist() {
-      this.playerVars.playlist = this.playlist.join(","); //this.playlist will be changed from data to prop
+    updatePlayerPlaylist() {
+      this.elPlayer.loadPlaylist(this.playlist.join(","))
     },
+    reciveNewPlaylist(playlist) {
+      this.playlist = playlist
+      this.updatePlayerPlaylist()
+    }
+  },
+  watch: {
+    // playlist() {
+    //   console.log('watching');
+    // },
   },
   mounted() {
     this.elPlayer = this.$refs.youtube.player;
     this.elPlayer.addEventListener("onStateChange", this.handleStateShange);
-    this.loadPlaylist();
-  },
-  // watch: {
-  //   isPlaying() {
-  //     this.$emit("isPlaying", this.isPlaying);
-  //   },
-  //   propIsPlaying() {
-  //     this.isPlaying = this.propIsPlaying;
-  //   }
-  // },
-  // created() {
-  //   this.$emit("isPlaying", this.isPlaying);
-  // }
+    this.updatePlayerPlaylist();
+
+    eventBusService.$on("NEW_PLAYLIST", playlist => {
+      this.reciveNewPlaylist(playlist);
+    });
+  }
 };
 </script>
 

@@ -4,12 +4,8 @@
       <!-- also make astation input? -->
       <!-- filter and whatnot -->
     </header>
-    <section class="sliders-wrap">
-      <station-slider
-        v-if="stations"
-        :stations="stations"
-        :isPlaying="isPlaying"
-      ></station-slider>
+    <section class="staions-app-list-wrap">
+      <station-list :stations="stations"></station-list>
     </section>
 
     <station-app-player class="station-app-player" :playlist="playlist"></station-app-player>
@@ -17,17 +13,16 @@
 </template>
 
 <script>
-import stationSlider from "@/cmps/station-slider.cmp";
+import stationList from '../cmps/station-list.cmp'
 import stationAppPlayer from "@/cmps/station-app-player.cmp";
 
 export default {
   data() {
     return {
-      // this i gonna come from the store and should be a list of stations not a playlist
       playlist: [
-        "naoknj1ebqI",
-        "eZXS8Jpkiac",
         "jHfOqqQ1DLQ",
+        "eZXS8Jpkiac",
+        "naoknj1ebqI",
         "7s65Zc6ULbo",
         "l9BxObmqejw"
       ]
@@ -37,28 +32,19 @@ export default {
     stations() {
       return this.$store.getters.stations;
     },
-    isPlaying() {
-      return this.$store.getters.isPlaying;
-    },
-    // playlistIds() {
-    //   return this.station.songs.map(song => song.embedId);
+    // isPlaying() {
+    //   return this.$store.getters.isPlaying;
+    // },
+  },
+  methods: {
+    // getSongIds(songs) {
+    //   const readyPlaylist = songs.map(song => song.embedId);
+    //   this.playlist = readyPlaylist
+    //   console.log('mapped', readyPlaylist);
     // }
   },
-  // methods: {
-  //   setPlaying(bool) {
-  //     // this has a bug - btn dosnt always work
-  //     // this.$store.commit('setIsPlaying', bool)
-  //   },
-  //   async getStation(stationId) {      
-  //     const station = await this.$store.dispatch({
-  //       type: "loadStation",
-  //       stationId
-  //     });
-  //     this.station = station;
-  //   }
-  // },
   components: {
-    stationSlider,
+    stationList,
     stationAppPlayer
   }
 };
@@ -73,9 +59,10 @@ export default {
 .station-app-header {
   height: 35vh;
   background-color: #5cdb95;
+  margin-bottom: 20px;
 }
-.sliders-wrap {
-  max-width: 700px;
+.staions-app-list-wrap {
+  max-width: 960px;
   padding: 0 20px 0 20px;
   margin: auto;
   position: sticky;

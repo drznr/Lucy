@@ -29,7 +29,7 @@ function getNewStation() {
     return {
         title: '',
         type: 'playlist',
-        imgUrl: '../assets/imgs/station-default-thumb.png',
+        imgUrl: '',
         description: '',
         createdAt: null,
         currSong: null,
