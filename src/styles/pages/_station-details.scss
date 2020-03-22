@@ -2,4 +2,11 @@
     @include  nav-clearfix;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    
+    &-side-window{
+        
+        &-link{
+            line-height: 1rem;
+        }
+    }
 }

@@ -1,22 +1,24 @@
 <template>
   <section v-if="station" class="station-details container">
-    <section class="-player-container">
+    <section class="station-details-player">
       <playlist-player :playlist="playlistIds"></playlist-player>
-      <div class="-songs-container">
+      <div class="station-details-player-playlist">
         <ul>
-          <li>Song1</li>
-          <li>Song2</li>
-          <li>Song3</li>
+          <li v-for="(song, idx) in station.songs" :key="idx">
+            {{song.title}}
+            <button @click="removeSong(song)">x</button>
+          </li>
         </ul>
       </div>
     </section>
-    
-    <section class="-side-window">
+
+    <section class="station-details-side-window">
       <nav>
-        <router-link :to="'/station/' + station._id ">Chat</router-link>|
-        <router-link :to="'/station/' + station._id + '/search'">Search Song</router-link>
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id ">Chat</router-link> |
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/search'">Search Song</router-link> |
+        <router-link class="station-details-side-window-link" :to="'/station/' + station._id + '/settings'">Settings</router-link>
       </nav>
-      <router-view></router-view>
+      <router-view @search-song="getYoutubeSongs" @add-song="addSong" :songs="youtubeSongs"></router-view>
     </section>
   </section>
 </template>
@@ -29,7 +31,8 @@ import { eventBusService } from "@/services/event-bus.service";
 export default {
   data() {
     return {
-      station: null
+      station: null,
+      youtubeSongs: []
     };
   },
   computed: {
@@ -44,6 +47,20 @@ export default {
         stationId
       });
       this.station = station;
+    },
+    async getYoutubeSongs(queryStr) {
+      if (!queryStr) return;
+      const songs = await this.$store.dispatch({
+        type: "getYoutubeSongs",
+        queryStr
+      });
+      this.youtubeSongs = songs;
+    },
+    async addSong(song) {
+      console.log(song.snippet.title, "will be added soon!");
+    },
+    async removeSong(song) {
+      console.log(song.title, "will be removed soon!");
     }
   },
   created() {  
