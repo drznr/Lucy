@@ -17,7 +17,7 @@ export const stationStore = {
         },
         isPlaying(state){
             return state.isPlaying;
-        }
+        } 
     },
     mutations: {
         setStations(state, stations) {
