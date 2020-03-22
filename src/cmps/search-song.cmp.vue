@@ -2,17 +2,10 @@
   <section class="search-song">
     <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" />
     <ul>
-<<<<<<< HEAD
-      <li v-if="songs.length" v-for="(youtubeSong, idx) in songs" :key="idx" >
-        {{youtubeSong.snippet.title}}
-        <button class="search-song-add-btn" @click="emitAddSong(youtubeSong)">
-          <plus-icon></plus-icon>
-=======
-      <li v-for="(song, idx) in songs" :key="idx" class="search-song-item">
-        {{song.snippet.title}}
-        <button class="search-song-item-btn" @click="emitAddSong(song)">
+      <li v-for="(youtubeSong, idx) in songs" :key="idx" class="search-song-item">
+          {{youtubeSong.snippet.title}}
+          <button class="search-song-item-btn" @click="emitAddSong(youtubeSong)">
           <img src="@/assets/imgs/icons/plus.svg" alt="add song" title="Add Song" class="icon" />
->>>>>>> 8a138931fa2704021a6222eb7590a79baef1b790
         </button>
       </li>
     </ul>
@@ -43,12 +36,6 @@ export default {
       console.log('ready:', song)
       this.$emit("add-song", song);
     }
-<<<<<<< HEAD
-  },
-  components: {
-    plusIcon
-=======
->>>>>>> 8a138931fa2704021a6222eb7590a79baef1b790
   }
 };
 </script>
