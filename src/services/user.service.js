@@ -36,7 +36,7 @@ function getEmptySignupCredentials() {
         fullName: '',
         username: '',
         password: '',
-        avatar: '',
+        avatar: '', 
         prefs: {
             favGnere: ''
         }

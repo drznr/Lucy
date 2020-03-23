@@ -15,7 +15,7 @@
             {{ currStation }}
         </pre>
         <!-- PRE  -->
-    </section>
+    </section> 
 </template>
 
 <script>
