@@ -1,0 +1,48 @@
+.station-app-player{
+    background-color: $clr5;
+
+    &-youtube-warp {
+        display: none;
+    }
+
+    &-controler {
+        border-radius: 25px;
+        max-width: 1060px;
+        padding: 10px 20px 10px 20px;
+        margin: 0 30px 0 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        // margin: auto;
+
+        &-btns{
+            display: flex;
+
+            >*{
+                margin: 0 5px 0 5px;
+            }
+
+            img{
+                cursor: pointer;
+                height: 30px;
+            }
+        }
+
+        &-playback-timeline {
+            width: 300px;
+            height: 7px;
+            border-radius: 10px;
+            border: 1px inset;
+        }
+
+        &-playback-timeline-progress-bar {
+            background-color: $clr3;
+            height: 100%;
+            width: 0%;
+        }
+
+        &-time-elapsed-digital {
+            font-family: monospace;
+        }
+    }
+}

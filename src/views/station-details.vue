@@ -5,11 +5,15 @@
       <playlist-player :playlist="playlistIds"></playlist-player>
       <div class="station-details-player-playlist">
         <ul>
-          <li v-for="(song, idx) in station.songs" :key="idx">
-            {{song.title}}
-            <button @click="removeSong(idx)">x</button>
-            <button @click="playSong(idx)">&#9654;</button>
-          </li>
+          <draggable v-model="playlist" @start="drag=true" @end="drag=false">
+            <transition-group>
+              <li v-for="(song, idx) in station.songs" :key="idx" class="drag-item">
+                <span>{{song.title}}</span>
+                <button @click="removeSong(idx)">&times;</button>
+                <button @click="playSong(idx)">&#9654;</button>
+              </li>
+            </transition-group>
+          </draggable>
         </ul>
       </div>
     </section>
@@ -38,6 +42,8 @@
 import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
 import { stationService } from "@/services/station.service";
 import { eventBusService } from "@/services/event-bus.service";
+import draggable from 'vuedraggable';
+
 
 export default {
   data() {
@@ -47,6 +53,16 @@ export default {
     };
   },
   computed: {
+    playlist: {   
+     get() {
+       return this.station.songs;
+     },
+     async set(val) {
+       this.station.songs = JSON.parse(JSON.stringify(val)); 
+       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
+       this.station = JSON.parse(JSON.stringify(savedStation));
+     }
+    },
     playlistIds() {
       return this.station.songs.map(song => song.embedId);
     },
@@ -72,23 +88,23 @@ export default {
       });
       this.station = JSON.parse(JSON.stringify(station));   
       if (!this.station._id) eventBusService.$emit('station-opened');
-      else if (!this.station.owner) { /// else check if it's loggedInUser
+      if (!this.station.owner) { /// else check if it's loggedInUser
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       }
     },
     async addSong(song) {
       this.station.songs.push(song);
-      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = JSON.parse(JSON.stringify(savedStation));
     },
     async removeSong(idx) {
       this.station.songs.splice(idx, 1);
-      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = savedStation;
     },
     playSong(idx) {
       eventBusService.$emit('play-song', idx);
-    } 
+    }
   },
   created() {
     const stationId = this.$route.params.id;
@@ -98,7 +114,7 @@ export default {
       this.station.title = title;
 
       const newStation = await this.$store.dispatch({
-        type: 'saveStation',
+        type: 'addStation',
         station: JSON.parse(JSON.stringify(this.station))
       });
       this.$router.push('/station/' + newStation._id);
@@ -106,11 +122,9 @@ export default {
     });
   },
   components: {
-    playlistPlayer
+    playlistPlayer,
+    draggable
   }
 };
 </script>
-
-<style scoped>
-</style>
 

@@ -14,18 +14,21 @@
         v-model="volume"
         @input="handleVolume"
       />
-      <button @click.prevent="seek(-15)">Skip -</button>
-      <button @click.prevent="handleSongChange(false)">Prev</button>
-      <button @click.prevent="togglePlaying">{{playPause}}</button>
-      <button @click.prevent="handleSongChange(true)">Next</button>
-      <button @click.prevent="seek(15)">Skip +</button>
+      <section class="station-app-player-controler-btns">
+        <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
+        <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(false)" />
+        <button @click.prevent="togglePlaying">{{playPause}}</button>
+        <!-- <img v-bind:src="`../assets/imgs/icons/${playPause}.png`" @click.prevent="togglePlaying"/> -->
+        <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(true)" />
+        <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
+      </section>
       <span
-        class="station-app-player-time-elapsed-digital"
+        class="station-app-player-controler-time-elapsed-digital"
       >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
-      <div class="station-app-player-playback-timeline">
+      <div class="station-app-player-controler-playback-timeline">
         <div
           :style="playbackTimelineStyle"
-          class="station-app-player-playback-timeline-progress-bar"
+          class="station-app-player-controler-playback-timeline-progress-bar"
         ></div>
       </div>
     </div>
@@ -37,8 +40,8 @@ import { eventBusService } from "@/services/event-bus.service";
 
 export default {
   // props: {
-    //   playlist: {
-      //     type: Array
+  //   playlist: {
+  //     type: Array
   //   }
   // },
   data() {
@@ -56,7 +59,7 @@ export default {
       elPlayer: null,
       isPlaying: false,
       playerVars: {
-  // TODO: make video quality lowest for faster loading time
+        // TODO: make video quality lowest for faster loading time
         // playlist: ''
       }
     };
@@ -66,7 +69,7 @@ export default {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
     playPause() {
-      return this.isPlaying ? "Pause" : "Play";
+      return this.isPlaying ? "pause" : "play";
     },
     timeElapsedForDisplay() {
       var minutes = Math.floor(this.timeElapsed / 60);
@@ -119,7 +122,7 @@ export default {
         const incTime = setInterval(async () => {
           const timeElapsed = await this.elPlayer.getCurrentTime();
           // When songs change this prevents .toFixed of undefined
-          if(!timeElapsed) return
+          if (!timeElapsed) return;
           this.timeElapsed = timeElapsed.toFixed();
         }, 0);
       } else {
@@ -130,14 +133,14 @@ export default {
       this.elPlayer.loadPlaylist(this.playlist.join(","));
     },
     reciveNewPlaylist(playlist) {
-      this.playlist = playlist
-      this.updatePlayerPlaylist()
+      this.playlist = playlist;
+      this.updatePlayerPlaylist();
     }
   },
   watch: {
-    // playlist() {
-    //   console.log('watching');
-    // },
+    isPlaying() {
+      this.$emit('playingStatusChanged', JSON.parse(JSON.stringify(this.isPlaying)))
+    },
   },
   mounted() {
     this.elPlayer = this.$refs.youtube.player;
@@ -150,36 +153,3 @@ export default {
   }
 };
 </script>
-
-
-
-<style scoped>
-.station-app-player {
-  background-color: white;
-}
-.station-app-player-youtube-warp {
-  display: none;
-}
-.station-app-player-controler {
-  max-width: 960px;
-  padding: 10px 20px 10px 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: auto;
-}
-.station-app-player-playback-timeline {
-  width: 300px;
-  height: 7px;
-  border-radius: 10px;
-  border: 1px inset;
-}
-.station-app-player-playback-timeline-progress-bar {
-  background-color: lightgreen;
-  height: 100%;
-  width: 0%;
-}
-.station-app-player-time-elapsed-digital {
-  font-family: monospace;
-}
-</style>
