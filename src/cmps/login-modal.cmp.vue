@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             isActive: false,
-            credentials: userService.getEmptyCredentials()
+            credentials: userService.getEmptyLoginCredentials()
         }
     },
     methods: {
@@ -35,7 +35,7 @@ export default {
         },
         closeLogin() {
             this.isActive = false;
-            this.credentials = userService.getEmptyCredentials();
+            this.credentials = userService.getEmptyLoginCredentials();
         }
     },
     created() {

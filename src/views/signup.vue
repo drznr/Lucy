@@ -36,23 +36,8 @@ export default {
   props: {},
   data() {
     return {
-      // isActive: false,
       credentials: userService.getEmptyCredentials()
     };
   },
-  methods: {
-    doLogin() {
-      // debugger
-    },
-    closeLogin() {
-      // this.isActive = false;
-      // this.credentials = userService.getEmptyCredentials();
-    }
-  },
-  created() {
-    //     eventBusService.$on('open-login', () => {
-    //         this.isActive = true;
-    //     });
-  }
 };
 </script> 

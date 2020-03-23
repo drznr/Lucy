@@ -11,23 +11,6 @@
         grid-template-rows: 1fr;
         height: 100%;
     }
-    &-player {
-        
-        &-playlist {
-
-            .drag-item {
-
-                span {
-                    display: inline-block;
-                    cursor: grab;
-
-                    &:active {
-                        cursor: grabbing;
-                    }
-                }
-            }
-        }
-    }
     &-side-window {
         nav {
             width: 100%;
@@ -60,7 +43,8 @@
             background-color: darken($clr-white, 30%);
         }
         &-content {
-            height: 95%;
+            height: rem(800px);
+            overflow: hidden;
             border: 1px solid $clr-black;
         }
     }

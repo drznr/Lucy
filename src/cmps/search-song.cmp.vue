@@ -1,7 +1,7 @@
 <template>
   <section class="search-song">
     <input type="txt" v-model="queryStr" v-debounce:500ms="searchSong" placeholder="Enter URL or song name" class="search-song-inp" />
-    <ul ss="search-song-list">
+    <ul class="search-song-list">
       <li v-for="(youtubeSong, idx) in songs" :key="idx" class="search-song-list-item">
           <button class="search-song-list-item-btn" @click="emitAddSong(youtubeSong)">
           <plus-icon title="Add Song" class="icon"></plus-icon>  
