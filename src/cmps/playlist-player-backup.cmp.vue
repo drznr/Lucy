@@ -15,17 +15,16 @@
 import { eventBusService } from "@/services/event-bus.service";
 
 export default {
-  props: { currSong: String },
+  props: { playlist: Array },
   data() {
     return {
       elPlayer: null,
       isPlaying: false,
       playerVars: {
         autoplay: 1, // not working
-        // loop: 1,
+        loop: 1,
         controls: 1, //later will be change to 0
-        // playlist: [], //  fix auto play
-        videoId: 'B3294JyiK8s',
+        playlist: [] //  fix auto play
       }
     };
   },
@@ -52,12 +51,9 @@ export default {
         (idx === 0) ? this.setPlaylist(this.playlist.length -1) : this.elPlayer.previousVideo()
       }
     },
-     emitNextSong(){
-      this.$emit('next-song')
-     },
     handleStateChange(ev) {
       if (ev.data === -1) this.isPlaying = false; // (unstarted)
-      if (ev.data === 0) console.log('ended'); //end
+      if (ev.data === 0) this.setPlaylist(); //end
       if (ev.data === 1) this.isPlaying = true; //play
       if (ev.data === 2) this.isPlaying = false; //paused
     }
@@ -74,8 +70,7 @@ export default {
   },
   mounted() {
     this.setPlayer();
-    // this.setPlaylist();
-    this.elPlayer.loadVideoById("B3294JyiK8s")
+    this.setPlaylist();
     this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
   }
 };
