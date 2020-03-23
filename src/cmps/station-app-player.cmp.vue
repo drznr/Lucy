@@ -4,16 +4,24 @@
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <div class="station-app-player-controler">
-      <label for="volume">Volume</label>
-      <input
-        type="range"
-        id="volume"
-        name="volume"
-        min="0"
-        max="100"
-        v-model="volume"
-        @input="handleVolume"
-      />
+      <section class="station-app-player-controler-volume">
+        <img
+          src="../assets/imgs/icons/speaker.svg"
+          class="station-app-player-controler-volume-icon"
+        />
+        <div class="station-app-player-controler-volume-range-wrap">
+          <input
+            type="range"
+            id="volume"
+            name="volume"
+            min="0"
+            max="100"
+            v-model="volume"
+            @input="handleVolume"
+          />
+        </div>
+      </section>
+
       <section class="station-app-player-controler-btns">
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(false)" />
@@ -22,15 +30,18 @@
         <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(true)" />
         <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
       </section>
-      <span
-        class="station-app-player-controler-time-elapsed-digital"
-      >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
-      <div class="station-app-player-controler-playback-timeline">
-        <div
-          :style="playbackTimelineStyle"
-          class="station-app-player-controler-playback-timeline-progress-bar"
-        ></div>
-      </div>
+
+      <section class="station-app-player-controler-playback">
+        <span
+          class="station-app-player-controler-playback-time-elapsed-digital"
+        >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
+        <div class="station-app-player-controler-playback-timeline">
+          <div
+            :style="playbackTimelineStyle"
+            class="station-app-player-controler-playback-timeline-progress-bar"
+          ></div>
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -139,8 +150,11 @@ export default {
   },
   watch: {
     isPlaying() {
-      this.$emit('playingStatusChanged', JSON.parse(JSON.stringify(this.isPlaying)))
-    },
+      this.$emit(
+        "playingStatusChanged",
+        JSON.parse(JSON.stringify(this.isPlaying))
+      );
+    }
   },
   mounted() {
     this.elPlayer = this.$refs.youtube.player;

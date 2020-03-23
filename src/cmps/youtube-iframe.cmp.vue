@@ -1,6 +1,7 @@
 <template>
   <section class="youtube-iframe">
     <div class="youtube-container ratio-16-9">
+      <loader v-if="inProgress"></loader>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <h2>{{ videoTitle }}</h2>
@@ -22,8 +23,8 @@ export default {
       elPlayer: null,
       isPlaying: false,
       playerVars: {
-        autoplay: 1, 
-        controls: 0, 
+        autoplay: 1,
+        controls: 0
       }
     };
   },
@@ -33,6 +34,9 @@ export default {
     },
     videoTitle() {
       return this.currSong.title.trim();
+    },
+    inProgress() {
+      return this.$store.getters.inProgress;
     }
   },
   methods: {
@@ -43,15 +47,15 @@ export default {
       this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
     },
     emitSwitchSong(diff) {
-      this.$emit('switch-song', {idx: this.currSong.idx, diff});
+      this.$emit("switch-song", { idx: this.currSong.idx, diff });
     },
     handleStateChange(ev) {
       switch (ev.data) {
         case -1:
           this.isPlaying = false; // (unstarted)
           break;
-        case 0:  
-            this.emitSwitchSong(1); /// End of song
+        case 0:
+          this.emitSwitchSong(1); /// End of song
           break;
         case 1:
           this.isPlaying = true; //play
