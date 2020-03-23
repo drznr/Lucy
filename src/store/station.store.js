@@ -1,6 +1,7 @@
 import { stationService } from '@/services/station.service';
+import { storageService } from '@/services/storage.service';
 
-const STATION_KEY = 'guest-station';
+const STATION_KEY = 'guest-stations';
 
 export const stationStore = {
     state: {
@@ -17,7 +18,10 @@ export const stationStore = {
         },
         isPlaying(state){
             return state.isPlaying;
-        } 
+        },
+        LocalOwnerStationIds() {
+            return storageService.load(STATION_KEY);
+        }
     },
     mutations: {
         setStations(state, stations) {
@@ -47,14 +51,34 @@ export const stationStore = {
             context.commit('setCurrStation', station);
             return station;
         },
-        async saveStation(context, { station }) {
-            const isEdit = !!station._id;   /////  add owner at the server from session and createdAt also in server
-            const savedStation = await stationService.save(station);
-            context.commit({
-                type: (isEdit) ? 'updateStation' : 'addStation',
-                station: savedStation
-            });
-            return savedStation;
+        async addStation(context, { station }) {
+            const addedStation = await stationService.save(station);/////  add owner from session and createdAt also in server
+            context.commit({type: 'addStation', station: addedStation});
+            if (!addedStation.owner) {
+                let guestStationIds = storageService.load(STATION_KEY);
+                if (guestStationIds) {
+                    if (!guestStationIds.includes(addedStation._id)) {
+                        guestStationIds.push(addedStation._id);
+                        storageService.store(STATION_KEY, guestStationIds);
+                    }
+                } else {
+                    guestStationIds = [];
+                    guestStationIds.push(addedStation._id);
+                    storageService.store(STATION_KEY, guestStationIds);
+                }
+            }
+            return addedStation;
+        },
+        async updateStation(context, { station }) {
+            if (!station.owner) {
+                let guestStationIds = storageService.load(STATION_KEY);
+                if (guestStationIds && guestStationIds.includes(station._id)) {
+                    const updatedStation = await stationService.save(station);
+                    context.commit({type: 'updateStation', station: updatedStation});
+                    return updatedStation;
+                }
+                return station;
+            } //// else do it if he's loggedInUser
         }
     }
 }

@@ -5,11 +5,15 @@
       <playlist-player :playlist="playlistIds"></playlist-player>
       <div class="station-details-player-playlist">
         <ul>
-          <li v-for="(song, idx) in station.songs" :key="idx">
-            {{song.title}}
-            <button @click="removeSong(idx)">x</button>
-            <button @click="playSong(idx)">&#9654;</button>
-          </li>
+          <draggable v-model="playlist" @start="drag=true" @end="drag=false">
+            <transition-group>
+              <li v-for="(song, idx) in station.songs" :key="idx" class="drag-item">
+                <span>{{song.title}}</span>
+                <button @click="removeSong(idx)">&times;</button>
+                <button @click="playSong(idx)">&#9654;</button>
+              </li>
+            </transition-group>
+          </draggable>
         </ul>
       </div>
     </section>
@@ -18,11 +22,13 @@
       <nav>
         <router-link class="station-details-side-window-link chat" :to="'/station/' + station._id ">Chat</router-link>
         <router-link
-          class="station-details-side-window-link search"
+          class="station-details-side-window-link search" 
+          v-if="isStationOwner"
           :to="'/station/' + station._id + '/search'"
         >Search Song</router-link>
         <router-link
           class="station-details-side-window-link settings"
+          v-if="isStationOwner"
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
@@ -36,14 +42,27 @@
 import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
 import { stationService } from "@/services/station.service";
 import { eventBusService } from "@/services/event-bus.service";
+import draggable from 'vuedraggable';
+
 
 export default {
   data() {
     return {
-      station: null
+      station: null,
+      isStationOwner: false
     };
   },
   computed: {
+    playlist: {   
+     get() {
+       return this.station.songs;
+     },
+     async set(val) {
+       this.station.songs = JSON.parse(JSON.stringify(val)); 
+       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
+       this.station = JSON.parse(JSON.stringify(savedStation));
+     }
+    },
     playlistIds() {
       return this.station.songs.map(song => song.embedId);
     },
@@ -67,22 +86,25 @@ export default {
         type: 'loadStation',
         stationId
       });
-      this.station = JSON.parse(JSON.stringify(station));            
+      this.station = JSON.parse(JSON.stringify(station));   
       if (!this.station._id) eventBusService.$emit('station-opened');
+      if (!this.station.owner) { /// else check if it's loggedInUser
+        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      }
     },
     async addSong(song) {
       this.station.songs.push(song);
-      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = JSON.parse(JSON.stringify(savedStation));
     },
     async removeSong(idx) {
       this.station.songs.splice(idx, 1);
-      const savedStation = await this.$store.dispatch({type: 'saveStation', station: JSON.parse(JSON.stringify(this.station))});
+      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = savedStation;
     },
     playSong(idx) {
       eventBusService.$emit('play-song', idx);
-    } 
+    }
   },
   created() {
     const stationId = this.$route.params.id;
@@ -90,8 +112,9 @@ export default {
     eventBusService.$on('create-station', async ({ type, title }) => {
       this.station.type = type;
       this.station.title = title;
+
       const newStation = await this.$store.dispatch({
-        type: 'saveStation',
+        type: 'addStation',
         station: JSON.parse(JSON.stringify(this.station))
       });
       this.$router.push('/station/' + newStation._id);
@@ -99,11 +122,9 @@ export default {
     });
   },
   components: {
-    playlistPlayer
+    playlistPlayer,
+    draggable
   }
 };
 </script>
-
-<style scoped>
-</style>
 

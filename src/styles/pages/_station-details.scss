@@ -11,6 +11,23 @@
         grid-template-rows: 1fr;
         height: 100%;
     }
+    &-player {
+        
+        &-playlist {
+
+            .drag-item {
+
+                span {
+                    display: inline-block;
+                    cursor: grab;
+
+                    &:active {
+                        cursor: grabbing;
+                    }
+                }
+            }
+        }
+    }
     &-side-window {
         nav {
             width: 100%;
