@@ -18,11 +18,13 @@
       <nav>
         <router-link class="station-details-side-window-link chat" :to="'/station/' + station._id ">Chat</router-link>
         <router-link
-          class="station-details-side-window-link search"
+          class="station-details-side-window-link search" 
+          v-if="isStationOwner"
           :to="'/station/' + station._id + '/search'"
         >Search Song</router-link>
         <router-link
           class="station-details-side-window-link settings"
+          v-if="isStationOwner"
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
@@ -40,7 +42,8 @@ import { eventBusService } from "@/services/event-bus.service";
 export default {
   data() {
     return {
-      station: null
+      station: null,
+      isStationOwner: false
     };
   },
   computed: {
@@ -67,8 +70,11 @@ export default {
         type: 'loadStation',
         stationId
       });
-      this.station = JSON.parse(JSON.stringify(station));            
+      this.station = JSON.parse(JSON.stringify(station));   
       if (!this.station._id) eventBusService.$emit('station-opened');
+      else if (!this.station.owner) { /// else check if it's loggedInUser
+        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      }
     },
     async addSong(song) {
       this.station.songs.push(song);
@@ -90,6 +96,7 @@ export default {
     eventBusService.$on('create-station', async ({ type, title }) => {
       this.station.type = type;
       this.station.title = title;
+
       const newStation = await this.$store.dispatch({
         type: 'saveStation',
         station: JSON.parse(JSON.stringify(this.station))

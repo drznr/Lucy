@@ -3,13 +3,22 @@
         width: calc(100% - 6px);
         margin: 3px;
         padding: rem(5px) rem(10px);
+        padding-right: rem(40px);
         text-transform: capitalize;
+        background-image: url('../assets/imgs/icons/search.svg');
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: 98%;
 
         &:focus {
-            border-color: $clr2;
+            border-color: $clr1;
         }
     }
     &-list {
+        background-color: magenta !important;
+        display: block;
+        width: 100%;
+        height: 100%;
 
         &-item {
             padding: rem(10px) rem(20px);
@@ -17,18 +26,24 @@
             align-items: center;
             
             &:not(:last-child) {
-                border-bottom: 1px solid gray;
+                border-bottom: 1px solid $clr-black;
             }
             &-btn {
                 background-color: transparent;
                 border: none;
                 cursor: pointer;
     
-                .icon {
+                .icon svg {
                     width: 20px;
+                    height: 20px;
+                    margin-right: rem(20px);
+                    user-select: none;
+                    fill: lighten($clr-black, 25%);
+                    transition: all .3s linear;
 
-                    svg {
-                        fill: red;
+                    @include hover-supported {
+                        fill: $clr-black;
+                        transform: scale(1.1);
                     }
                 }
             }

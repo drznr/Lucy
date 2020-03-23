@@ -1,6 +1,7 @@
 import { stationService } from '@/services/station.service';
+import { storageService } from '@/services/storage.service';
 
-const STATION_KEY = 'guest-station';
+const STATION_KEY = 'guest-stations';
 
 export const stationStore = {
     state: {
@@ -17,6 +18,9 @@ export const stationStore = {
         },
         isPlaying(state){
             return state.isPlaying;
+        },
+        LocalOwnerStationIds() {
+            return storageService.load(STATION_KEY);
         }
     },
     mutations: {
@@ -54,6 +58,13 @@ export const stationStore = {
                 type: (isEdit) ? 'updateStation' : 'addStation',
                 station: savedStation
             });
+            if (!savedStation.owner) {
+                let guestStationIds = storageService.load(STATION_KEY);
+                if (!guestStationIds) guestStationIds = [];
+                guestStationIds.push(savedStation._id)
+                storageService.store(STATION_KEY, guestStationIds);
+            }
+
             return savedStation;
         }
     }

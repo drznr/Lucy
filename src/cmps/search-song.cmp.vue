@@ -4,7 +4,7 @@
     <ul ss="search-song-list">
       <li v-for="(youtubeSong, idx) in songs" :key="idx" class="search-song-list-item">
           <button class="search-song-list-item-btn" @click="emitAddSong(youtubeSong)">
-          <img src="@/assets/imgs/icons/plus.svg" alt="add song" title="Add Song" class="icon" />
+          <plus-icon title="Add Song" class="icon"></plus-icon>  
         </button>
           {{youtubeSong.snippet.title}}
       </li>
@@ -14,6 +14,7 @@
 
 <script>
 import { youtubeApiService } from '@/services/youtube-api.service';
+import plusIcon from '@/cmps/icons/plus-icon.cmp';
 
 export default {
   data() {
@@ -35,6 +36,9 @@ export default {
       };
       this.$emit("add-song", song);
     }
+  },
+  components: {
+    plusIcon
   }
 };
 </script>
