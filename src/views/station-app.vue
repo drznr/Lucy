@@ -2,11 +2,11 @@
   <section class="station-app">
     <header class="station-app-header">
       <router-link to="/station/new" class="station-app-header-link">Create A Station</router-link>
-      <!-- filter and whatnot -->
       <station-filter class="station-app-header-filter-cmp"></station-filter>
     </header>
     <section class="station-app-list-wrap">
       <h2 class="station-app-list-wrap-title">Browse {{chosenLable}} Stations!</h2>
+      <loader v-if="inProgress"></loader>
       <station-list :stations="stations"></station-list>
     </section>
 
@@ -22,6 +22,7 @@
 import stationList from "../cmps/station-list.cmp";
 import stationFilter from "../cmps/station-filter.cmp";
 import stationAppPlayer from "@/cmps/station-app-player.cmp";
+import loader from "../cmps/icons/loader.cmp";
 
 export default {
   data() {
@@ -40,8 +41,11 @@ export default {
       return this.$store.getters.stations;
     },
     chosenLable() {
-      return 'All';
+      return "All";
     },
+    inProgress() {
+      return this.$store.getters.inProgress;
+    }
   },
   methods: {
     updatePlayigStatus(bool) {
@@ -51,7 +55,8 @@ export default {
   components: {
     stationList,
     stationAppPlayer,
-    stationFilter
+    stationFilter,
+    loader
   }
 };
 </script> 
