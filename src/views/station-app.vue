@@ -6,6 +6,7 @@
       <station-filter class="station-app-header-filter-cmp"></station-filter>
     </header>
     <section class="station-app-list-wrap">
+      <h2 class="station-app-list-wrap-title">Browse {{chosenLable}} Stations!</h2>
       <station-list :stations="stations"></station-list>
     </section>
 
@@ -37,10 +38,10 @@ export default {
   computed: {
     stations() {
       return this.$store.getters.stations;
-    }
-    // isPlaying() {
-    //   return this.$store.getters.isPlaying;
-    // },
+    },
+    chosenLable() {
+      return 'All';
+    },
   },
   methods: {
     updatePlayigStatus(bool) {
