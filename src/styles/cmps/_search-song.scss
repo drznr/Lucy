@@ -15,10 +15,10 @@
         }
     }
     &-list {
-        background-color: magenta !important;
-        display: block;
+        height: 47rem;
         width: 100%;
-        height: 100%;
+        position: relative;
+        overflow-y: auto;
 
         &-item {
             padding: rem(10px) rem(20px);
