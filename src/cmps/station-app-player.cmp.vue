@@ -103,7 +103,7 @@ export default {
     handleSongChange(nextSong) {
       nextSong ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
     },
-    handleStateShange(ev) {
+    handleStateChange(ev) {
       if (ev.data === -1) this.isPlaying = false; // (unstarted)
       if (ev.data === 0) this.isPlaying = false; // (ended)
       if (ev.data === 1) {
@@ -144,7 +144,7 @@ export default {
   },
   mounted() {
     this.elPlayer = this.$refs.youtube.player;
-    this.elPlayer.addEventListener("onStateChange", this.handleStateShange);
+    this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
     this.updatePlayerPlaylist();
 
     eventBusService.$on("NEW_PLAYLIST", playlist => {
