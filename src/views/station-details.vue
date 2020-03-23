@@ -67,7 +67,7 @@ export default {
         stationId
       });
       this.station = JSON.parse(JSON.stringify(station));   
-      this.currSong = (this.station.songs) ? {embedId: this.station.songs[0].embedId, idx: 0} : null;
+      this.currSong = (this.station.songs) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
       if (!this.station._id) eventBusService.$emit('station-opened');
       if (!this.station.owner) { /// else check if it's loggedInUser
       if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
@@ -87,9 +87,6 @@ export default {
       this.station.songs.splice(idx, 1);
       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = savedStation;
-    },
-    playSong(id) {
-      eventBusService.$emit('play-song', id);
     },
     setCurrSong(song) { 
       this.currSong = song;

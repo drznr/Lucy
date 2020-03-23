@@ -3,6 +3,7 @@
     <div class="youtube-container ratio-16-9">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
+    <h2>{{ videoTitle }}</h2>
     <div class="youtube-iframe-controller">
       <button @click.prevent="emitSwitchSong(-1)">Prev</button>
       <button @click.prevent="togglePlaying">{{playPause}}</button>
@@ -29,6 +30,9 @@ export default {
   computed: {
     playPause() {
       return this.isPlaying ? "Pause" : "Play";
+    },
+    videoTitle() {
+      return this.currSong.title.trim();
     }
   },
   methods: {
@@ -66,8 +70,8 @@ export default {
     }
   },
   created() {
-    eventBusService.$on("play-song", id => {
-      this.elPlayer.loadVideoById(id);
+    eventBusService.$on("play-song", song => {
+      this.elPlayer.loadVideoById(song.embedId);
     });
   },
   mounted() {
