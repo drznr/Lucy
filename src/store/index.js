@@ -6,6 +6,20 @@ import { stationStore } from './station.store';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  strict: true,
+  state: {
+    inProgress: false,
+  },
+  mutations: {
+    setInProgress(state, {inProgress}){
+      state.inProgress = inProgress
+    },
+  },
+  getters: {
+    inProgress(state) {
+      return state.inProgress
+    },
+  },
   modules: {
     userStore,
     stationStore

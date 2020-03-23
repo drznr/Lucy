@@ -5,7 +5,14 @@
 </template>
 
 <script>
+import { userService } from '@/services/user.service.js';
+
 export default {
-    props: {}
+    props: {},
+     data() {
+        return {
+            credentials: userService.getEmptySignupCredentials()
+        }
+     }
 };
 </script>

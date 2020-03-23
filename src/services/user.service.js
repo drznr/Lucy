@@ -1,7 +1,8 @@
 import { httpService } from './http.service';
 
 export const userService = {
-    getEmptyCredentials
+    getEmptyLoginCredentials,
+    getEmptySignupCredentials
 }
 
 function getById(userId) {
@@ -30,7 +31,18 @@ async function logout() {
 function getUsers() {
     return httpService.get('user')
 }
-function getEmptyCredentials() {
+function getEmptySignupCredentials() {
+    return {
+        fullName: '',
+        username: '',
+        password: '',
+        avatar: '',
+        prefs: {
+            favGnere: ''
+        }
+    }
+}
+function getEmptyLoginCredentials() {
     return {
         username: '',
         password: ''
