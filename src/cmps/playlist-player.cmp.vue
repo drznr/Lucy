@@ -60,6 +60,7 @@ export default {
     emitNextSong() {
       console.log('before emit inside player curr song', this.currSong)
       this.$emit("next-song", this.currSong.idx);
+      this.elPlayer.loadVideoById(this.currSong.embedId);
       console.log('after emit inside player curr song', this.currSong)
     },
     handleStateChange(ev) {

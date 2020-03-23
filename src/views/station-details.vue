@@ -109,7 +109,7 @@ export default {
     },
     nextSong(idx){
       idx++
-      this.currSong = {embedId: this.station.songs[idx], idx: idx}
+      this.currSong = {embedId: this.station.songs[idx].embedId, idx}
       console.log('inside details curr song', this.currSong)
     }
   },
