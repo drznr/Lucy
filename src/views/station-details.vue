@@ -1,22 +1,14 @@
 <template>
   <section v-if="station" class="station-details">
     <div class="container">
-    <section class="station-details-player">
-      <playlist-player :currSong="currSong" @next-song="nextSong"></playlist-player>
-      <div class="station-details-player-playlist">
-        <ul>
-          <draggable v-model="playlist" @start="drag=true" @end="drag=false">
-            <transition-group>
-              <li v-for="(song, idx) in station.songs" :key="idx" class="drag-item">
-                <span>{{song.title}}</span>
-                <button @click="removeSong(idx)">&times;</button>
-                <button @click="playSong(idx)">&#9654;</button>
-              </li>
-            </transition-group>
-          </draggable> 
-        </ul>
-      </div>
-    </section>
+      <station-player 
+        :station="station" 
+        :currSong="currSong" 
+        :isStationOwner="isStationOwner"
+        @order-changed="setPlaylist"
+        @song-removed="removeSong"
+        @switched-song="setCurrSong"
+        ></station-player>
 
     <aside class="station-details-side-window">
       <nav>
@@ -32,17 +24,17 @@
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
-      <router-view @add-song="addSong" class="station-details-side-window-content"></router-view>
+      <router-view @add-song="addSong" :routesProps="routesProps" class="station-details-side-window-content"></router-view>
+
     </aside>
     </div>
   </section>
 </template>
 
 <script>
-import playlistPlayer from "@/cmps/playlist-player.cmp.vue";
 import { stationService } from "@/services/station.service";
 import { eventBusService } from "@/services/event-bus.service";
-import draggable from 'vuedraggable';
+import stationPlayer from '@/cmps/station-player.cmp';
 
 
 export default {
@@ -50,26 +42,13 @@ export default {
     return {
       station: null,
       isStationOwner: false,
-      currSong: null,
+      currSong: null
     };
   },
   computed: {
-    playlist: {   
-     get() {
-       return this.station.songs;
-     },
-     async set(val) {
-       this.station.songs = JSON.parse(JSON.stringify(val)); 
-       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
-       this.station = JSON.parse(JSON.stringify(savedStation));
-     }
-    },
-    playlistIds() {
-      return this.station.songs.map(song => song.embedId);
-    },
     routesProps() {   /// PASS PROPS TO ROUTER VIEW WITH THIS
       switch (this.$route.name) {
-        case 'station-settings':
+        case 'station-settings': { return { station: this.station }}
           break;
         case 'search-song':
             return
@@ -88,11 +67,16 @@ export default {
         stationId
       });
       this.station = JSON.parse(JSON.stringify(station));   
-      this.currSong = {embedId: this.station.songs[0].embedId, idx: 0}
+      this.currSong = (this.station.songs) ? {embedId: this.station.songs[0].embedId, idx: 0} : null;
       if (!this.station._id) eventBusService.$emit('station-opened');
       if (!this.station.owner) { /// else check if it's loggedInUser
       if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       }
+    },
+    async setPlaylist(val) {
+      this.station.songs = JSON.parse(JSON.stringify(val)); 
+      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
+      this.station = JSON.parse(JSON.stringify(savedStation)); 
     },
     async addSong(song) {
       this.station.songs.push(song);
@@ -104,13 +88,11 @@ export default {
       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = savedStation;
     },
-    playSong(idx) {
-      eventBusService.$emit('play-song', idx);
+    playSong(id) {
+      eventBusService.$emit('play-song', id);
     },
-    nextSong(idx){
-      idx++
-      this.currSong = {embedId: this.station.songs[idx].embedId, idx}
-      console.log('inside details curr song', this.currSong)
+    setCurrSong(song) { 
+      this.currSong = song;
     }
   },
   created() {
@@ -129,9 +111,7 @@ export default {
     });
   },
   components: {
-    playlistPlayer,
-    draggable
+    stationPlayer
   }
 };
 </script>
-

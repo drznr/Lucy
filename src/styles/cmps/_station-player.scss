@@ -1,0 +1,48 @@
+.station-player {
+    .youtube-iframe {
+        background-color: white;
+        margin-top: rem(31px);
+        padding: rem(20px);
+        position: relative;
+
+        &-controller {
+            position: absolute;
+            bottom: rem(20px);
+            left: 125px;
+            transform: translateX(-50%);
+        }
+    }
+    .youtube-container {
+        width: 250px;
+    }
+    &-playlist {
+
+        .drag-item {
+
+            span {
+                display: inline-block;
+                cursor: grab;
+
+                &:active {
+                    cursor: grabbing;
+                }
+            }
+        }
+    }
+}
+.flip-list-move {
+  transition: transform .5s;
+}
+.no-move {
+  transition: transform 0;
+}
+.ghost {
+  opacity: 0.5;
+  background: rgba($clr4, .5);
+}
+.list-group {
+    min-height: 20px;
+}
+.list-group-item {
+    cursor: move;
+}
