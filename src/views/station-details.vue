@@ -13,7 +13,7 @@
                 <button @click="playSong(idx)">&#9654;</button>
               </li>
             </transition-group>
-          </draggable>
+          </draggable> 
         </ul>
       </div>
     </section>
