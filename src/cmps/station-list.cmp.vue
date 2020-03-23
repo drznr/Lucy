@@ -5,7 +5,7 @@
 </template>
  
 <script>
-import stationPreview from "./station.preview.cmp";
+import stationPreview from "./station-preview.cmp";
 
 export default {
   name: "station-list",

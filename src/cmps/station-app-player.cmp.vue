@@ -53,7 +53,7 @@ export default {
         "7s65Zc6ULbo",
         "l9BxObmqejw"
       ],
-      volume: 70,
+      volume: 50,
       timeElapsed: 0,
       fullRunTime: 0,
       elPlayer: null,

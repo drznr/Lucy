@@ -14,7 +14,7 @@ import { eventBusService } from "@/services/event-bus.service";
 
 export default {
   name: "station-preview",
-  props: {
+  props: { 
     station: {
       type: Object
     }

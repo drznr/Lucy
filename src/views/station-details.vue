@@ -2,7 +2,7 @@
   <section v-if="station" class="station-details">
     <div class="container">
     <section class="station-details-player">
-      <playlist-player :playlist="playlistIds"></playlist-player>
+      <playlist-player :currSong="currSong" @next-song="nextSong"></playlist-player>
       <div class="station-details-player-playlist">
         <ul>
           <draggable v-model="playlist" @start="drag=true" @end="drag=false">
@@ -13,7 +13,7 @@
                 <button @click="playSong(idx)">&#9654;</button>
               </li>
             </transition-group>
-          </draggable>
+          </draggable> 
         </ul>
       </div>
     </section>
@@ -49,7 +49,8 @@ export default {
   data() {
     return {
       station: null,
-      isStationOwner: false
+      isStationOwner: false,
+      currSong: null,
     };
   },
   computed: {
@@ -87,9 +88,10 @@ export default {
         stationId
       });
       this.station = JSON.parse(JSON.stringify(station));   
+      this.currSong = {embedId: this.station.songs[0].embedId, idx: 0}
       if (!this.station._id) eventBusService.$emit('station-opened');
       if (!this.station.owner) { /// else check if it's loggedInUser
-        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       }
     },
     async addSong(song) {
@@ -104,6 +106,11 @@ export default {
     },
     playSong(idx) {
       eventBusService.$emit('play-song', idx);
+    },
+    nextSong(idx){
+      idx++
+      this.currSong = {embedId: this.station.songs[idx], idx: idx}
+      console.log('inside details curr song', this.currSong)
     }
   },
   created() {
