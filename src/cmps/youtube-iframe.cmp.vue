@@ -1,7 +1,7 @@
 <template>
   <section class="youtube-iframe">
     <div class="youtube-container ratio-16-9">
-      <loader v-if="inProgress"></loader>
+      <loader v-if="elPlayer"></loader>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <h2>{{ videoTitle }}</h2>
@@ -15,6 +15,7 @@
 
 <script>
 import { eventBusService } from "@/services/event-bus.service";
+import loader from '@/cmps/icons/loader.cmp';
 
 export default {
   props: { currSong: Object },
@@ -33,10 +34,7 @@ export default {
       return this.isPlaying ? "Pause" : "Play";
     },
     videoTitle() {
-      return this.currSong.title.trim();
-    },
-    inProgress() {
-      return this.$store.getters.inProgress;
+      return (this.currSong) ? this.currSong.title.trim(): '';
     }
   },
   methods: {
@@ -70,18 +68,21 @@ export default {
   },
   watch: {
     currSong() {
-      this.elPlayer.loadVideoById(this.currSong.embedId);
+      if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
     }
   },
   created() {
-    eventBusService.$on("play-song", song => {
-      this.elPlayer.loadVideoById(song.embedId);
+    eventBusService.$on("play-song", song => { 
+    this.elPlayer.loadVideoById(song.embedId);
     });
   },
   mounted() {
     this.setPlayer();
-    this.elPlayer.loadVideoById(this.currSong.embedId);
+    if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
     this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
+  },
+  components: {
+    loader
   }
 };
 </script>

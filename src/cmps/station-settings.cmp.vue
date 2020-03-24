@@ -2,8 +2,8 @@
     <section class="station-settings">
         <form @submit.prevent="editStation">
             <input type="text" placeholder="Station's Title" v-model="currStation.title" />
-            <textarea placeholder="Station Description" v-model="currStation.description"></textarea>
-            <input type="text" placeholder="Comma seperated Labels & Genres" v-model="labels" />
+            <textarea placeholder="Station's Description" v-model="currStation.description"></textarea>
+            <input type="text" placeholder="Station's Labels & Genres" v-model="labels" />
             <label>
                 Station Thumbnail:
                 <input type="file" @change="uploadImage">
@@ -39,6 +39,9 @@ export default {
             set(val) {
                 this.currStation.labels = val.split(' ');
             }
+        },
+        inProgress() {
+            return this.$store.getters.inProgress;
         }
     },
     methods: {
@@ -46,8 +49,10 @@ export default {
             debugger
         },
         async uploadImage(ev) {
+            this.$store.commit({type: 'setInProgress', inProgress: true}); console.log(this.inProgress)
             const imgData = await uploadService.uploadImg(ev);
             this.currStation.imgUrl = imgData.secure_url;
+            this.$store.commit({type: 'setInProgress', inProgress: false}); console.log(this.inProgress)
         }
     }
 };

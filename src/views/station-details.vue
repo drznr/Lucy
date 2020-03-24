@@ -46,7 +46,7 @@ export default {
     };
   },
   computed: {
-    routesProps() {   /// PASS PROPS TO ROUTER VIEW WITH THIS
+    routesProps() {   
       switch (this.$route.name) {
         case 'station-settings': { return { station: this.station }}
           break;
@@ -67,7 +67,7 @@ export default {
         stationId
       });
       this.station = JSON.parse(JSON.stringify(station));   
-      this.currSong = (this.station.songs) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
+      this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
       if (!this.station._id) eventBusService.$emit('station-opened');
       if (!this.station.owner) { /// else check if it's loggedInUser
       if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
