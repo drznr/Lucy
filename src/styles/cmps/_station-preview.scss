@@ -1,4 +1,4 @@
-.station-preview{
+.station-preview {
     &-title{
         font-size: rem(18px);
         margin: 0;
@@ -8,18 +8,73 @@
         font-size: .8em;
     }
     
-    &-card-img{
+    &-img {
         box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
         cursor: pointer;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         margin-bottom: rem(5px);
+
+        @include hover-supported {
+            & button {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            .station-preview-info {
+                opacity: 1;
+            }
+        }
         
-        button{
+        button {
             height: fit-content;
             width: fit-content;
             margin: auto;
+            background-color: transparent;
+            border-color: transparent;
+            transition: all .3s linear;
+            
+            .play-btn {
+                width: 35%;
+                height: 35%;
+                fill: $clr3;
+                stroke: none;
+                filter: drop-shadow(0 0 2px $clr-black);
+            }
+        }
+        
+        @media not all and (pointer: coarse) {
+            button {
+                transform: translateY(30%);
+                opacity: 0;
+            }
+            .station-preview-info {
+                opacity: 0;
+            }
+        }
+    }
+    &-info {
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        top: unset;
+        left: 0;
+        height: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        transition: opacity .3s linear;
+        
+        &-icon {
+            height: 75%;
+            fill: red;
+            stroke: none;
+            filter: drop-shadow(0 0 1px $clr-black);
+        }
+        &-avatar {
+            height: 75%;
+            border-radius: 50%;
         }
     }
 }
