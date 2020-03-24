@@ -21,7 +21,7 @@
         <input
           type="text"
           placeholder="Favorate genre?"
-          v-model="credentials.prefs.favGnere"
+          v-model="credentials.prefs.favGenre"
           class="signup-main-inp form-inp"
         />
         <label>Favorate genre?</label>
