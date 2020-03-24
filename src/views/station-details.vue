@@ -72,10 +72,10 @@ export default {
       });
       this.station = JSON.parse(JSON.stringify(station));   
       this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
-      if (!this.station._id) eventBusService.$emit('station-opened');
-      if (!this.station.owner) { /// else check if it's loggedInUser
-      if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
-      }
+      if (!this.station._id) eventBusService.$emit('station-opened');   
+      if (!this.station.owner) { 
+        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      } /// else check if it's loggedInUser
     },
     async updateStation() {
       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
@@ -113,6 +113,7 @@ export default {
         station: JSON.parse(JSON.stringify(this.station))
       });
       this.$router.push('/station/' + newStation._id);
+      this.isStationOwner = true;
       this.loadStation(newStation._id);
     });
   },
