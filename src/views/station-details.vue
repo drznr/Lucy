@@ -1,10 +1,12 @@
 <template>
   <section v-if="station" class="station-details">
-    <div class="container">
+    <h2 class="station-details-header container">{{ station.title }}</h2>
+    <div class="station-details-container container">
       <station-player
         :station="station" 
         :currSong="currSong" 
         :isStationOwner="isStationOwner"
+        :isPlaylistEmpty="isPlaylistEmpty"
         @order-changed="setPlaylist"
         @song-removed="removeSong"
         @switched-song="setCurrSong"
@@ -46,7 +48,8 @@ export default {
     return {
       station: null,
       isStationOwner: false,
-      currSong: null
+      currSong: null,
+      isPlaylistEmpty: true
     };
   },
   computed: {
@@ -62,6 +65,15 @@ export default {
         default:
           break;
       }
+    }
+  },
+  watch: {
+    'station.songs'() {
+      this.isPlaylistEmpty = (!this.station.songs.length);
+      if (this.isPlaylistEmpty) this.currSong = null;
+      else {
+        if (!this.currSong) this.currSong = JSON.parse(JSON.stringify(this.station.songs[0]))
+      };
     }
   },
   methods: {

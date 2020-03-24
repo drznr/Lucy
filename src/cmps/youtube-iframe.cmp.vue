@@ -6,9 +6,20 @@
     </div>
     <h2>{{ videoTitle }}</h2>
     <div class="youtube-iframe-controller">
-      <button @click.prevent="emitSwitchSong(-1)">Prev</button>
-      <button @click.prevent="togglePlaying">{{playPause}}</button>
-      <button @click.prevent="emitSwitchSong(1)">Next</button>
+      <button @click.prevent="emitSwitchSong(-1)">
+        <img src="@/assets/imgs/icons/prev.png" alt="previous song" title="Previous song" />
+      </button>
+      <button @click.prevent="togglePlaying">
+        <img 
+            class="youtube-iframe-controller-play"
+            :src="(isPlaying) ? require('@/assets/imgs/icons/pause.png') : require('@/assets/imgs/icons/play.png')"  
+            :alt="(isPlaying) ? 'pause song' : 'play song'"
+            :title="(isPlaying) ? 'Pause song' : 'Play song'"
+        />
+      </button>
+      <button @click.prevent="emitSwitchSong(1)">
+        <img src="@/assets/imgs/icons/next.png" alt="next song" title="Next song" />
+      </button>
     </div>
     <div class="youtube-iframe-claps-container">
       <button class="youtube-iframe-claps-container-btn btn-link" @click="emitUpdateRate">
@@ -16,6 +27,7 @@
       </button>
       <span class="youtube-iframe-claps-container-rate">{{stationRate}}</span>
     </div>
+    <div class="youtube-iframe-cover" v-if="isPlaylistEmpty"></div>
   </section>
 </template>
 
@@ -25,7 +37,11 @@ import loaderSmall from '@/cmps/icons/loader-small.cmp';
 
 
 export default {
-  props: { currSong: Object, stationRate: Number },
+  props: { 
+    currSong: Object, 
+    stationRate: Number,
+    isPlaylistEmpty: Boolean
+  },
   data() {
     return {
       elPlayer: null,
@@ -37,9 +53,6 @@ export default {
     };
   },
   computed: {
-    playPause() {
-      return this.isPlaying ? "Pause" : "Play";
-    },
     videoTitle() {
       return (this.currSong) ? this.currSong.title.trim(): '';
     }
@@ -79,6 +92,9 @@ export default {
   watch: {
     currSong() {
       if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+    },
+    isPlaylistEmpty() {
+      this.elPlayer.stopVideo();
     }
   },
   created() {

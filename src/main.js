@@ -15,6 +15,7 @@ Vue.use(vueDebounce, {
 
 import './styles/global.scss';
 
+
 Vue.config.productionTip = false
 
 new Vue({

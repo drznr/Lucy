@@ -62,7 +62,8 @@
         left: 0;
         height: 20%;
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
+        padding: 0 rem(10px);
         align-items: center;
         transition: opacity .3s linear;
         
@@ -71,6 +72,7 @@
             fill: red;
             stroke: none;
             filter: drop-shadow(0 0 1px $clr-black);
+            margin-left: rem(10px);
         }
         &-avatar {
             width: 30px;

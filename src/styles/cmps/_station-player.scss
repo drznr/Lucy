@@ -4,14 +4,17 @@
     border-radius: 3px;
     margin-top: rem(31px);
     height: 50rem;
+    position: relative;
 
     .youtube-iframe {
         background-color: #fff;
         border-radius: 3px;
         padding: rem(20px);
+        padding-bottom: rem(50px);
         position: relative;
         display: flex;
         align-items: center;
+        border-bottom: 1px solid $clr-white;
 
         h2 {
             max-width: 450px;
@@ -23,11 +26,30 @@
         }
         &-controller {
             position: absolute;
-            bottom: rem(20px);
+            bottom: -5px;
             left: 125px;
-            transform: translateX(-50%);
+            transform: translateX(-62.5px);
+
+            button {
+              background-color: transparent;
+              border-color: transparent;
+              padding: 0;
+
+              img {
+                width: 35px;
+                opacity: .5;
+                transition: opacity .3s linear;
+
+                @include hover-supported {
+                   opacity: 1;
+                }
+              }
+            }
+            &-play {
+                margin: 0 20px;
+            }
         }
-        &-claps-container{
+        &-claps-container {
             position: absolute;
             right: 5px;
             bottom: 0;
@@ -41,24 +63,91 @@
                 color: $clr2;
             }
         }
-    }
-    .youtube-container {
-        width: 250px;
-        margin-right: rem(20px);
+        &-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(#fff, .9);
+        }
+        .youtube-container {
+            width: 250px;
+            margin-right: rem(20px);
+        }
     }
 
     &-playlist {
 
-        .drag-item {
+        &-item {
+            background-image: url('../assets/imgs/icons/music-note.svg');
+            background-repeat: no-repeat;
+            background-size: rem(25px);
+            background-position: rem(60px);
+            background-color: #fff;
+            padding: rem(10px) rem(100px);
+            font-size: rem(18px);
+            position: relative;
 
+            &:nth-child(odd) {
+                background-color: rgba($clr4, .1);
+            }
             span {
-                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: block;
                 cursor: grab;
 
                 &:active {
                     cursor: grabbing;
                 }
             }
+            @media not all and (pointer: coarse) {
+                &:hover {
+                    background-color: darken(#fff, 10%);
+                }
+                &:nth-child(odd):hover {
+                    background-color: darken(rgba($clr4, .1), 40%);
+                }
+                .station-player-playlist-play {
+                    transform: translateX(-20px);
+                }
+                .station-player-playlist-remove {
+                    transform: translateX(20px);
+                }
+                .station-player-playlist-play,
+                .station-player-playlist-remove {
+                    transition: all .3s linear;
+                    opacity: 0;
+                }
+                &:hover .station-player-playlist-play,
+                &:hover .station-player-playlist-remove {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        }
+        &-play, &-remove {
+            position: absolute;
+            top: 0;
+            background-color: transparent;
+            border-color: transparent;
+            height: 100%;
+            font-weight: 700;
+            font-size: rem(30px);
+            color: lighten($clr-black, 50%);
+            
+            @include hover-supported {
+                color: $clr-black;
+            }
+        }
+        &-play {
+            left: 20px;
+            
+        }
+        &-remove {
+            right: 20px;
         }
     }
 }
@@ -70,7 +159,7 @@
 }
 .ghost {
   opacity: 0.5;
-  background: rgba($clr4, .5);
+  background: rgba($clr-white, .5);
 }
 .list-group {
     min-height: 20px;
