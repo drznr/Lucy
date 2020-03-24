@@ -7,6 +7,7 @@
         background-size: cover;
         background-position: bottom;
         margin-bottom: rem(20px);
+        padding-bottom: rem(20px);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -14,10 +15,16 @@
         &-filter-cmp { 
             grid-row: 5 / 6;
             grid-column: 2 / 5;
+
+            @media (max-width: $break-normal){
+                grid-column: 1 / -1;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
         }
 
         &-link{
-            grid-column: 3/ 4;
+            grid-column: 3/ 4; 
             grid-row: 3 / 4;
             padding: 0;
             display: flex;
@@ -28,6 +35,19 @@
             font-size: rem(18px);
             text-transform: uppercase;
             font-weight: 700;
+
+            @media (max-width: $break-normal){
+                grid-column: 2 / 5; 
+                margin-left: 20%;
+                margin-right: 20%;
+            }
+
+            @media (max-width: 500px){
+                grid-row: 4 / 5;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
 
             @include hover-supported {
                 color: $clr5;
