@@ -1,8 +1,8 @@
-.signup{
+.signup {
     background-color: #f3f3f3;
     min-height: 95vh;
     
-    &-navbar-backdrop{
+    &-navbar-backdrop {
         position: sticky;
         width: 100%;
         display: block;
@@ -16,11 +16,6 @@
     }
     
     &-main {
-        padding: 0 rem(20px) 0 rem(20px);
-
-        &-subtitle{
-            display: inline;
-        }
         
         form {
             display: flex;
