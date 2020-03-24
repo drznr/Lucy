@@ -1,14 +1,19 @@
 <template>
     <section class="station-player">
-      <youtube-iframe :currSong="currSong" :stationRate="stationRate" @switch-song="switchSong"></youtube-iframe>
+      <youtube-iframe 
+        :currSong="currSong" 
+        :stationRate="stationRate" 
+        :isPlaylistEmpty="isPlaylistEmpty"
+        @switch-song="switchSong"
+        ></youtube-iframe>
       <div class="station-player-playlist">
         <ul>
           <draggable v-model="playlist" @start="onDrag=true" @end="onDrag=false" v-bind="dragOptions">
             <transition-group type="transition" :name="onDrag ? 'flip-list' : null">
-              <li v-for="(song, idx) in station.songs" :key="idx" class="drag-item">
+              <li v-for="(song, idx) in station.songs" :key="idx" class="station-player-playlist-item drag-item">
                 <span>{{song.title}}</span>
-                <button @click="removeSong(idx)" v-if="isStationOwner">&times;</button>
-                <button @click="playSong({...song, idx})">&#9654;</button>
+                <button @click="removeSong(idx)" v-if="isStationOwner" class="station-player-playlist-remove">&times;</button>
+                <button @click="playSong({...song, idx})" class="station-player-playlist-play">&#9654;</button>
               </li>
             </transition-group>
           </draggable> 
@@ -28,7 +33,8 @@ export default {
   props: {
       station: Object,
       currSong: Object,
-      isStationOwner: Boolean
+      isStationOwner: Boolean,
+      isPlaylistEmpty: Boolean
   },
   data() {
     return {
