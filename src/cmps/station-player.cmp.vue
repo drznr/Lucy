@@ -8,7 +8,7 @@
               <li v-for="(song, idx) in station.songs" :key="idx" class="drag-item">
                 <span>{{song.title}}</span>
                 <button @click="removeSong(idx)" v-if="isStationOwner">&times;</button>
-                <button @click="playSong(song.embedId)">&#9654;</button>
+                <button @click="playSong({...song, idx})">&#9654;</button>
               </li>
             </transition-group>
           </draggable> 
@@ -57,8 +57,8 @@ export default {
     async removeSong(idx) {
         this.$emit('song-removed', idx);
     },
-    playSong(id) {
-      eventBusService.$emit('play-song', id);
+    playSong(song) {
+      this.$emit('switched-song', song);
     },
     switchSong(data) { 
       if (data.diff === -1) {
@@ -68,7 +68,7 @@ export default {
         data.idx++;
         data.idx = (data.idx === this.station.songs.length) ? 0 : data.idx;
       };
-      this.$emit('switched-song', {embedId: this.station.songs[data.idx].embedId, idx: data.idx})
+      this.$emit('switched-song', {embedId: this.station.songs[data.idx].embedId, idx: data.idx, title: this.station.songs[data.idx].title});
     }
   },
   components: {
