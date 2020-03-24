@@ -19,26 +19,87 @@
         padding: 0 rem(20px) 0 rem(20px);
 
         &-subtitle{
-            margin: 0 10px 40px 10px;
+            display: inline;
         }
         
         form {
-            display: -webkit-box;
-            display: -ms-flexbox;
             display: flex;
-            flex-wrap: wrap;
+            // align-items: center;
+            flex-direction: column;
             font-size: rem(22px);
             color: $clr2;
             padding-bottom: rem(80px);
+            width: 60%;
+            margin: auto;
+
+            @media (max-width: $break-mobile){
+                width: 100%;
+                font-size: 1.175rem;
+            }
+
+            > input {
+                // inputs not in wrap
+                width: 90%;
+
+                @media (max-width: $break-mobile){
+                    width: 100%;
+                }
+            }
 
             label{
-                // need to fix lable position
+                left: 0;
+                top: rem(-95px);
+            }
+
+            :placeholder-shown + label {
+                top: rem(-64px);
+                left: rem(11px);
+                opacity: 1;
+                width: fit-content;
+            }
+            
+            .signup-main-userpass-inp-wrap {
+
+                label{
+                    left: rem(-185px);
+                    top: rem(-30px);
+                }    
+                
+                :placeholder-shown + label {
+                    top: rem(5px);
+                    left: rem(-200px);
+                    opacity: 1;
+                    width: fit-content;
+                }
             }
             
             button{
-                margin: 0px auto 20px 80%;
-                width: rem(300px);
-                letter-spacing: 1;
+                margin: 0px auto rem(20px) 80%;
+                width: rem(200px);
+                letter-spacing: rem(5px);
+
+                @media (max-width: $break-mobile){
+                    margin: rem(20px) auto auto auto;
+                }
+            }
+        }
+
+        &-userpass-inp-wrap{
+            display: flex;
+            margin-bottom: rem(35px);
+            
+            @media (max-width: $break-mobile){
+                flex-direction: column;
+                margin-bottom: 0;
+                margin-top: rem(20px);
+            }
+
+            input{
+                width: 45%;
+                
+                @media (max-width: $break-mobile){
+                    width: 100%;
+                }
             }
         }
 
@@ -54,6 +115,7 @@
                 transition: all .3s;
                 border: 2px solid $clr2;
                 cursor: pointer;
+                font-size: 1rem;
               
                 @include hover-supported {
                   background-color: $clr2;
