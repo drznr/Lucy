@@ -7,13 +7,12 @@
         width: 100%;
         display: block;
         min-height: 100px;
+        margin-bottom: rem(20px);
         background-color: $clr3;
         // background-image: linear-gradient(to left top, rgba(#5cdb95, .8), rgba(#6add9b, .8), rgba(#77e0a2, .8), rgba(#83e2a8, .8), rgba(#8ee4af, .8)), url('../assets/imgs/app-bg-default.jpg');
         // background-repeat: no-repeat;
         // background-size: cover;
         // background-position: bottom;
-        
-        margin-bottom: rem(20px);
     }
     
     &-main {
@@ -33,7 +32,7 @@
             width: 60%;
             margin: auto;
 
-            @media (max-width: $break-mobile){
+            @media (max-width: $break-narrow){
                 width: 100%;
                 font-size: 1.175rem;
             }
@@ -42,7 +41,7 @@
                 // inputs not in wrap
                 width: 90%;
 
-                @media (max-width: $break-mobile){
+                @media (max-width: $break-normal){
                     width: 100%;
                 }
             }
@@ -64,13 +63,23 @@
                 label{
                     left: rem(-185px);
                     top: rem(-30px);
+                    
+                    @media (max-width: $break-normal){
+                        left: -12px;
+                        top: -5.4875rem;
+                    }
                 }    
                 
                 :placeholder-shown + label {
-                    top: rem(5px);
-                    left: rem(-200px);
+                    top: 0.3125rem;
+                    left: 0;
                     opacity: 1;
                     width: fit-content;
+
+                    @media (max-width: $break-normal){
+                        top: -3.6875rem;
+                        left: 0;
+                    }
                 }
             }
             
@@ -79,7 +88,7 @@
                 width: rem(200px);
                 letter-spacing: rem(5px);
 
-                @media (max-width: $break-mobile){
+                @media (max-width: $break-narrow){
                     margin: rem(20px) auto auto auto;
                 }
             }
@@ -89,7 +98,7 @@
             display: flex;
             margin-bottom: rem(35px);
             
-            @media (max-width: $break-mobile){
+            @media (max-width: $break-normal){
                 flex-direction: column;
                 margin-bottom: 0;
                 margin-top: rem(20px);
@@ -98,7 +107,7 @@
             input{
                 width: 45%;
                 
-                @media (max-width: $break-mobile){
+                @media (max-width: $break-normal){
                     width: 100%;
                 }
             }
