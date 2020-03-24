@@ -56,21 +56,8 @@ export const stationStore = {
             return station;
         },
         async addStation(context, { station }) {
-            const addedStation = await stationService.save(station);/////  add owner from session and createdAt also in server
+            const addedStation = await stationService.save(station);
             context.commit({type: 'addStation', station: addedStation});
-            if (!addedStation.owner) {
-                let guestStationIds = storageService.load(STATION_KEY);
-                if (guestStationIds) {
-                    if (!guestStationIds.includes(addedStation._id)) {
-                        guestStationIds.push(addedStation._id);
-                        storageService.store(STATION_KEY, guestStationIds);
-                    }
-                } else {
-                    guestStationIds = [];
-                    guestStationIds.push(addedStation._id);
-                    storageService.store(STATION_KEY, guestStationIds);
-                }
-            }
             return addedStation;
         },
         async updateStation(context, { station }) {

@@ -6,11 +6,27 @@
       <h2 class="signup-main-title">Create a New Account</h2>
       <p class="signup-main-subtitle">It’s quick and easy.</p>
 
-      <pre>
+        <!-- <pre>
             {{credentials}}
-        </pre>
+        </pre> -->
 
       <form @submit.prevent="doSignup" v-if="credentials">
+        <section class="signup-main-userpass-inp-wrap">
+            <input
+              type="text"
+              placeholder="Username"
+              class="signup-main-inp form-inp"
+              v-model="credentials.username"
+            />
+            <label>Username</label>
+            <input
+              type="password"
+              placeholder="Password"
+              class="signup-main-inp form-inp"
+              v-model="credentials.password"
+            />
+        <label>Password</label>
+        </section>
         <input
           type="text"
           placeholder="Full Name"
@@ -25,20 +41,6 @@
           class="signup-main-inp form-inp"
         />
         <label>Favorate genre?</label>
-        <input
-          type="text"
-          placeholder="Username"
-          class="signup-main-inp form-inp"
-          v-model="credentials.username"
-        />
-        <label>Username</label>
-        <input
-          type="password"
-          placeholder="Password"
-          class="signup-main-inp form-inp"
-          v-model="credentials.password"
-        />
-        <label>Password</label>
 
         <label class="signup-main-inp-label-file">
           UserAvatar:
@@ -74,12 +76,8 @@ export default {
   methods: {
     async uploadImage(ev) {
       console.log("uploading");
-    //   try {
     //       const imgData = await uploadService.uploadImg(ev);
     //       this.credentials.avatar = imgData.secure_url;
-    //   } catch (err) {
-    //       console.log('Error uploading', err);
-    //   }
     },
     doSignup() {
       console.log("signing up");

@@ -5,7 +5,7 @@
         <play-btn class="play-btn"></play-btn>
       </button>
       <span class="station-preview-info">
-        <popular  class="station-preview-info-icon"></popular>
+        <popular v-if="station.rate >= 10" class="station-preview-info-icon"></popular>
         <img :src="stationOwnerAvatar" alt="station owner avatar" :title="stationOwnerTitle" class="station-preview-info-avatar">
       </span>
     </div>
@@ -31,7 +31,7 @@ export default {
         return `background-image: url('${this.station.imgUrl}');`
     },
     stationOwnerTitle() {
-      return (this.station.owner) ? this.station.owner.fullname : 'Public';
+      return (this.station.owner) ? this.station.owner.fullName.charAt(0).toUpperCase() + this.station.owner.fullName.substring(1) : 'Public';
     },
     stationOwnerAvatar() {
       return (this.station.owner && this.station.owner.avatar) ? this.station.owner.avatar : require('@/assets/imgs/account.svg');
