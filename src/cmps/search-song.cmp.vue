@@ -7,7 +7,7 @@
           <plus-icon title="Add Song" class="icon"></plus-icon>  
         </button>
           {{youtubeSong.snippet.title}}
-      </li>
+      </li> 
     </ul>
   </section>
 </template>
