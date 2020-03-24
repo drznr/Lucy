@@ -1,14 +1,14 @@
 <template>
   <section class="station-app">
     <header class="station-app-header">
-      <router-link to="/station/new" class="station-app-header-link">Create A Station</router-link>
+      <router-link to="/station/new" class="station-app-header-link btn">Create A Station</router-link>
       <station-filter class="station-app-header-filter-cmp"></station-filter>
     </header>
-    <section class="station-app-list-wrap">
-      <h2 class="station-app-list-wrap-title">Browse {{chosenLable}} Stations!</h2>
+    <div class="container">
+      <h2 class="station-app-list-title">Browse {{chosenLable}} Stations!</h2>
       <loader v-if="inProgress"></loader>
       <station-list :stations="stations"></station-list>
-    </section>
+    </div>
 
     <station-app-player
       class="station-app-player"

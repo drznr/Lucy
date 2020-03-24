@@ -2,25 +2,22 @@
     <section class="station-settings">
         <form @submit.prevent="editStation">
             <input type="text" placeholder="Station's Title" v-model="currStation.title" />
-            <textarea placeholder="Station Description" v-model="currStation.description"></textarea>
-            <input type="text" placeholder="Comma seperated Labels & Genres" v-model="labels" />
-            <label>
+            <textarea placeholder="Station's Description" v-model="currStation.description"></textarea>
+            <input type="text" placeholder="Station's Labels & Genres" v-model="labels" />
+            <loader-small class="station-settings-loader" v-if="inProgress"></loader-small>
+            <label v-else>
                 Station Thumbnail:
                 <input type="file" @change="uploadImage">
             </label>
-            <button>Save</button>
+            <button :disabled="inProgress">Save</button>
         </form>
-        <!-- PRE  -->
-        <pre>
-            {{ currStation }}
-        </pre>
-        <!-- PRE  -->
     </section> 
 </template>
 
 <script>
 import { stationService } from "@/services/station.service";
 import { uploadService } from "@/services/upload.service";
+import loaderSmall from '@/cmps/icons/loader-small.cmp';
 
 export default {
     props: {
@@ -39,16 +36,24 @@ export default {
             set(val) {
                 this.currStation.labels = val.split(' ');
             }
+        },
+        inProgress() {
+            return this.$store.getters.inProgress;
         }
     },
     methods: {
         editStation() {
-            debugger
+            this.$emit('station-updated', JSON.parse(JSON.stringify(this.currStation)));
         },
         async uploadImage(ev) {
+            this.$store.commit({type: 'setInProgress', inProgress: true});
             const imgData = await uploadService.uploadImg(ev);
             this.currStation.imgUrl = imgData.secure_url;
+            this.$store.commit({type: 'setInProgress', inProgress: false});
         }
+    },
+    components: {
+        loaderSmall
     }
 };
 </script>
