@@ -19,37 +19,52 @@
         padding: 0 rem(20px) 0 rem(20px);
 
         &-subtitle{
-            display: inline;
+            margin: 0 10px 40px 10px;
         }
         
         form {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
             font-size: rem(22px);
             color: $clr2;
             padding-bottom: rem(80px);
+
+            label{
+                // need to fix lable position
+            }
+            
+            button{
+                margin: 0px auto 20px 80%;
+                width: rem(300px);
+                letter-spacing: 1;
+            }
+        }
+
+        &-inp-label-file{
+
+        }
+        &-inp-file {
+
+            &::-webkit-file-upload-button{
+                background-color: transparent;
+                border-radius: 100px;
+                padding: rem(5px) rem(20px);
+                transition: all .3s;
+                border: 2px solid $clr2;
+                cursor: pointer;
+              
+                @include hover-supported {
+                  background-color: $clr2;
+                  color: $clr-white;
+                  transform: translateY(-3px);
+                }
+                &:active {
+                  transform: translateY(0);
+                }
+            }
         }
     }
 }
 
-// .custom-file-input::-webkit-file-upload-button {
-//     visibility: hidden;
-//   }
-//   .custom-file-input::before {
-//     content: 'Select some files';
-//     display: inline-block;
-//     background: linear-gradient(top, #f9f9f9, #e3e3e3);
-//     border: 1px solid #999;
-//     border-radius: 3px;
-//     padding: 5px 8px;
-//     outline: none;
-//     white-space: nowrap;
-//     -webkit-user-select: none;
-//     cursor: pointer;
-//     text-shadow: 1px 1px #fff;
-//     font-weight: 700;
-//     font-size: 10pt;
-//   }
