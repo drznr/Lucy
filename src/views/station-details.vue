@@ -24,8 +24,12 @@
           :to="'/station/' + station._id + '/settings'"
         >Settings</router-link>
       </nav>
-      <router-view @add-song="addSong" :routesProps="routesProps" class="station-details-side-window-content"></router-view>
-
+      <router-view 
+        @add-song="addSong" 
+        :routesProps="routesProps" 
+        class="station-details-side-window-content"
+        @station-updated="setStation"
+        ></router-view>
     </aside>
     </div>
   </section>
@@ -73,20 +77,25 @@ export default {
       if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       }
     },
-    async setPlaylist(val) {
-      this.station.songs = JSON.parse(JSON.stringify(val)); 
+    async updateStation() {
       const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
       this.station = JSON.parse(JSON.stringify(savedStation)); 
     },
-    async addSong(song) {
-      this.station.songs.push(song);
-      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
-      this.station = JSON.parse(JSON.stringify(savedStation));
+    setStation(updatedStation) {
+      this.station = updatedStation;
+      this.updateStation();
     },
-    async removeSong(idx) {
-      this.station.songs.splice(idx, 1);
-      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
-      this.station = savedStation;
+    setPlaylist(val) {
+      this.station.songs = JSON.parse(JSON.stringify(val)); 
+      this.updateStation();
+    },
+    addSong(song) {
+      this.station.songs.push(song); 
+      this.updateStation();
+    },
+    removeSong(idx) {
+      this.station.songs.splice(idx, 1); 
+      this.updateStation();
     },
     setCurrSong(song) { 
       this.currSong = song;

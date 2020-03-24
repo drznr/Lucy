@@ -1,7 +1,7 @@
 <template>
   <section class="youtube-iframe">
     <div class="youtube-container ratio-16-9">
-      <loader v-if="elPlayer"></loader>
+      <loader-small v-if="elPlayer"></loader-small>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <h2>{{ videoTitle }}</h2>
@@ -15,7 +15,8 @@
 
 <script>
 import { eventBusService } from "@/services/event-bus.service";
-import loader from '@/cmps/icons/loader.cmp';
+import loaderSmall from '@/cmps/icons/loader-small.cmp';
+
 
 export default {
   props: { currSong: Object },
@@ -82,7 +83,7 @@ export default {
     this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
   },
   components: {
-    loader
+    loaderSmall
   }
 };
 </script>

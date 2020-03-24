@@ -1,13 +1,12 @@
 .station-app {
-    background-color: #f3f3f3;
+    background-color: $clr-white;
     &-header {
         height: 35vh;
         background-image: linear-gradient(to left top, rgba(#5cdb95, .8), rgba(#6add9b, .8), rgba(#77e0a2, .8), rgba(#83e2a8, .8), rgba(#8ee4af, .8)), url('../assets/imgs/app-bg-default.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: bottom;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
+        margin-bottom: rem(20px);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -27,39 +26,29 @@
         &-link{
             grid-column: 3/ 4;
             grid-row: 3 / 4;
-            font-family: baloo, sans-serif;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: $clr5;
             letter-spacing: 1.2px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            // border: solid rgba(5, 56, 107, .9) 2px;
-            border-radius: 25px;
-            text-align: center;
-            padding-top: 8px;
-            cursor: pointer;
-            background-color: rgba(5, 56, 107, .1);
-            transition: background-color .6s;
+            font-size: rem(18px);
+            text-transform: uppercase;
+            font-weight: 700;
 
-            &:hover{
-                font-weight: 400;
+            @include hover-supported {
                 color: $clr5;
                 background-color: rgba(5, 56, 107, .9);
             }
         }
     }
-    
-    &-list-wrap {
-        max-width: 960px;
-        margin: auto;
-        padding: 0 20px 0 20px;
-        position: sticky;
+    &-list {
 
         &-title{
             text-align: center;
-            text-transform: none;
+            text-transform: uppercase;
         }
     }
-
     &-player {
         position: fixed;
         bottom: 0;

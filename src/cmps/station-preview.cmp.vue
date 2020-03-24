@@ -1,9 +1,8 @@
 <template>
   <section class="station-preview">
-    <section @click.prevent="stationDetails" :style="setBgi" class="station-preview-card-img ratio-square">
+    <div @click.prevent="stationDetails" :style="setBgi" class="station-preview-card-img ratio-square">
       <button @click.stop="sendSongsList">Play Station</button>
-      <!-- <div class="swiper-overlay"></div> -->
-    </section>
+    </div>
     <h3 class="station-preview-title">{{station.title}}</h3>
     <p class="station-preview-description">{{station.description}}</p>
   </section>

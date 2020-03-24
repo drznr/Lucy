@@ -1,11 +1,11 @@
 .station-preview{
     &-title{
-        font-size: 1rem;
+        font-size: rem(18px);
         margin: 0;
     }
     
     &-description{
-        font-size: .6rem;
+        font-size: .8em;
     }
     
     &-card-img{
@@ -14,16 +14,8 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        margin-bottom: 5px;
-        & >*{
-            opacity: 0;
-            transition: opacity .3s;
-        }
-        &:hover{
-            & >*{
-                opacity: 1;
-            }
-        }
+        margin-bottom: rem(5px);
+        
         button{
             height: fit-content;
             width: fit-content;
