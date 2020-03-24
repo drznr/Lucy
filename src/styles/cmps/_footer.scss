@@ -1,0 +1,21 @@
+.main-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $clr3;
+    padding: 5px 0;
+    &-logo{
+            font-size: rem(36px);
+            font-family: courgette, serif;
+            color: $clr-logo;
+        
+            &::first-letter {
+              font-family: monoton, monospace;
+              color: initial;
+            }
+    }
+    &-copyrights{
+        font-size: rem(12px);
+    }
+}

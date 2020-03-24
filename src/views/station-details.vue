@@ -99,7 +99,7 @@ export default {
     },
     async updateRate(){
       this.station.rate++
-      SocketService.emit('updateRate', this.station)//@@@@ more soon @@@
+      socketService.emit('updateRate', this.station)//@@@@ more soon @@@
     },
     setCurrSong(song) { 
       this.currSong = song;

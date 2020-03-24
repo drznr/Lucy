@@ -1,24 +1,58 @@
 .station-settings {
-    
-    &-form-inp {
-        width: calc(100% - 6px);
-        margin: 3px;
-        padding: rem(5px) rem(10px);
-        padding-right: rem(40px);
-        text-transform: capitalize;
-        border-radius: 3px;
+  &-form {
+    display: flex;
+    flex-direction: column;
+    &-inp {
+      width: calc(100% - 6px);
+      margin: 3px;
+      padding: rem(5px) rem(10px);
+      padding-right: rem(40px);
+      text-transform: capitalize;
+      border-radius: 3px;
+      margin-bottom: 15px;
     }
+    &-text-area {
+      margin: 3px;
+      padding: rem(5px) rem(10px);
+      text-transform: capitalize;
+      border-radius: 3px;
+      min-width: calc(100% - 6px);
+      resize: vertical;
+      font-family: inherit;
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
+    &-label {
+      font-size: rem(18px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 14px;
+      margin-bottom: 15px;
 
-    &-form-text-area {
-        margin: 3px;
-        padding: rem(5px) rem(10px);
-        text-transform: capitalize;
-        border-radius: 3px;
-        min-width: calc(100% - 6px);
-        resize: vertical;
-    }
+      &-upload-icon {
+        width: 30px;
+        cursor: pointer;
+        filter: grayscale(1);
 
-    &-loader {
-        width: 25px;
+        &.uploaded {
+          filter: none;
+        }
+      }
     }
+    &-btn {
+      background-color: #f7f7f7;
+      border-radius: 3px;
+      border: 1px solid #c9c9c9;
+      padding: 0 14px;
+      margin: 0 3px;
+      transition: background-color .3s;
+      @include hover-supported {
+        background-color: darken($clr-white, 15%);
+      }
+    }
+  }
+  &-loader {
+    width: 15px;
+  }
 }
