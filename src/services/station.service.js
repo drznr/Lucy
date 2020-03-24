@@ -1,4 +1,8 @@
 import { httpService } from './http.service';
+import { storageService } from '@/services/storage.service';
+
+const STATION_KEY = 'guest-stations';
+
 
 export const stationService = {
     query,
@@ -17,13 +21,15 @@ function getById(id) {
 function remove(id) {
     return httpService.delete(`station/${id}`);
 }
-async function save(station) {
+async function save(station) {  /////  add owner from session and createdAt also in server
     let prm;
     if (station._id) prm = httpService.put(`station/${station._id}`, station);
     else {
         prm = httpService.post('station', station);
     }
-    return await prm;
+    const res = await prm;
+    _saveStationIdLocaly(res);
+    return res;
 }
 function getNewStation() {
     return {
@@ -46,4 +52,18 @@ function getEmptyCritirea() {
 
     }
 }
-
+function _saveStationIdLocaly(station) {
+    if (!station.owner) {
+        let guestStationIds = storageService.load(STATION_KEY);
+        if (guestStationIds) {
+            if (!guestStationIds.includes(station._id)) {
+                guestStationIds.push(station._id);
+                storageService.store(STATION_KEY, guestStationIds);
+            }
+        } else {
+            guestStationIds = [];
+            guestStationIds.push(station._id);
+            storageService.store(STATION_KEY, guestStationIds);
+        }
+    }
+}

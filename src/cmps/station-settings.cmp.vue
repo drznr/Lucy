@@ -1,9 +1,9 @@
 <template>
     <section class="station-settings">
         <form @submit.prevent="editStation">
-            <input type="text" placeholder="Station's Title" v-model="currStation.title" />
-            <textarea placeholder="Station's Description" v-model="currStation.description"></textarea>
-            <input type="text" placeholder="Station's Labels & Genres" v-model="labels" />
+            <input type="text" class="station-settings-form-inp" placeholder="Station's Title" v-model="currStation.title" />
+            <textarea class="station-settings-form-text-area" placeholder="Station's Description" v-model="currStation.description"></textarea>
+            <input type="text" class="station-settings-form-inp" placeholder="Station's Labels & Genres" v-model="labels" />
             <loader-small class="station-settings-loader" v-if="inProgress"></loader-small>
             <label v-else>
                 Station Thumbnail:
@@ -18,6 +18,7 @@
 import { stationService } from "@/services/station.service";
 import { uploadService } from "@/services/upload.service";
 import loaderSmall from '@/cmps/icons/loader-small.cmp';
+import uploadImg from '@/cmps/icons/upload-img.cmp';
 
 export default {
     props: {
@@ -53,7 +54,8 @@ export default {
         }
     },
     components: {
-        loaderSmall
+        loaderSmall,
+        uploadImg
     }
 };
 </script>

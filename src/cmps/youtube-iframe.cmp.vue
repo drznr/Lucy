@@ -10,6 +10,12 @@
       <button @click.prevent="togglePlaying">{{playPause}}</button>
       <button @click.prevent="emitSwitchSong(1)">Next</button>
     </div>
+    <div class="youtube-iframe-claps-container">
+      <button class="youtube-iframe-claps-container-btn btn-link" @click="emitUpdateRate">
+        <img src="../assets/imgs/icons/claps.svg" />
+      </button>
+      <span class="youtube-iframe-claps-container-rate">{{stationRate}}</span>
+    </div>
   </section>
 </template>
 
@@ -19,7 +25,7 @@ import loaderSmall from '@/cmps/icons/loader-small.cmp';
 
 
 export default {
-  props: { currSong: Object },
+  props: { currSong: Object, stationRate: Number },
   data() {
     return {
       elPlayer: null,
@@ -47,6 +53,9 @@ export default {
     },
     emitSwitchSong(diff) {
       this.$emit("switch-song", { idx: this.currSong.idx, diff });
+    },
+    emitUpdateRate() {
+      eventBusService.$emit('updateRate');
     },
     handleStateChange(ev) {
       switch (ev.data) {

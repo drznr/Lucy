@@ -1,6 +1,6 @@
 <template>
     <section class="station-player">
-      <youtube-iframe :currSong="currSong" @switch-song="switchSong"></youtube-iframe>
+      <youtube-iframe :currSong="currSong" :stationRate="stationRate" @switch-song="switchSong"></youtube-iframe>
       <div class="station-player-playlist">
         <ul>
           <draggable v-model="playlist" @start="onDrag=true" @end="onDrag=false" v-bind="dragOptions">
@@ -51,6 +51,9 @@ export default {
         disabled: false,
         ghostClass: 'ghost'
       }
+    },
+    stationRate(){
+      return (this.station)? this.station.rate : 0;
     }
   },
   methods: {
