@@ -42,7 +42,8 @@ export default {
       return this.isPlaying ? "pause" : "play";
     },
     sendSongsList() {
-        const readyPlaylist = this.station.songs.map(song => song.embedId);
+        const playlist = this.station.songs.map(song => song.embedId);
+        const readyPlaylist = { playlist, miniStation: { title: this.station.title, imgUrl: this.station.imgUrl}}
         eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)
         eventBusService.$emit('UPDATE_CURR_STATION', this.station)
     },
