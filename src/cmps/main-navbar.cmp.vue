@@ -2,7 +2,7 @@
   <nav class="main-nav" :class="{colored: isColored}">
     <div class="nav-container container">
       <router-link to="/" class="main-logo">Lucy</router-link>
-      <input type="checkbox" id="mobileNav" v-show="false" />
+      <input type="checkbox" id="mobileNav" ref="navToggle" v-show="false" />
       <label for="mobileNav" class="main-nav-mobile-btn">
         <span>|</span>
       </label>
@@ -32,6 +32,11 @@ export default {
     return {
       isColored: false
     };
+  },
+  watch: {
+    '$route.params'() {
+      if (this.$refs.navToggle.checked) this.$refs.navToggle.checked = false;
+    }
   },
   methods: {
     animateNavbar(ev) {

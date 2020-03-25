@@ -4,7 +4,9 @@
     
     &-header {
         height: 35vh;
-        background-image: linear-gradient(to left top, rgba(#5cdb95, .8), rgba(#6add9b, .8), rgba(#77e0a2, .8), rgba(#83e2a8, .8), rgba(#8ee4af, .8)), url('../assets/imgs/app-bg-default.jpg');
+        background-image: url('../assets/imgs/app-bg-default.jpg');
+        background-color: $clr3;
+        background-blend-mode: soft-light; 
         background-repeat: no-repeat;
         background-size: cover;
         background-position: bottom;
@@ -16,35 +18,36 @@
 
       
 
-        &-link{
+        &-link {
             grid-column: 3/ 4; 
             grid-row: 3 / 4;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: $clr5;
+            color: $clr-white;
             letter-spacing: 1.2px;
             font-size: rem(18px);
             text-transform: uppercase;
+            padding: 0;
             font-weight: 700;
+            transition: all .3s;
+            border: 2px solid $clr-white;
+            border-radius: 100px;
 
+            @include hover-supported {
+                background-color: $clr-white;
+                color: $clr1;
+            }
             @media (max-width: $break-normal){
                 grid-column: 2 / 5; 
                 margin-left: 20%;
                 margin-right: 20%;
             }
-
             @media (max-width: 500px){
                 grid-row: 4 / 5;
                 margin-left: 0;
                 margin-right: 0;
                 margin-bottom: 10px;
-            }
-
-            @include hover-supported {
-                color: $clr5;
-                background-color: rgba(5, 56, 107, .9);
             }
         }
     }

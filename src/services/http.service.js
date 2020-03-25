@@ -1,8 +1,5 @@
 import Axios from 'axios';
 
-///// REPLACE '//localhost:3000/' with '//localhost:3000/api/' IN DEV MODE  MOVING FROM JSON-SERVER
-// const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/';
-///WHEN BACKEND IS READY CHANGE THIS
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/api/';
 
 const axios = Axios.create({
