@@ -62,10 +62,15 @@ export const stationStore = {
             context.commit({ type: 'setInProgress', inProgress: false })
         },
         async loadStation(context, { stationId }) {
-            context.commit({ type: 'setInProgress', inProgress: true })
-            let station = await stationService.getById(stationId) || stationService.getNewStation();
-            context.commit('setCurrStation', station);
-            context.commit({ type: 'setInProgress', inProgress: false })
+            let station;
+            if (stationId === 'new') {
+                station = stationService.getNewStation();
+            } else {
+                context.commit({ type: 'setInProgress', inProgress: true });
+                station = await stationService.getById(stationId);
+                context.commit('setCurrStation', station);
+                context.commit({ type: 'setInProgress', inProgress: false });
+            }
             return station;
         },
         async addStation(context, { station }) {
