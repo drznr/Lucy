@@ -1,7 +1,7 @@
 <template>
   <section v-if="station" class="station-details">
-    <h2 class="station-details-header container">{{ station.title }}</h2>
-    <div class="station-details-container container">
+    <h2 class="station-details-header">{{ station.title }}</h2>
+    <div class="station-details-container">
       <station-player
         :station="station" 
         :currSong="currSong" 
@@ -19,12 +19,12 @@
           class="station-details-side-window-link search" 
           v-if="isStationOwner"
           :to="'/station/' + station._id + '/search'"
-        >Search Song</router-link>
+        >Add Songs</router-link>
         <router-link
           class="station-details-side-window-link settings"
           v-if="isStationOwner"
           :to="'/station/' + station._id + '/settings'"
-        >Settings</router-link>
+        >Edit</router-link>
       </nav>
       <router-view 
         @add-song="addSong" 

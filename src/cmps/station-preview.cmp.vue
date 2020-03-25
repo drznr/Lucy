@@ -1,6 +1,6 @@
 <template>
   <section class="station-preview">
-    <div @click.prevent="stationDetails" :style="setBgi" class="station-preview-img ratio-square">
+    <div @click.self="stationDetails" :style="setBgi" class="station-preview-img ratio-square">
       <button @click.stop="sendSongsList">
         <play-btn class="play-btn"></play-btn>
       </button>
@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     setBgi() {
-        return `background-image: url('${this.station.imgUrl}');`
+        const imgUrl = this.station.imgUrl || require('@/assets/imgs/station-default-thumb.png');
+        return `background-image: url(${imgUrl});`
     },
     stationOwnerTitle() {
       return (this.station.owner) ? this.station.owner.fullName.charAt(0).toUpperCase() + this.station.owner.fullName.substring(1) : 'Public';
@@ -38,12 +39,9 @@ export default {
     }
   },
   methods: {
-    playPause() {
-      return this.isPlaying ? "pause" : "play";
-    },
     sendSongsList() {
         const readyPlaylist = this.station.songs.map(song => song.embedId);
-        eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)
+        eventBusService.$emit('NEW_PLAYLIST', readyPlaylist);
     },
     stationDetails() {
       this.$router.push(`/station/${this.station._id}`);
@@ -55,6 +53,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>

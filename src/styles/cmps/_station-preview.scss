@@ -25,7 +25,9 @@
                 opacity: 1;
             }
         }
-        
+        .home & button {
+            display: none;
+        }
         button {
             height: fit-content;
             width: fit-content;
@@ -35,8 +37,8 @@
             transition: all .3s linear;
             
             .play-btn {
-                width: 35%;
-                height: 35%;
+                width: 25%;
+                height: 25%;
                 fill: $clr3;
                 stroke: none;
                 filter: drop-shadow(0 0 2px $clr-black);
@@ -77,6 +79,7 @@
         &-avatar {
             width: 30px;
             border-radius: 50%;
+            filter: drop-shadow(0 0 1px $clr-black);
         }
     }
 }
