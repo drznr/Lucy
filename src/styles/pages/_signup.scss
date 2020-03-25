@@ -55,13 +55,13 @@
                 top: rem(-64px);
                 left: rem(11px);
                 opacity: 0;
-                width: fit-content;
+                width: fit-content; 
             }
             
             .signup-main-userpass-inp-wrap {
 
                 label{
-                    left: rem(-185px);
+                    left: -37%;;
                     top: rem(-30px);
                     
                     @media (max-width: $break-normal){

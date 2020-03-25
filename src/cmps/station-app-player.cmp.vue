@@ -25,8 +25,8 @@
       <section class="station-app-player-controler-btns">
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(false)" />
-        <button @click.prevent="togglePlaying">{{playPause}}</button>
-        <!-- <img v-bind:src="`../assets/imgs/icons/${playPause}.png`" @click.prevent="togglePlaying"/> -->
+        <!-- <button @click.prevent="togglePlaying">{{playPause}}</button> -->
+        <img :src="playPause" @click.prevent="togglePlaying"/>
         <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(true)" />
         <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
       </section>
@@ -80,7 +80,8 @@ export default {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
     playPause() {
-      return this.isPlaying ? "pause" : "play";
+      // TODO: Add loader while buffering
+      return this.isPlaying ? require('@/assets/imgs/icons/pause.png') : require('@/assets/imgs/icons/play.png');
     },
     timeElapsedForDisplay() {
       var minutes = Math.floor(this.timeElapsed / 60);

@@ -42,7 +42,7 @@
         />
         <label>Favorate genre?</label>
 
-        <label class="signup-main-inp-label-file">
+        <label class="signup-main-inp-label-file"> 
           UserAvatar:
           <input type="file" @change="uploadImage" class="signup-main-inp-file" />
         </label>

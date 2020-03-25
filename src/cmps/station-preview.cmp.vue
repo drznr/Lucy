@@ -22,7 +22,7 @@ import popular from '@/cmps/icons/popular.cmp';
 export default {
   name: "station-preview",
   props: { 
-    station: {
+    station: { 
       type: Object
     }
   },
