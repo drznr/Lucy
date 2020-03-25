@@ -24,7 +24,7 @@ export default {
   props: { 
     station: { 
       type: Object
-    }
+    } 
   },
   computed: {
     setBgi() {
@@ -44,6 +44,7 @@ export default {
     sendSongsList() {
         const readyPlaylist = this.station.songs.map(song => song.embedId);
         eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)
+        eventBusService.$emit('UPDATE_CURR_STATION', this.station)
     },
     stationDetails() {
       this.$router.push(`/station/${this.station._id}`);
