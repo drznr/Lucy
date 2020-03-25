@@ -3,8 +3,10 @@
     <header class="signup-navbar-backdrop"></header>
 
     <main class="signup-main container">
-      <h2 class="signup-main-title">Create a New Account</h2>
-      <p class="signup-main-subtitle">It’s quick and easy.</p>
+      <h2 class="signup-main-title">
+        Create a New Account
+        <span class="signup-main-subtitle">It’s quick and easy.</span>
+      </h2>
 
       <form @submit.prevent="doSignup" v-if="credentials">
         <section class="signup-main-userpass-inp-wrap">
@@ -73,18 +75,17 @@ export default {
   },
   methods: {
     async uploadImage(ev) {
-      console.log("uploading");
-    //       const imgData = await uploadService.uploadImg(ev);
-    //       this.credentials.avatar = imgData.secure_url;
+      this.$store.commit({ type: "setInProgress", inProgress: true });
+      const imgData = await uploadService.uploadImg(ev);
+      this.currStation.imgUrl = imgData.secure_url;
+      this.$store.commit({ type: "setInProgress", inProgress: false });
     },
     doSignup() {
-      console.log("signing up");
-        this.setEmptyCredentials()
+      console.log(this.credentials);
+      this.setEmptyCredentials();
     },
     setEmptyCredentials(){
-        this.credentials = JSON.parse(
-          JSON.stringify(userService.getEmptySignupCredentials())
-        );
+        this.credentials = userService.getEmptySignupCredentials();
     }
   },
   mounted() {

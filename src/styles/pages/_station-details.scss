@@ -1,22 +1,22 @@
 .station-details {
-    @include nav-clearfix;
     background-color: $clr-white;
     color: $clr-black;
-    padding-bottom: 20px;
+    padding: rem(80px) 0 rem(20px) 0;
     overflow-y: hidden;
     
     &-container {
         display: grid;
+        padding: 0 rem(20px);
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
-        grid-gap: 20px;
         height: 100%;
     }
     &-header {
         text-align: right;
-        padding: rem(10px) 0;
+        padding: 0 rem(20px);
         font-size: rem(24px);
         color: darken($clr-white, 50%);
+        margin: 0;
     }
     &-side-window {
         nav {
@@ -43,8 +43,8 @@
                 background-position: 5px;
             }
             &.chat { background-image: url('../assets/imgs/icons/chat.svg'); }
-            &.search { background-image: url('../assets/imgs/icons/search.svg'); }
-            &.settings { background-image: url('../assets/imgs/icons/wheel.svg'); }
+            &.search { background-image: url('../assets/imgs/icons/plus.svg'); }
+            &.settings { background-image: url('../assets/imgs/icons/edit.svg'); }
         }
         .router-link-exact-active {
             background-color: darken($clr-white, 30%);

@@ -4,37 +4,4 @@
     &-button-prev, &-button-next {
         color: $clr3;
     }
-    
-    &-card {
-       
-        
-        &-img-wrap {
-            width: 100%;
-            margin: rem(10px);
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    }
-    
-    span {
-        display: inline-block;
-        right: unset;
-        top: unset;
-        bottom: 30%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        background-color: rgba($clr-white, .75);
-        mix-blend-mode: luminosity;
-        padding: rem(10px) 0;
-        cursor: pointer;
-    }
-    &-title{
-        text-transform: uppercase;
-        font-weight: 700;
-        margin-bottom: 0;
-    }
-    &-description {
-        font-size: rem(18px);
-    }
 }

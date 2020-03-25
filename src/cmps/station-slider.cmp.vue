@@ -2,16 +2,7 @@
   <section>
     <swiper :options="swiperOptions" class="swiper">
       <swiper-slide v-for="station in stations" :key="station._id">
-        <div class="swiper-card ratio-square">
-            <figure class="swiper-card-img-wrap" :style="{backgroundImage: (station.imgUrl) ? `url('${station.imgUrl}')` : `url(${require('@/assets/imgs/station-default-thumb.png')})` }">
-            <span>
-              <router-link :to="'/station/' + station._id">
-                <h3 class="swiper-title">{{station.title}}</h3>
-                <p class="swiper-description">{{station.description}}</p>
-              </router-link> 
-            </span>
-            </figure>
-        </div>
+        <station-preview :station="station"></station-preview>
       </swiper-slide>
 
       <div class="swiper-button-prev" slot="button-prev"></div>
@@ -21,6 +12,7 @@
 </template> 
 
 <script>
+import stationPreview from "@/cmps/station-preview.cmp";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -50,7 +42,8 @@ export default {
   },
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    stationPreview
   }
 };
 </script>

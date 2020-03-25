@@ -151,7 +151,7 @@ export default {
         this.setTimeElapsed();
       }
       if (ev.data === 2) this.isPlaying = false;
-      if (ev.data === 3) console.log("buffering"); // (buffering)
+      if (ev.data === 3); // Buffering
     },
     async setTimeElapsed() {
       // this function runs the digital clock
