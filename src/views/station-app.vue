@@ -2,7 +2,7 @@
   <section class="station-app">
     <header class="station-app-header">
       <router-link to="/station/new" class="station-app-header-link btn">Create A Station</router-link>
-      <station-filter @emitingFilter="setFilter" @emitingSort="setSort" class="station-app-header-filter-cmp"></station-filter>
+      <station-filter @emitingFilter="setFilter" class="station-app-header-filter-cmp"></station-filter>
     </header>
     <div class="container">
       <h2 class="station-app-list-title">Browse {{chosenLable}} Stations!</h2>
@@ -61,10 +61,10 @@ export default {
       this.$store.commit("setCurrSong", songId);
     },
     setFilter(filterBy){
-      console.log("Sending Filter", filterBy);
-    },
-    setSort(sortBy){
-      console.log("Sorting dat shit", sortBy);
+      this.$store.dispatch({
+        type: 'loadStations',
+        filterBy
+      });
     }
   },
   mounted(){

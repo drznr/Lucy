@@ -15,7 +15,8 @@ import stationCreateModal from '@/cmps/station-create-modal.cmp';
 export default {
    created() {
     this.$store.dispatch({
-      type: "loadStations"
+      type: "loadStations",
+      filterBy: null
     });
   },
    components: {

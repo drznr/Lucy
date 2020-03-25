@@ -92,32 +92,12 @@ export default {
       const station = await this.$store.dispatch({
         type: "loadStation",
         stationId
-<<<<<<< HEAD
-      });
-      this.station = JSON.parse(JSON.stringify(station));
-      this.currSong =
-        this.station.songs && this.station.songs.length
-          ? {
-              embedId: this.station.songs[0].embedId,
-              idx: 0,
-              title: this.station.songs[0].title
-            }
-          : null;
-      if (!this.station._id) eventBusService.$emit("station-opened");
-      if (!this.station.owner) {
-        if (
-          this.$store.getters.LocalOwnerStationIds &&
-          this.$store.getters.LocalOwnerStationIds.includes(this.station._id)
-        )
-          this.isStationOwner = true;
-=======
       });  
       this.station = JSON.parse(JSON.stringify(station));   
       this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
       if (!this.station._id) eventBusService.$emit('station-opened');   
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
->>>>>>> 65f46e1ad49b24c0d9f299f46e2c821d59e711c2
       } /// else check if it's loggedInUser
     },
     async updateStation() {
