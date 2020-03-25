@@ -1,6 +1,5 @@
 .signup {
     background-color: #f3f3f3;
-    min-height: 95vh;
     
     &-navbar-backdrop {
         position: sticky;
@@ -16,6 +15,7 @@
     }
     
     &-main {
+        min-height: 80vh;
         
         form {
             display: flex;

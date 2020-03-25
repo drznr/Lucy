@@ -8,7 +8,8 @@ export const stationService = {
     query,
     getById,
     getNewStation,
-    save
+    save,
+    remove
 }
 
 function query(creterea) {

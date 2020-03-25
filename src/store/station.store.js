@@ -39,6 +39,10 @@ export const stationStore = {
         updateStation(state, { station }) {
             const idx = state.stations.findIndex(currStation => currStation._id === station._id);
             state.stations.splice(idx, 1, station);
+        },
+        removeStation(state, { stationId }) {
+            const idx = state.stations.findIndex(station => station._id === stationId);
+            state.stations.splice(idx, 1);
         }
     },
     actions: {
@@ -70,6 +74,11 @@ export const stationStore = {
                 }
                 return station;
             } //// else do it if he's loggedInUser
+        },
+        async removeStation(context, { stationId }) {
+            await stationService.remove(stationId);        
+            context.commit('removeStation', stationId);
+            //// SWAL to confirm and $router.push('/station')
         }
     }
 }

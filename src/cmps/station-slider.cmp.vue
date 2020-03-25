@@ -1,9 +1,9 @@
 <template>
   <section>
-    <swiper :options="swiperOptions" class="swiper container">
+    <swiper :options="swiperOptions" class="swiper">
       <swiper-slide v-for="station in stations" :key="station._id">
-        <section class="swiper-card ratio-card">
-            <figure class="swiper-card-img-wrap ratio-square" :style="{backgroundImage: (station.imgUrl) ? `url('${station.imgUrl}')` : `url(${require('@/assets/imgs/station-default-thumb.png')})` }">
+        <div class="swiper-card ratio-square">
+            <figure class="swiper-card-img-wrap" :style="{backgroundImage: (station.imgUrl) ? `url('${station.imgUrl}')` : `url(${require('@/assets/imgs/station-default-thumb.png')})` }">
             <span>
               <router-link :to="'/station/' + station._id">
                 <h3 class="swiper-title">{{station.title}}</h3>
@@ -11,7 +11,7 @@
               </router-link> 
             </span>
             </figure>
-        </section>
+        </div>
       </swiper-slide>
 
       <div class="swiper-button-prev" slot="button-prev"></div>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       swiperOptions: {
-        slidesPerView: 3,
+        slidesPerView: 5,
         spaceBetween: 60,
         grabCursor: true,
         loop: true,

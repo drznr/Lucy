@@ -1,18 +1,15 @@
 .swiper {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 0 rem(60px);
+    padding: rem(20px) 0;
 
     &-button-prev, &-button-next {
         color: $clr3;
     }
     
     &-card {
-        position: relative;
-        top: rem(50px);
+       
         
-        &-img-wrap{
+        &-img-wrap {
+            width: 100%;
             margin: rem(10px);
             background-size: contain;
             background-repeat: no-repeat;

@@ -31,6 +31,7 @@
         :routesProps="routesProps" 
         class="station-details-side-window-content"
         @station-updated="setStation"
+        @station-removed="removeStation"
         ></router-view>
     </aside>
     </div>
@@ -109,12 +110,15 @@ export default {
       this.station.songs.splice(idx, 1); 
       this.updateStation();
     },
-    async updateRate(){
+    updateRate(){
       this.station.rate++
       socketService.emit('updateRate', this.station)//@@@@ more soon @@@
     },
     setCurrSong(song) { 
       this.currSong = song;
+    },
+    removeStation(stationId) {
+      this.$store.dispatch({type: 'removeStation', stationId});
     }
   },
   created() {

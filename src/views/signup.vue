@@ -6,10 +6,6 @@
       <h2 class="signup-main-title">Create a New Account</h2>
       <p class="signup-main-subtitle">It’s quick and easy.</p>
 
-        <!-- <pre>
-            {{credentials}}
-        </pre> -->
-
       <form @submit.prevent="doSignup" v-if="credentials">
         <section class="signup-main-userpass-inp-wrap">
             <input
@@ -50,11 +46,13 @@
         <button class="btn">Login</button>
       </form>
     </main>
+    <main-footer></main-footer>
   </section>
 </template>
 
 <script>
 import { userService } from "@/services/user.service.js";
+import mainFooter from '@/cmps/main-footer.cmp';
 
 export default {
   props: {},
@@ -91,6 +89,9 @@ export default {
   },
   mounted() {
     this.setEmptyCredentials()
+  },
+  components: {
+    mainFooter
   }
 };
 </script> 

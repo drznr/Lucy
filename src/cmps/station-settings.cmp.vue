@@ -72,7 +72,7 @@ export default {
       this.$store.commit({ type: "setInProgress", inProgress: false });
     },
     removeStation() {
-      debugger
+      this.$emit("station-removed", this.currStation._id);
     }
   },
   components: {
