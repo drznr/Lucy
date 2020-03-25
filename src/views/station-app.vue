@@ -13,7 +13,9 @@
     <station-app-player
       class="station-app-player"
       :playlist="playlist"
+      :currSong="currSong"
       @playingStatusChanged="updatePlayigStatus"
+      @emitCurrSongId="sendCurrSong"
     ></station-app-player>
   </section>
 </template>
@@ -23,6 +25,7 @@ import stationList from "../cmps/station-list.cmp";
 import stationFilter from "../cmps/station-filter.cmp";
 import stationAppPlayer from "@/cmps/station-app-player.cmp";
 import loader from "../cmps/icons/loader.cmp";
+import { eventBusService } from "@/services/event-bus.service";
 
 export default {
   data() {
@@ -41,15 +44,21 @@ export default {
       return this.$store.getters.stations;
     },
     chosenLable() {
-      return "All";
+      return "All"; 
     },
     inProgress() {
       return this.$store.getters.inProgress;
+    },
+    currSong(){
+      return this.$store.getters.currSong
     }
   },
   methods: {
     updatePlayigStatus(bool) {
       this.$store.commit("setIsPlaying", bool);
+    },
+    sendCurrSong(songId){      
+      this.$store.commit("setCurrSong", songId);
     },
     setFilter(){
       console.log("Sending Filter");
@@ -57,6 +66,11 @@ export default {
     setSort(){
       console.log("Sorting dat shit");
     }
+  },
+  mounted(){
+    eventBusService.$on("UPDATE_CURR_STATION", currStation => {
+       this.$store.commit("setCurrStation", currStation)
+    });
   },
   components: {
     stationList,

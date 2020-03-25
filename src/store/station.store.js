@@ -7,7 +7,8 @@ export const stationStore = {
     state: {
         stations: [],
         currStation: null,
-        isPlaying: false
+        isPlaying: false,
+        currSong: null
     },
     getters: {
         stations(state) {
@@ -21,6 +22,9 @@ export const stationStore = {
         },
         LocalOwnerStationIds() {
             return storageService.load(STATION_KEY);
+        },
+        currSong(state) {
+            return state.currSong
         }
     },
     mutations: {
@@ -33,6 +37,11 @@ export const stationStore = {
         setIsPlaying(state, isPlaying){
             state.isPlaying = isPlaying
         },
+        setCurrSong(state, songId){
+            if(!state.currStation) return
+            const song = state.currStation.songs.find(song => song.embedId === songId);
+            state.currSong = song
+        },
         addStation(state, { station }) {
             state.stations.push(station);
         },
@@ -44,7 +53,7 @@ export const stationStore = {
             const idx = state.stations.findIndex(station => station._id === stationId);
             state.stations.splice(idx, 1);
         }
-    },
+    }, 
     actions: {
         async loadStations(context) { ///// get critirea from state later
             context.commit({ type: 'setInProgress', inProgress: true })
