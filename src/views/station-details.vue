@@ -123,7 +123,7 @@ export default {
   },
   created() {
     const stationId = this.$route.params.id;
-    this.loadStation(stationId);
+    this.loadStation(stationId); 
     eventBusService.$on('create-station', async ({ type, title }) => {
       this.station.type = type;
       this.station.title = title;

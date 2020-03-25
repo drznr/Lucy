@@ -1,16 +1,11 @@
 <template>
   <section class="station-filter">
-    <!-- <v-select
-      v-model="filterBy.searchIn"
-      :options="['Search by', 'Genres', 'Titles']">
-    ></v-select> -->
     <select
       v-model="filterBy.searchIn"
       @change="emitFilter"
-      class="station-filter-search-select select-arrow"
-      name="seachBy"
+      class="station-filter-select-search"
     >
-      <option value="all">Search by</option>
+      <option value="">Search by</option>
       <option value="genres">Genres</option>
       <option value="titles">Titles</option>
     </select>
@@ -23,10 +18,9 @@
     <select
       v-model="sortBy"
       @change="emitSort"
-      class="station-filter-sort-select select-arrow"
-      name="sortBy"
+      class="station-filter-select-sort"
     >
-      <option value="title">Sort by</option>
+      <option value="">Sort by</option>
       <option value="title">Title</option>
       <option value="date">Date</option>
     </select>
@@ -34,9 +28,6 @@
 </template>
 
 <script>
-import vSelect from "vue-select";
-
-
 export default {
   props: {
     initialFilterBy: {
@@ -45,20 +36,16 @@ export default {
   },
   data() {
     return {
-      filterBy: { 
-        txt: '',
-        searchIn: 'all', 
-        page: '' 
-      },
-      sortBy: 'title'
+      filterBy: { txt: "", searchIn: "", page: "" },
+      sortBy: ""
     };
   },
   methods: {
     emitFilter() {
-      this.$emit('emitingFilter', JSON.parse(JSON.stringify(this.filterBy)));
+      this.$emit("emitingFilter", JSON.parse(JSON.stringify(this.filterBy)));
     },
     emitSort() {
-      this.$emit('emitingSort', JSON.parse(JSON.stringify(this.sortBy)));
+      this.$emit("emitingSort", JSON.parse(JSON.stringify(this.sortBy)));
     },
     setInitalFilter() {
       // so that the page opens on the chosen filter
@@ -67,9 +54,6 @@ export default {
   },
   created() {
     if(this.initialFilterBy) this.setInitalFilter()
-  },
-  components: {
-    vSelect
   }
 };
 </script>

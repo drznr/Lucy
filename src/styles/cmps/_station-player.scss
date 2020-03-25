@@ -5,6 +5,8 @@
     margin-top: rem(31px);
     height: 50rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
 
     .youtube-iframe {
         background-color: #fff;
@@ -15,14 +17,10 @@
         display: flex;
         align-items: center;
         border-bottom: 1px solid $clr-white;
-
-        h2 {
-            max-width: 450px;
-            font-size: rem(24px);
-            text-transform: uppercase;
-            overflow: hidden;
-            white-space: wrap;
-            text-overflow: ellipsis;
+        
+        .youtube-container {
+            width: 100%;
+            margin-right: rem(20px);
         }
         &-controller {
             position: absolute;
@@ -71,14 +69,12 @@
             left: 0;
             background-color: rgba(#fff, .9);
         }
-        .youtube-container {
-            width: 250px;
-            margin-right: rem(20px);
-        }
     }
 
     &-playlist {
-
+        flex-grow: 1;
+        overflow-y: auto;
+        
         &-item {
             background-image: url('../assets/imgs/icons/music-note.svg');
             background-repeat: no-repeat;
