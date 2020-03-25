@@ -1,9 +1,16 @@
 
 .station-filter {
-    display: flex;
+    grid-row: 5 / 6;
+    grid-column: 2 / 5;
+    //display: flex;
     
     @media (max-width: $break-narrow){
         flex-wrap: wrap;
+    }
+    @media (max-width: $break-normal){
+        grid-column: 1 / -1;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     &-search-select {
@@ -34,7 +41,7 @@
         }
     }
     
-    input[type=text] {
+    [type=text] {
         border: none;
         width: 55%;
         padding: 7px;

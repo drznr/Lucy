@@ -50,7 +50,7 @@ export default {
       return this.$store.getters.inProgress;
     },
     currSong(){
-      return this.$store.getters.currSong
+      return this.$store.getters.currSong;
     }
   },
   methods: {
@@ -60,11 +60,11 @@ export default {
     sendCurrSong(songId){      
       this.$store.commit("setCurrSong", songId);
     },
-    setFilter(){
-      console.log("Sending Filter");
+    setFilter(filterBy){
+      console.log("Sending Filter", filterBy);
     },
-    setSort(){
-      console.log("Sorting dat shit");
+    setSort(sortBy){
+      console.log("Sorting dat shit", sortBy);
     }
   },
   mounted(){
