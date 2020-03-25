@@ -1,41 +1,48 @@
 
 .station-filter {
     display: flex;
-
-    @media (max-width: $break-mobile){
-        // flex-direction: column;
+    
+    @media (max-width: $break-narrow){
+        flex-wrap: wrap;
     }
 
-    &-search { 
-        width: 30%;
-        display: flex;
+    &-search-select {
+        width: 25%;
+        border: none;
+        cursor: pointer;
+        font-family: baloo, sans-serif;
+        font-size: 1rem;
+        border-radius: 5px 0 0 5px;
 
-        &-select {
-            border: none;
-            cursor: pointer;
+        @media (max-width: $break-narrow){
             width: 50%;
-            font-family: baloo, sans-serif;
-            font-size: 1rem;
-
-            &-label{
-                background-color: #fff;
-                text-align: center;
-                padding-top: 8px;
-                width: 50%;
-                border-radius: 5px 0 0 5px;
-
-                @media (max-width: $break-mobile){
-                    padding-top: 0px;
-                    font-size: 0.8rem;
-                }
-            }
+            border-radius: 5px 0 0 0;
         }
     }
 
+    &-sort-select {
+        width: 20%;
+        border: none;
+        cursor: pointer;
+        font-family: baloo, sans-serif;
+        font-size: 1rem;
+        border-radius: 0 5px 5px 0;
+
+        @media (max-width: $break-narrow){
+            width: 50%;
+            border-radius: 0 5px 0 0;
+        }
+    }
+    
     input[type=text] {
         border: none;
-        width: 70%;
-        padding: 0 0 0 7px;
-        border-radius: 0 5px 5px 0;
+        width: 55%;
+        padding: 7px;
+
+        @media (max-width: $break-narrow){
+            order: 1;
+            width: 100%;
+            border-radius: 0 0 5px 5px;
+        }
     }
 }

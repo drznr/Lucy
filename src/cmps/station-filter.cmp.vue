@@ -1,14 +1,31 @@
 <template>
   <section class="station-filter">
-    <section class="station-filter-search">
-      <label class="station-filter-search-select-label" for="searchBy">Search by</label>
-      <select class="station-filter-search-select" name="seachBy">
-        <option value="all">All</option>
-        <option value="genres">Genres</option>
-        <option value="titles">Titles</option>
-      </select>
-    </section>
-    <input type="text" v-model="filterBy.txt" v-debounce:500ms="emitFilter" placeholder="Type here..." />
+    <select
+      v-model="filterBy.searchIn"
+      @change="emitFilter"
+      class="station-filter-search-select select-arrow"
+      name="seachBy"
+    >
+      <option value="all">Search by</option>
+      <option value="genres">Genres</option>
+      <option value="titles">Titles</option>
+    </select>
+    <input
+      type="text"
+      v-model="filterBy.txt"
+      v-debounce:500ms="emitFilter"
+      placeholder="Search in stations..."
+    />
+    <select
+      v-model="sortBy"
+      @change="emitSort"
+      class="station-filter-sort-select select-arrow"
+      name="sortBy"
+    >
+      <option value="title">Sort by</option>
+      <option value="title">Title</option>
+      <option value="date">Date</option>
+    </select>
   </section>
 </template>
 
@@ -21,27 +38,25 @@ export default {
   },
   data() {
     return {
-      filterBy: { txt: '', page: '' }
+      filterBy: { txt: "", searchIn: "all", page: "" },
+      sortBy: "title"
     };
   },
-  // computed: {
-  // },
   methods: {
-    emitFilter(){
-      console.log('Sending Filter');
-      // this.$emit("emitingFilter", JSON.parse(JSON.stringify(this.filterBy)));
+    emitFilter() {
+      this.$emit("emitingFilter", JSON.parse(JSON.stringify(this.filterBy)));
     },
-    setInitalFilter(){
+    emitSort() {
+      this.$emit("emitingSort", JSON.parse(JSON.stringify(this.sortBy)));
+    },
+    setInitalFilter() {
       // so that the page opens on the chosen filter
-      this.filterBy = this.initialFilterBy
+      this.filterBy = this.initialFilterBy;
     }
   },
-  created(){
-    // this.setInitalFilter()
+  created() {
+    if(this.initialFilterBy) this.setInitalFilter()
   }
 };
 </script>
-
-<style scoped>
-</style>
 

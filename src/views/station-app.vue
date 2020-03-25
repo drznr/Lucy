@@ -2,7 +2,7 @@
   <section class="station-app">
     <header class="station-app-header">
       <router-link to="/station/new" class="station-app-header-link btn">Create A Station</router-link>
-      <station-filter class="station-app-header-filter-cmp"></station-filter>
+      <station-filter @emitingFilter="setFilter" @emitingSort="setSort" class="station-app-header-filter-cmp"></station-filter>
     </header>
     <div class="container">
       <h2 class="station-app-list-title">Browse {{chosenLable}} Stations!</h2>
@@ -50,6 +50,12 @@ export default {
   methods: {
     updatePlayigStatus(bool) {
       this.$store.commit("setIsPlaying", bool);
+    },
+    setFilter(){
+      console.log("Sending Filter");
+    },
+    setSort(){
+      console.log("Sorting dat shit");
     }
   },
   components: {
@@ -60,27 +66,3 @@ export default {
   }
 };
 </script> 
-
-
-
-
-
-
-<style scoped>
-/* .station-app-header {
-  height: 35vh;
-  background-color: #5cdb95;
-  margin-bottom: 20px;
-}
-.staions-app-list-wrap {
-  max-width: 960px;
-  padding: 0 20px 0 20px;
-  margin: auto;
-  position: sticky;
-}
-.station-app-player {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-} */
-</style>
