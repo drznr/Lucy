@@ -3,6 +3,13 @@
     <div class="station-app-player-youtube-warp">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
+
+    <section class="station-app-player-now-playing">
+      <img class="station-app-player-now-playing-img" v-if="miniStation" :src="this.miniStation.imgUrl"/>
+      <p v-if="miniStation">{{miniStation.title}}</p>
+      <p v-if="currSong">{{currSong.title}}</p>
+    </section>
+
     <div class="station-app-player-controler">
       <section class="station-app-player-controler-volume">
         <img
@@ -43,7 +50,6 @@
         </div>
       </section>
 
-      <p v-if="currSong">{{currSong.title}}</p>
     </div>
   </section>
 </template>
@@ -62,6 +68,7 @@ export default {
   },
   data() {
     return {
+      miniStation: null,
       playlist: [
         "jHfOqqQ1DLQ",
         "eZXS8Jpkiac",
@@ -182,8 +189,9 @@ export default {
     this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
     this.updatePlayerPlaylist();
 
-    eventBusService.$on("NEW_PLAYLIST", playlist => {
-      this.reciveNewPlaylist(playlist);
+    eventBusService.$on("NEW_PLAYLIST", info => {
+      this.reciveNewPlaylist(info.playlist);
+      this.miniStation = info.miniStation
     });
   }
 };

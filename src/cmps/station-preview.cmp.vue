@@ -40,9 +40,10 @@ export default {
   },
   methods: {
     sendSongsList() {
-        const readyPlaylist = this.station.songs.map(song => song.embedId);
-        eventBusService.$emit('NEW_PLAYLIST', readyPlaylist);
-        eventBusService.$emit('UPDATE_CURR_STATION', this.station);
+        const playlist = this.station.songs.map(song => song.embedId);
+        const readyPlaylist = { playlist, miniStation: { title: this.station.title, imgUrl: this.station.imgUrl}}
+        eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)
+        eventBusService.$emit('UPDATE_CURR_STATION', this.station)
     },
     stationDetails() {
       this.$router.push(`/station/${this.station._id}`);
