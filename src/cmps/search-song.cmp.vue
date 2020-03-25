@@ -5,7 +5,7 @@
       <li v-for="(youtubeSong, idx) in songs" :key="idx" class="search-song-list-item">
           <button class="search-song-list-item-btn" @click="emitAddSong(youtubeSong)">
           <plus-icon title="Add Song" class="icon"></plus-icon>  
-        </button>
+        </button> 
           {{youtubeSong.snippet.title}}
       </li> 
     </ul>

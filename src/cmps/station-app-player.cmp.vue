@@ -26,7 +26,7 @@
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(false)" />
         <!-- <button @click.prevent="togglePlaying">{{playPause}}</button> -->
-        <img :src="playPause" @click.prevent="togglePlaying"/>
+        <img :src="playPause" @click.prevent="togglePlaying" />
         <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(true)" />
         <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
       </section>
@@ -42,6 +42,8 @@
           ></div>
         </div>
       </section>
+
+      <p v-if="currSong">{{currSong.title}}</p>
     </div>
   </section>
 </template>
@@ -50,11 +52,14 @@
 import { eventBusService } from "@/services/event-bus.service";
 
 export default {
-  // props: {
-  //   playlist: {
-  //     type: Array
-  //   }
-  // },
+  props: {
+    // playlist: {
+    //   type: Array
+    // },
+    currSong: {
+      type: Object
+    }
+  },
   data() {
     return {
       playlist: [
@@ -81,7 +86,9 @@ export default {
     },
     playPause() {
       // TODO: Add loader while buffering
-      return this.isPlaying ? require('@/assets/imgs/icons/pause.png') : require('@/assets/imgs/icons/play.png');
+      return this.isPlaying
+        ? require("@/assets/imgs/icons/pause.png")
+        : require("@/assets/imgs/icons/play.png");
     },
     timeElapsedForDisplay() {
       var minutes = Math.floor(this.timeElapsed / 60);
@@ -115,7 +122,20 @@ export default {
     handleSongChange(nextSong) {
       nextSong ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
     },
+    async sendCurrSongId() {
+      const songUrl = await this.elPlayer.getVideoUrl();
+
+      // get song Id
+      var songId = songUrl.split("v=")[1];
+      var ampersandPosition = songId.indexOf("&");
+      if (ampersandPosition != -1) {
+        songId = songId.substring(0, ampersandPosition);
+      }
+
+      this.$emit("emitCurrSongId", songId);
+    },
     handleStateChange(ev) {
+      this.sendCurrSongId();
       if (ev.data === -1) this.isPlaying = false; // (unstarted)
       if (ev.data === 0) this.isPlaying = false; // (ended)
       if (ev.data === 1) {
