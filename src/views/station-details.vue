@@ -3,37 +3,40 @@
     <h2 class="station-details-header">{{ station.title }}</h2>
     <div class="station-details-container">
       <station-player
-        :station="station" 
-        :currSong="currSong" 
+        :station="station"
+        :currSong="currSong"
         :isStationOwner="isStationOwner"
         :isPlaylistEmpty="isPlaylistEmpty"
         @order-changed="setPlaylist"
         @song-removed="removeSong"
         @switched-song="setCurrSong"
-        ></station-player>
+      ></station-player>
 
-    <aside class="station-details-side-window">
-      <nav>
-        <router-link class="station-details-side-window-link chat" :to="'/station/' + station._id ">Chat</router-link>
-        <router-link
-          class="station-details-side-window-link search" 
-          v-if="isStationOwner"
-          :to="'/station/' + station._id + '/search'"
-        >Add Songs</router-link>
-        <router-link
-          class="station-details-side-window-link settings"
-          v-if="isStationOwner"
-          :to="'/station/' + station._id + '/settings'"
-        >Edit</router-link>
-      </nav>
-      <router-view 
-        @add-song="addSong" 
-        :routesProps="routesProps" 
-        class="station-details-side-window-content"
-        @station-updated="setStation"
-        @station-removed="removeStation"
+      <aside class="station-details-side-window">
+        <nav>
+          <router-link
+            class="station-details-side-window-link chat"
+            :to="'/station/' + station._id "
+          >Chat</router-link>
+          <router-link
+            class="station-details-side-window-link search"
+            v-if="isStationOwner"
+            :to="'/station/' + station._id + '/search'"
+          >Add Songs</router-link>
+          <router-link
+            class="station-details-side-window-link settings"
+            v-if="isStationOwner"
+            :to="'/station/' + station._id + '/settings'"
+          >Edit</router-link>
+        </nav>
+        <router-view
+          @add-song="addSong"
+          :routesProps="routesProps"
+          class="station-details-side-window-content"
+          @station-updated="setStation"
+          @station-removed="removeStation"
         ></router-view>
-    </aside>
+      </aside>
     </div>
   </section>
 </template>
@@ -41,7 +44,7 @@
 <script>
 import { stationService } from "@/services/station.service";
 import { eventBusService } from "@/services/event-bus.service";
-import stationPlayer from '@/cmps/station-player.cmp';
+import stationPlayer from "@/cmps/station-player.cmp";
 import { socketService } from "@/services/socket.service";
 
 export default {
@@ -54,14 +57,20 @@ export default {
     };
   },
   computed: {
-    routesProps() {   
+    routesProps() {
       switch (this.$route.name) {
-        case 'station-settings': { return { station: this.station, isStationOwner: this.isStationOwner }}
+        case "station-settings":
+          {
+            return {
+              station: this.station,
+              isStationOwner: this.isStationOwner
+            };
+          }
           break;
-        case 'search-song':
-            return
+        case "search-song":
+          return;
           break;
-        case 'chat-room':
+        case "chat-room":
           break;
         default:
           break;
@@ -69,74 +78,91 @@ export default {
     }
   },
   watch: {
-    'station.songs'() {
-      this.isPlaylistEmpty = (!this.station.songs.length);
+    "station.songs"() {
+      this.isPlaylistEmpty = !this.station.songs.length;
       if (this.isPlaylistEmpty) this.currSong = null;
       else {
-        if (!this.currSong) this.currSong = JSON.parse(JSON.stringify(this.station.songs[0]))
-      };
+        if (!this.currSong)
+          this.currSong = JSON.parse(JSON.stringify(this.station.songs[0]));
+      }
     }
   },
   methods: {
-    async loadStation(stationId) {       
+    async loadStation(stationId) {
       const station = await this.$store.dispatch({
-        type: 'loadStation',
+        type: "loadStation",
         stationId
       });
-      this.station = JSON.parse(JSON.stringify(station));   
-      this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
-      if (!this.station._id) eventBusService.$emit('station-opened');   
-      if (!this.station.owner) { 
-        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      this.station = JSON.parse(JSON.stringify(station));
+      this.currSong =
+        this.station.songs && this.station.songs.length
+          ? {
+              embedId: this.station.songs[0].embedId,
+              idx: 0,
+              title: this.station.songs[0].title
+            }
+          : null;
+      if (!this.station._id) eventBusService.$emit("station-opened");
+      if (!this.station.owner) {
+        if (
+          this.$store.getters.LocalOwnerStationIds &&
+          this.$store.getters.LocalOwnerStationIds.includes(this.station._id)
+        )
+          this.isStationOwner = true;
       } /// else check if it's loggedInUser
     },
     async updateStation() {
-      const savedStation = await this.$store.dispatch({type: 'updateStation', station: JSON.parse(JSON.stringify(this.station))});
-      this.station = JSON.parse(JSON.stringify(savedStation)); 
+      const savedStation = await this.$store.dispatch({
+        type: "updateStation",
+        station: JSON.parse(JSON.stringify(this.station))
+      });
+      this.station = JSON.parse(JSON.stringify(savedStation));
     },
     setStation(updatedStation) {
       this.station = updatedStation;
       this.updateStation();
     },
     setPlaylist(val) {
-      this.station.songs = JSON.parse(JSON.stringify(val)); 
+      this.station.songs = JSON.parse(JSON.stringify(val));
       this.updateStation();
     },
     addSong(song) {
-      this.station.songs.push(song); 
+      this.station.songs.push(song);
       this.updateStation();
     },
     removeSong(idx) {
-      this.station.songs.splice(idx, 1); 
+      this.station.songs.splice(idx, 1);
       this.updateStation();
     },
-    updateRate(){
-      this.station.rate++
-      socketService.emit('updateRate', this.station)//@@@@ more soon @@@
+    updateRate() {
+      this.station.rate++;
+      socketService.emit("updateRate", this.station); //@@@@ more soon @@@///dont send the whole station
     },
-    setCurrSong(song) { 
+    setCurrSong(song) {
       this.currSong = song;
     },
     removeStation(stationId) {
-      this.$store.dispatch({type: 'removeStation', stationId});
+      this.$store.dispatch({ type: "removeStation", stationId });
     }
   },
   created() {
     const stationId = this.$route.params.id;
+    // if (stationId !== "new") this.loadStation(stationId);
     this.loadStation(stationId);
-    eventBusService.$on('create-station', async ({ type, title }) => {
+    eventBusService.$on("create-station", async ({ type, title }) => {
       this.station.type = type;
       this.station.title = title;
 
       const newStation = await this.$store.dispatch({
-        type: 'addStation',
+        type: "addStation",
         station: JSON.parse(JSON.stringify(this.station))
       });
-      this.$router.push('/station/' + newStation._id);
+      this.$router.push("/station/" + newStation._id);
       this.isStationOwner = true;
+      console.log("inside details newStation is:", newStation);
       this.loadStation(newStation._id);
     });
-    eventBusService.$on('updateRate', this.updateRate)
+    eventBusService.$on("updateRate", this.updateRate);
   },
   components: {
     stationPlayer
