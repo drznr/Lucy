@@ -1,10 +1,12 @@
-.station-app-player{
+.station-app-player {
     background-color: $clr5;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
 
     &-youtube-warp {
         display: none;
     }
-
     &-controler {
         border-radius: 25px;
         max-width: 1060px;
@@ -21,18 +23,18 @@
             display: flex;
             align-items: center;
 
-            @media (max-width: $break-mobile){
-                left: 15px;
-                bottom: 30px;
-                position: fixed;
-            }
+            // @include for-moblie-layout {
+            //     left: 15px;
+            //     bottom: 30px;
+            //     position: fixed;
+            // }
 
             &-icon{
                 height: 30px;
                 transition: filter .3s;
             }
 
-            &:hover .station-app-player-controler-volume-icon{
+            &:hover .station-app-player-controler-volume-icon {
                 filter: invert(50%) sepia(30%) saturate(18%) hue-rotate(8deg) brightness(94%) contrast(87%);
             }
 

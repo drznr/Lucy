@@ -1,4 +1,8 @@
 .station-settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   &-form {
     display: flex;
     flex-direction: column;
@@ -41,12 +45,12 @@
       }
     }
     &-btn {
-      background-color: #f7f7f7;
+      background-color: $clr-white;
       border-radius: 3px;
       border: 1px solid #c9c9c9;
-      padding: 0 14px;
       margin: 0 3px;
-      transition: background-color .3s;
+      transition: background-color .3s linear;
+
       @include hover-supported {
         background-color: darken($clr-white, 15%);
       }
@@ -54,5 +58,15 @@
   }
   &-loader {
     width: 15px;
+  }
+  &-delete {
+    background-color: red;
+    border-radius: 3px;
+    border: 1px solid $clr-black;
+    transition: background-color .3s linear;
+
+    @include hover-supported {
+      background-color: lighten(red, 15%);
+    }  
   }
 }

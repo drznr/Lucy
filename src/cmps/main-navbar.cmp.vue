@@ -30,12 +30,12 @@ import { eventBusService } from '@/services/event-bus.service';
 export default {
   data() {
     return {
-        isColored: false
+      isColored: false
     };
   },
   methods: {
     animateNavbar(ev) {
-      this.isColored = window.scrollY > 100 ? true : false;
+      this.isColored = (window.scrollY > 60);
     },
     openLogin() {
       eventBusService.$emit('open-login');

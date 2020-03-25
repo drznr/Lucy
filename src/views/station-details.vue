@@ -55,7 +55,7 @@ export default {
   computed: {
     routesProps() {   
       switch (this.$route.name) {
-        case 'station-settings': { return { station: this.station }}
+        case 'station-settings': { return { station: this.station, isStationOwner: this.isStationOwner }}
           break;
         case 'search-song':
             return

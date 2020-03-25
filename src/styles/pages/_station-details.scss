@@ -1,8 +1,8 @@
 .station-details {
     @include nav-clearfix;
-    height: 100vh;    
     background-color: $clr-white;
     color: $clr-black;
+    padding-bottom: 20px;
     overflow-y: hidden;
     
     &-container {

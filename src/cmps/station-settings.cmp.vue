@@ -26,6 +26,7 @@
       </label>
       <button :disabled="inProgress" class="station-settings-form-btn">Save</button>
     </form>
+    <button v-if="routesProps.isStationOwner" class="station-settings-delete" @click="removeStation">Delete Station</button>
   </section>
 </template>
 
@@ -39,7 +40,7 @@ export default {
   props: {
     routesProps: Object
   },
-  data() {
+  data() { 
     return {
       currStation: JSON.parse(JSON.stringify(this.routesProps.station))
     };
@@ -65,13 +66,13 @@ export default {
       );
     },
     async uploadImage(ev) {
-      console.log("eventttt: ", ev);
       this.$store.commit({ type: "setInProgress", inProgress: true });
       const imgData = await uploadService.uploadImg(ev);
       this.currStation.imgUrl = imgData.secure_url;
-      console.log("imgUrl: ", this.currStation.imgUrl);
       this.$store.commit({ type: "setInProgress", inProgress: false });
-      console.log(this.currStation)
+    },
+    removeStation() {
+      debugger
     }
   },
   components: {
