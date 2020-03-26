@@ -1,0 +1,29 @@
+.genre-cubes {
+  background-color: $clr1;
+  color: $clr-white;
+  &-header {
+    text-align: center;
+  }
+  &-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+
+    &-card {
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: rem(5px);
+      width: 205px;
+      &-title{
+          text-align: center;
+          font-size: rem(32px);
+          text-transform: capitalize;
+          margin: 0;
+      }
+    }
+  }
+}

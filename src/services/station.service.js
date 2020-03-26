@@ -10,6 +10,7 @@ export const stationService = {
     getNewStation,
     save,
     remove,
+    getLabelsMap,
     getEmptyCritirea
 }
 
@@ -57,6 +58,12 @@ function getEmptyCritirea() {
         sortBy: ''
     }
 }
+
+function getLabelsMap(){
+    return httpService.get(`station/labels`);
+}
+
+
 function _saveStationIdLocaly(station) {
     if (!station.owner) {
         let guestStationIds = storageService.load(STATION_KEY);

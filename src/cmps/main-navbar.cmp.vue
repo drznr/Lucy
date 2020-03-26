@@ -14,7 +14,8 @@
           <router-link to="/signup" class="main-nav-nav-link">Signup</router-link>
         </li>
         <li>
-          <button class="main-nav-nav-link btn-link" @click="openLogin">Login</button>
+          <button class="main-nav-nav-link btn-link" v-if="!loggedUser" @click="openLogin">Login</button>
+          <button class="main-nav-nav-link btn-link" v-else @click="doLogout">Logout</button>
         </li>
         <li>
           <router-link to="/station" class="main-nav-nav-link">Stations</router-link>
@@ -33,6 +34,11 @@ export default {
       isColored: false
     };
   },
+  computed: {
+    loggedUser() {  
+      return this.$store.getters.loggedUser;
+    }
+  },
   watch: {
     '$route.params'() {
       if (this.$refs.navToggle.checked) this.$refs.navToggle.checked = false;
@@ -44,6 +50,9 @@ export default {
     },
     openLogin() {
       eventBusService.$emit('open-login');
+    },
+    doLogout() {
+      this.$store.dispatch({ type: 'logout' });
     }
   },
   created() {

@@ -9,6 +9,7 @@ export const stationStore = {
         currStation: null,
         isPlaying: false,
         currSong: null,
+        labelsMap: null,
         lastPlayingTime: null
     },
     getters: {
@@ -18,7 +19,7 @@ export const stationStore = {
         currStation(state) {
             return state.currStation;
         },
-        isPlaying(state){
+        isPlaying(state) {
             return state.isPlaying;
         },
         LocalOwnerStationIds() {
@@ -26,6 +27,9 @@ export const stationStore = {
         },
         currSong(state) {
             return state.currSong
+        },
+        labelsMap(state) {
+            return state.labelsMap
         },
         getLastPlayingTime(state) {
             return state.lastPlayingTime
@@ -41,7 +45,7 @@ export const stationStore = {
         setCurrStation(state, station) {
             state.currStation = JSON.parse(JSON.stringify(station));
         },
-        setIsPlaying(state, isPlaying){
+        setIsPlaying(state, isPlaying) {
             state.isPlaying = isPlaying
         },
         setCurrSong(state, song){
@@ -58,8 +62,12 @@ export const stationStore = {
         removeStation(state, { stationId }) {
             const idx = state.stations.findIndex(station => station._id === stationId);
             state.stations.splice(idx, 1);
+        },
+        setLabelsMap(state, labelsMap) {
+            console.log('inside store mutations, labels map is:', labelsMap)
+            state.labelsMap = labelsMap;
         }
-    }, 
+    },
     actions: {
         async loadStations(context, { filterBy }) {  
             context.commit({ type: 'setInProgress', inProgress: true })
@@ -81,7 +89,7 @@ export const stationStore = {
         },
         async addStation(context, { station }) {
             const addedStation = await stationService.save(station);
-            context.commit({type: 'addStation', station: addedStation});
+            context.commit({ type: 'addStation', station: addedStation });
             return addedStation;
         },
         async updateStation(context, { station }) {
@@ -89,17 +97,30 @@ export const stationStore = {
                 let guestStationIds = storageService.load(STATION_KEY);
                 if (guestStationIds && guestStationIds.includes(station._id)) {
                     const updatedStation = await stationService.save(station);
-                    context.commit({type: 'updateStation', station: updatedStation});
+                    context.commit({ type: 'updateStation', station: updatedStation });
                     return updatedStation;
                 }
                 return station;
-            } //// else do it if he's loggedInUser
+            } else {
+                if (context.getters.loggedUser && station.owner._id === context.getters.loggedUser._id) {
+                    const updatedStation = await stationService.save(station);
+                    context.commit({type: 'updateStation', station: updatedStation});
+                    return updatedStation;
+                }
+            }
+            return station;
         },
         async removeStation(context, { stationId }) {
-            await stationService.remove(stationId);        
+            await stationService.remove(stationId);
             context.commit('removeStation', stationId);
             //// SWAL to confirm and $router.push('/station')
-        }
+        },
+        async getLabelsMap(context) {
+            context.commit({ type: 'setInProgress', inProgress: true })
+            const labelsMap = await stationService.getLabelsMap();
+            context.commit('setLabelsMap', labelsMap);
+            context.commit({ type: 'setInProgress', inProgress: false })
+        },
     }
 }
 

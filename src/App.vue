@@ -18,6 +18,9 @@ export default {
       type: "loadStations",
       filterBy: null
     });
+    this.$store.dispatch({
+      type: "getLabelsMap"
+    });
   },
    components: {
      mainNavbar,

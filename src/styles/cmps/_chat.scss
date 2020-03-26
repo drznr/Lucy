@@ -1,0 +1,21 @@
+.chat-room {
+    display: flex;
+    flex-direction: column;
+
+        header {
+            background-color: darken($clr-white, 10%);
+        }
+        .chat {
+            height: rem(742px);
+            width: 100%;
+            position: relative;
+            overflow-y: auto;
+        }
+        form {
+            display: flex;
+
+            [type=text] {
+                flex-grow: 1;
+            }
+        }
+}

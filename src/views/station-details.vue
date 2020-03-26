@@ -20,7 +20,6 @@
           >Chat</router-link>
           <router-link
             class="station-details-side-window-link search"
-            v-if="isStationOwner"
             :to="'/station/' + station._id + '/search'"
           >Add Songs</router-link>
           <router-link
@@ -35,6 +34,7 @@
           class="station-details-side-window-content"
           @station-updated="setStation"
           @station-removed="removeStation"
+          @clear-chat="clearChat"
         ></router-view>
       </aside>
     </div>
@@ -70,11 +70,18 @@ export default {
         case "search-song":
           return;
           break;
-        case "chat-room":
+        case "chat-room": 
+            return {
+              station: this.station,
+              loggedInUser: this.loggedInUser
+            }
           break;
         default:
           break;
       }
+    },
+    loggedInUser() {
+      return this.$store.getters.loggedUser;    
     }
   },
   watch: {
@@ -85,6 +92,12 @@ export default {
         if (!this.currSong)
           this.currSong = JSON.parse(JSON.stringify(this.station.songs[0]));
       }
+    },
+    'station.chatHistory'() {
+      this.$store.dispatch({
+        type: "updateStation",
+        station: JSON.parse(JSON.stringify(this.station))
+      });
     }
   },
   methods: {
@@ -98,7 +111,9 @@ export default {
       if (!this.station._id) eventBusService.$emit('station-opened');   
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
-      } /// else check if it's loggedInUser
+      } else {
+        if (this.loggedInUser && station.owner._id === this.loggedInUser._id) this.isStationOwner = true;
+      }
     },
     async updateStation() {
       const savedStation = await this.$store.dispatch({
@@ -132,6 +147,10 @@ export default {
     },
     removeStation(stationId) {
       this.$store.dispatch({ type: "removeStation", stationId });
+    },
+    clearChat() {
+      this.station.chatHistory = [];
+      this.updateStation();
     }
   },
 
@@ -148,7 +167,6 @@ export default {
       });
       this.$router.push("/station/" + newStation._id);
       this.isStationOwner = true;
-      console.log("inside details newStation is:", newStation);
       this.loadStation(newStation._id);
     });
     eventBusService.$on("updateRate", this.updateRate);
