@@ -1,16 +1,13 @@
 <template>
   <section class="station-app-player">
-    <div class="station-app-player-youtube-warp">
-      <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
-    </div>
 
     <section class="station-app-player-now-playing">
-      <img class="station-app-player-now-playing-img" v-if="miniStation" :src="this.miniStation.imgUrl"/>
-      <p v-if="miniStation">{{miniStation.title}}</p>
+      <img class="station-app-player-now-playing-img" v-if="currStation" :src="this.currStation.imgUrl"/>
+      <p v-if="currStation">{{currStation.title}}</p>
       <p v-if="currSong">{{currSong.title}}</p>
     </section>
 
-    <div class="station-app-player-controler">
+    <div class="station-app-player-controler"> 
       <section class="station-app-player-controler-volume">
         <img
           src="../assets/imgs/icons/speaker.svg"
@@ -24,17 +21,17 @@
             min="0"
             max="100"
             v-model="volume"
-            @input="handleVolume"
+            @input="handleVolume" 
           />
         </div>
       </section>
 
       <section class="station-app-player-controler-btns">
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
-        <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(false)" />
-        <!-- <button @click.prevent="togglePlaying">{{playPause}}</button> -->
-        <img :src="playPause" @click.prevent="togglePlaying" />
-        <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(true)" />
+        <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(-1)" />
+        <loader-small class="station-app-player-controler-btns-loader" v-if="isBuffering"></loader-small>
+        <img v-else :src="playPause" @click.prevent="togglePlaying" />
+        <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(1)" />
         <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
       </section>
 
@@ -56,35 +53,32 @@
 
 <script>
 import { eventBusService } from "@/services/event-bus.service";
+import loaderSmall from '@/cmps/icons/loader-small.cmp';
 
 export default {
   props: {
-    // playlist: {
-    //   type: Array
-    // },
     currSong: {
       type: Object
-    }
+    },
+    currStation: {
+      type: Object
+    },
+    elPlayer: {
+      type: Object
+    },
+    playerEv: {
+      type: Number
+    },
   },
   data() {
     return {
+      isBuffering: false,
       miniStation: null,
-      playlist: [
-        "jHfOqqQ1DLQ",
-        "eZXS8Jpkiac",
-        "naoknj1ebqI",
-        "7s65Zc6ULbo",
-        "l9BxObmqejw"
-      ],
+      // idx: 0,
       volume: 50,
       timeElapsed: 0,
       fullRunTime: 0,
-      elPlayer: null,
       isPlaying: false,
-      playerVars: {
-        // TODO: make video quality lowest for faster loading time
-        // playlist: ''
-      }
     };
   },
   computed: {
@@ -126,32 +120,61 @@ export default {
     togglePlaying() {
       this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
     },
-    handleSongChange(nextSong) {
-      nextSong ? this.elPlayer.nextVideo() : this.elPlayer.previousVideo();
+    handleSongChange(diff) {
+      this.emitSongChange(diff)
     },
-    async sendCurrSongId() {
-      const songUrl = await this.elPlayer.getVideoUrl();
+    emitSongChange(diff) {
+      var idx;
 
-      // get song Id
-      var songId = songUrl.split("v=")[1];
-      var ampersandPosition = songId.indexOf("&");
-      if (ampersandPosition != -1) {
-        songId = songId.substring(0, ampersandPosition);
+      if(this.currSong) {
+        idx = this.currStation.songs.findIndex(song => song.embedId === this.currSong.embedId);
+        if(idx === -1 || !idx) idx = 0;
+      } else {
+        idx = 0;
       }
 
-      this.$emit("emitCurrSongId", songId);
+      if(diff) {
+        if (diff === -1) {
+          idx--
+          idx = (idx < 0) ? this.currStation.songs.length : idx
+        } else {
+          idx++;
+          idx = (idx === this.currStation.songs.length) ? 0 : idx;
+        }
+      }
+
+       this.$emit("songChanged", this.currStation.songs[idx]);
     },
-    handleStateChange(ev) {
-      this.sendCurrSongId();
-      if (ev.data === -1) this.isPlaying = false; // (unstarted)
-      if (ev.data === 0) this.isPlaying = false; // (ended)
-      if (ev.data === 1) {
-        // (playing)
+    updateTimeElapsed() {
+      var timeObj = {
+        timeElapsed: this.timeElapsed,
+        inSong: this.currSong.embedId,
+        inStation: this.currStation._id,
+      }
+      this.$emit("timeElapsed", timeObj);
+    },
+    stateChanged(ev) {
+      if (ev === -1) {  // unstarted
+        this.isPlaying = false;
+        this.isBuffering = false
+      }
+      if (ev === 0) { // ended
+        this.isPlaying = false;
+        this.isBuffering = false
+      }
+      if (ev === 1) { // playing
         this.isPlaying = true;
+        this.isBuffering = false
         this.setTimeElapsed();
       }
-      if (ev.data === 2) this.isPlaying = false;
-      if (ev.data === 3); // Buffering
+      if (ev === 2) { // paused
+        this.isPlaying = false;
+        this.isBuffering = false;
+      } 
+      if (ev === 3) {
+        this.isBuffering = true // Buffering
+        this.isPlaying = false;
+      }      
     },
     async setTimeElapsed() {
       // this function runs the digital clock
@@ -162,19 +185,15 @@ export default {
           const timeElapsed = await this.elPlayer.getCurrentTime();
           // When songs change this prevents .toFixed of undefined
           if (!timeElapsed) return;
-          this.timeElapsed = timeElapsed.toFixed();
+          if (this.timeElapsed !== timeElapsed.toFixed() ) { 
+            // this makes the timeElapsed update every second and not constantly
+            this.timeElapsed = timeElapsed.toFixed();
+          }
         }, 0);
       } else {
         clearInterval(incTime);
       }
     },
-    updatePlayerPlaylist() {
-      this.elPlayer.loadPlaylist(this.playlist.join(","));
-    },
-    reciveNewPlaylist(playlist) {
-      this.playlist = playlist;
-      this.updatePlayerPlaylist();
-    }
   },
   watch: {
     isPlaying() {
@@ -182,17 +201,29 @@ export default {
         "playingStatusChanged",
         JSON.parse(JSON.stringify(this.isPlaying))
       );
+    },
+    playerEv(){
+      this.stateChanged(this.playerEv)
+    },
+    currStation(){
+      this.emitSongChange()
+    },
+    currSong(){
+      this.elPlayer.loadVideoById(this.currSong.embedId);
     }
   },
-  mounted() {
-    this.elPlayer = this.$refs.youtube.player;
-    this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
-    this.updatePlayerPlaylist();
+  destroyed() {
+    this.updateTimeElapsed()
 
-    eventBusService.$on("NEW_PLAYLIST", info => {
-      this.reciveNewPlaylist(info.playlist);
-      this.miniStation = info.miniStation
-    });
+    // clearing the interval
+    // this.isPlaying = false
+    // this.setTimeElapsed()
+  },
+  mounted() {
+    if(this.currStation) this.emitSongChange()
+  },
+  components: {
+    loaderSmall
   }
 };
 </script>

@@ -5,9 +5,9 @@
     width: 100vw;
 
     
-    &-youtube-warp {
-        display: none;
-    }
+    // &-youtube-warp {
+    //     display: none;
+    // }
 
     &-now-playing{
         display: inline-flex;
@@ -111,6 +111,12 @@
                 &:hover{
                     filter: invert(50%) sepia(30%) saturate(18%) hue-rotate(8deg) brightness(34%) contrast(87%);
                 }
+            }
+
+            &-loader{
+                margin: 0 5px 0 5px;
+                height: 30px;
+                width: 30px;
             }
         }
 

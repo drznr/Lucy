@@ -21,7 +21,7 @@
       </div>
     </section>    
 </template>
-
+ 
 <script>
 import { eventBusService } from "@/services/event-bus.service";
 import youtubeIframe from "@/cmps/youtube-iframe.cmp.vue";
@@ -70,7 +70,7 @@ export default {
       this.$emit('switched-song', song);
     },
     switchSong(data) { 
-      if (data.diff === -1) {
+      if (data.diff === -1) { 
         data.idx--;
         data.idx = (data.idx < 0) ? (this.station.songs.length - 1) : data.idx;
       } else {
