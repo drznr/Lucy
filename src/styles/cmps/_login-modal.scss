@@ -28,6 +28,14 @@
       text-align: center;
       margin-bottom: rem(40px);
     }
+    &-msg {
+      margin-bottom: rem(40px);
+      color: transparent;
+
+      &.active {
+        color: red;
+      }
+    }
   }
 }
 .fade-enter-active, .fade-leave-active {

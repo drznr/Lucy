@@ -16,7 +16,6 @@
         }
         form {
             display: flex;
-            // align-items: center;
             flex-direction: column;
             font-size: rem(22px);
             color: $clr2;
@@ -56,19 +55,16 @@
                     left: -37%;
                     top: rem(-30px);
                     
-                    @media (max-width: $break-normal){
+                    @media (max-width: $break-normal) {
                         left: -12px;
                         top: -5.4875rem;
                     }
                 }    
                 
                 :placeholder-shown + label {
-                    top: 0.3125rem;
-                    left: 0;
-                    opacity: 0;
-                    width: fit-content;
+                    z-index: -1;
 
-                    @media (max-width: $break-normal){
+                    @media (max-width: $break-normal) {
                         top: -3.6875rem;
                         left: 0;
                     }

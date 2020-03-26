@@ -40,12 +40,13 @@
         />
         <label>Favorate genre?</label>
 
-        <label class="signup-main-inp-label-file"> 
+        <label class="signup-main-inp-label-file" v-if="!$store.getters.inProgress"> 
           UserAvatar:
           <input type="file" @change="uploadImage" class="signup-main-inp-file" />
         </label>
+        <loader-small v-else></loader-small>
 
-        <button class="btn">Login</button>
+        <button class="btn" :disabled="$store.getters.inProgress">Sign Up</button>
       </form>
     </main>
     <main-footer></main-footer>
@@ -53,8 +54,10 @@
 </template>
 
 <script>
-import { userService } from "@/services/user.service.js";
+import { userService } from '@/services/user.service.js';
+import { uploadService } from '@/services/upload.service.js';
 import mainFooter from '@/cmps/main-footer.cmp';
+import loaderSmall from '@/cmps/icons/loader-small.cmp';
 
 export default {
   props: {},
@@ -66,10 +69,10 @@ export default {
   computed: {
     labels: {
       get() {
-        return this.credentials.labels.join(" ");
+        return this.credentials.labels.join(' ');
       },
       set(val) {
-        this.credentials.labels = val.split(" ");
+        this.credentials.labels = val.split(' ');
       }
     }
   },
@@ -77,11 +80,15 @@ export default {
     async uploadImage(ev) {
       this.$store.commit({ type: "setInProgress", inProgress: true });
       const imgData = await uploadService.uploadImg(ev);
-      this.currStation.imgUrl = imgData.secure_url;
+      this.credentials.avatar = imgData.secure_url;
       this.$store.commit({ type: "setInProgress", inProgress: false });
     },
-    doSignup() {
-      console.log(this.credentials);
+    async doSignup() {
+      //// validation before dispatching that the form is filled
+      this.$store.dispatch({
+        type: 'signup',
+        credentials: JSON.parse(JSON.stringify(this.credentials))
+      });
       this.setEmptyCredentials();
     },
     setEmptyCredentials(){
@@ -89,10 +96,11 @@ export default {
     }
   },
   mounted() {
-    this.setEmptyCredentials()
+    this.setEmptyCredentials();
   },
   components: {
-    mainFooter
+    mainFooter,
+    loaderSmall
   }
 };
 </script> 

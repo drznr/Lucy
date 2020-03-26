@@ -2,7 +2,10 @@ import { httpService } from './http.service';
 
 export const userService = {
     getEmptyLoginCredentials,
-    getEmptySignupCredentials
+    getEmptySignupCredentials,
+    login,
+    signup,
+    logout
 }
 
 function getById(userId) {

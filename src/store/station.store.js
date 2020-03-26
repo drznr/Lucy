@@ -113,7 +113,14 @@ export const stationStore = {
                     return updatedStation;
                 }
                 return station;
-            } //// else do it if he's loggedInUser
+            } else {
+                if (context.getters.loggedUser && station.owner._id === context.getters.loggedUser._id) {
+                    const updatedStation = await stationService.save(station);
+                    context.commit({type: 'updateStation', station: updatedStation});
+                    return updatedStation;
+                }
+            }
+            return station;
         },
         async removeStation(context, { stationId }) {
             await stationService.remove(stationId);
