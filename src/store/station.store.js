@@ -9,11 +9,8 @@ export const stationStore = {
         currStation: null,
         isPlaying: false,
         currSong: null,
-<<<<<<< HEAD
-        labelsMap: null
-=======
+        labelsMap: null,
         lastPlayingTime: null
->>>>>>> ce75f57c13ee275a14df04c4a6e0cb37f120ae8b
     },
     getters: {
         stations(state) {
@@ -31,13 +28,11 @@ export const stationStore = {
         currSong(state) {
             return state.currSong
         },
-<<<<<<< HEAD
         labelsMap(state) {
             return state.labelsMap
-=======
+        },
         getLastPlayingTime(state) {
             return state.lastPlayingTime
->>>>>>> ce75f57c13ee275a14df04c4a6e0cb37f120ae8b
         }
     },
     mutations: {
@@ -53,16 +48,9 @@ export const stationStore = {
         setIsPlaying(state, isPlaying) {
             state.isPlaying = isPlaying
         },
-<<<<<<< HEAD
-        setCurrSong(state, songId) {
-            if (!state.currStation) return
-            const song = state.currStation.songs.find(song => song.embedId === songId);
-=======
         setCurrSong(state, song){
-            if(!state.currStation) return
-            // const song = state.currStation.songs.find(song => song.embedId === songId);
->>>>>>> ce75f57c13ee275a14df04c4a6e0cb37f120ae8b
-            state.currSong = song
+            if(!state.currStation) return;
+            state.currSong = song;
         },
         addStation(state, { station }) {
             state.stations.push(station);
