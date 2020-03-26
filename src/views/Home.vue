@@ -10,7 +10,7 @@
     </header>
     <main>
       <station-slider :stations="stations"></station-slider>
-
+      <genre-cubes v-if="labelsMap" :labelsMap="labelsMap"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
@@ -36,20 +36,25 @@
 </template>
 
 <script>
-import stationSlider from '@/cmps/station-slider.cmp';
-import mainFooter from '@/cmps/main-footer.cmp';
-import scrollDownArrow from '@/cmps/icons/scroll-down-arrow.cmp';
+import stationSlider from "@/cmps/station-slider.cmp";
+import mainFooter from "@/cmps/main-footer.cmp";
+import scrollDownArrow from "@/cmps/icons/scroll-down-arrow.cmp";
+import genreCubes from "@/cmps/genre-cubes.cmp";
 
 export default {
   computed: {
     stations() {
       return this.$store.getters.stations;
+    },
+    labelsMap() {
+      return this.$store.getters.labelsMap;
     }
   },
   components: {
     scrollDownArrow,
     stationSlider,
-    mainFooter
+    mainFooter,
+    genreCubes
   }
 };
 </script>

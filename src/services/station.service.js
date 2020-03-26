@@ -9,7 +9,8 @@ export const stationService = {
     getById,
     getNewStation,
     save,
-    remove
+    remove,
+    getLabelsMap
 }
 
 function query(creterea) {
@@ -53,6 +54,12 @@ function getEmptyCritirea() {
 
     }
 }
+
+function getLabelsMap(){
+    return httpService.get(`station/labels`);
+}
+
+
 function _saveStationIdLocaly(station) {
     if (!station.owner) {
         let guestStationIds = storageService.load(STATION_KEY);

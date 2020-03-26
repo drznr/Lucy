@@ -17,6 +17,9 @@ export default {
     this.$store.dispatch({
       type: "loadStations"
     });
+    this.$store.dispatch({
+      type: "getLabelsMap"
+    });
   },
    components: {
      mainNavbar,
