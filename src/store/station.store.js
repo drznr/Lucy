@@ -63,9 +63,9 @@ export const stationStore = {
         }
     },
     actions: {
-        async loadStations(context) { ///// get critirea from state later
+        async loadStations(context, { filterBy }) {  
             context.commit({ type: 'setInProgress', inProgress: true })
-            const stations = await stationService.query({});
+            const stations = await stationService.query(filterBy);
             context.commit('setStations', stations);
             context.commit({ type: 'setInProgress', inProgress: false })
         },

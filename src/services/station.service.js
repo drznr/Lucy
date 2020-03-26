@@ -10,11 +10,12 @@ export const stationService = {
     getNewStation,
     save,
     remove,
-    getLabelsMap
+    getLabelsMap,
+    getEmptyCritirea
 }
 
-function query(creterea) {
-    const params = new URLSearchParams(creterea);
+function query(critirea) {      
+    const params = new URLSearchParams(critirea); 
     return httpService.get(`station?${params}`);
 }
 function getById(id) {
@@ -23,7 +24,7 @@ function getById(id) {
 function remove(id) {
     return httpService.delete(`station/${id}`);
 }
-async function save(station) {  /////  add owner from session and createdAt also in server
+async function save(station) {  /////  add owner from session in server
     let prm;
     if (station._id) prm = httpService.put(`station/${station._id}`, station);
     else {
@@ -51,7 +52,10 @@ function getNewStation() {
 }
 function getEmptyCritirea() {
     return {
-
+        txt: '',
+        searchIn: '',
+        page: '',
+        sortBy: ''
     }
 }
 

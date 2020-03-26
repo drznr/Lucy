@@ -4,6 +4,10 @@
     padding: rem(80px) 0 rem(20px) 0;
     overflow-y: hidden;
     
+    h2 {
+        padding-top: 10px;
+        border-top: 1px solid $clr-black;
+    }
     &-container {
         display: grid;
         padding: 0 rem(20px);

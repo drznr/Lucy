@@ -16,8 +16,8 @@
       placeholder="Search in stations..."
     />
     <select
-      v-model="sortBy"
-      @change="emitSort"
+      v-model="filterBy.sortBy"
+      @change="emitFilter"
       class="station-filter-select-sort"
     >
       <option value="">Sort by</option>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { stationService } from '@/services/station.service';
+
 export default {
   props: {
     initialFilterBy: {
@@ -36,16 +38,12 @@ export default {
   },
   data() {
     return {
-      filterBy: { txt: "", searchIn: "", page: "" },
-      sortBy: ""
+      filterBy: stationService.getEmptyCritirea()
     };
   },
   methods: {
     emitFilter() {
       this.$emit("emitingFilter", JSON.parse(JSON.stringify(this.filterBy)));
-    },
-    emitSort() {
-      this.$emit("emitingSort", JSON.parse(JSON.stringify(this.sortBy)));
     },
     setInitalFilter() {
       // so that the page opens on the chosen filter
