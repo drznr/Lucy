@@ -5,10 +5,11 @@
                 <aside class="login-modal">
                     <h2 class="login-modal-header">Login</h2>
                     <form @submit.prevent="doLogin">
-                            <input type="text" placeholder="Username" class="login-modal-inp form-inp" v-model="credentials.username" />
+                            <input type="text" placeholder="Username" class="login-modal-inp form-inp" v-model="credentials.username" @input="clearMsg" />
                             <label>Username</label>
-                            <input type="password" placeholder="Password" class="login-modal-inp form-inp" v-model="credentials.password" />
+                            <input type="password" placeholder="Password" class="login-modal-inp form-inp" v-model="credentials.password" @input="clearMsg" />
                             <label>Password</label>
+                            <p class="login-modal-msg" :class="{active: msgActive}">Please enter username and password</p>
                         <button class="btn">Login</button>
                     </form>
                 </aside>
@@ -26,16 +27,26 @@ export default {
     data() {
         return {
             isActive: false,
-            credentials: userService.getEmptyLoginCredentials()
+            credentials: userService.getEmptyLoginCredentials(),
+            msgActive: false
         }
     },
     methods: {
         doLogin() {
-            debugger
+            if(!this.credentials.username || !this.credentials.password) return this.msgActive = true;
+            this.$store.dispatch({
+                type: 'login',
+                credentials: JSON.parse(JSON.stringify(this.credentials))
+            });
+            this.closeLogin();
         },
         closeLogin() {
             this.isActive = false;
+            this.msgActive = false;
             this.credentials = userService.getEmptyLoginCredentials();
+        },
+        clearMsg() {
+            this.msgActive = false;
         }
     },
     created() {
