@@ -46,7 +46,6 @@ export const stationStore = {
         },
         setCurrSong(state, song){
             if(!state.currStation) return
-            // const song = state.currStation.songs.find(song => song.embedId === songId);
             state.currSong = song
         },
         addStation(state, { station }) {

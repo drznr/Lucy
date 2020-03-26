@@ -19,7 +19,7 @@
       <button @click.prevent="emitSwitchSong(1)">
         <img src="@/assets/imgs/icons/next.png" alt="next song" title="Next song" />
       </button>
-    </div>
+    </div> 
     <div class="youtube-iframe-claps-container">
       <button class="youtube-iframe-claps-container-btn btn-link" @click="emitUpdateRate">
         <img src="../assets/imgs/icons/claps.svg" />
