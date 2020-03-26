@@ -105,7 +105,7 @@ export default {
       const station = await this.$store.dispatch({
         type: "loadStation",
         stationId
-      });  
+      }); 
       this.station = JSON.parse(JSON.stringify(station));   
       this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
       if (!this.station._id) eventBusService.$emit('station-opened');   
@@ -126,8 +126,8 @@ export default {
       this.station = updatedStation;
       this.updateStation();
     },
-    setPlaylist(val) {
-      this.station.songs = JSON.parse(JSON.stringify(val));
+    setPlaylist(val) {   
+      this.station.songs = JSON.parse(JSON.stringify(val)); 
       this.updateStation();
     },
     addSong(song) {
@@ -153,6 +153,7 @@ export default {
       this.updateStation();
     }
   },
+
   created() {
     const stationId = this.$route.params.id;
     this.loadStation(stationId); 
