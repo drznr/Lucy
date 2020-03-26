@@ -38,13 +38,11 @@ export default {
       return (this.station.owner && this.station.owner.avatar) ? this.station.owner.avatar : require('@/assets/imgs/account.svg');
     }
   },
-  methods: {
+  methods: { 
     sendSongsList() {
-        const playlist = this.station.songs.map(song => song.embedId);
-        const readyPlaylist = { playlist, miniStation: { title: this.station.title, imgUrl: this.station.imgUrl}}
-        eventBusService.$emit('NEW_PLAYLIST', readyPlaylist)
+        // eventBusService.$emit('NEW_PLAYLIST', this.station)
         eventBusService.$emit('UPDATE_CURR_STATION', this.station)
-    },
+    }, 
     stationDetails() {
       this.$router.push(`/station/${this.station._id}`);
     }

@@ -8,14 +8,15 @@ export const stationStore = {
         stations: [],
         currStation: null,
         isPlaying: false,
-        currSong: null
+        currSong: null,
+        lastPlayingTime: null
     },
     getters: {
         stations(state) {
             return state.stations;
         },
         currStation(state) {
-            return state.setCurrStation;
+            return state.currStation;
         },
         isPlaying(state){
             return state.isPlaying;
@@ -25,9 +26,15 @@ export const stationStore = {
         },
         currSong(state) {
             return state.currSong
+        },
+        getLastPlayingTime(state) {
+            return state.lastPlayingTime
         }
     },
     mutations: {
+        setNewTime(state, lastPlayingTime) {
+            state.lastPlayingTime = lastPlayingTime
+        },
         setStations(state, stations) {
             state.stations = stations;
         },
@@ -37,9 +44,9 @@ export const stationStore = {
         setIsPlaying(state, isPlaying){
             state.isPlaying = isPlaying
         },
-        setCurrSong(state, songId){
+        setCurrSong(state, song){
             if(!state.currStation) return
-            const song = state.currStation.songs.find(song => song.embedId === songId);
+            // const song = state.currStation.songs.find(song => song.embedId === songId);
             state.currSong = song
         },
         addStation(state, { station }) {
