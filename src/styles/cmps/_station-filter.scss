@@ -1,47 +1,54 @@
 
 .station-filter {
+    grid-row: 5 / 6;
+    grid-column: 2 / 5;
     display: flex;
-    
+    justify-content: center;
+
     @media (max-width: $break-narrow){
         flex-wrap: wrap;
     }
-
-    &-search-select {
-        width: 25%;
-        border: none;
-        cursor: pointer;
-        font-family: baloo, sans-serif;
-        font-size: 1rem;
-        border-radius: 5px 0 0 5px;
-
-        @media (max-width: $break-narrow){
-            width: 50%;
-            border-radius: 5px 0 0 0;
-        }
+    @media (max-width: $break-normal){
+        grid-column: 1 / -1;
+        margin-left: 20px;
+        margin-right: 20px;
     }
+    &-select {
 
-    &-sort-select {
-        width: 20%;
-        border: none;
-        cursor: pointer;
-        font-family: baloo, sans-serif;
-        font-size: 1rem;
-        border-radius: 0 5px 5px 0;
-
-        @media (max-width: $break-narrow){
-            width: 50%;
-            border-radius: 0 5px 0 0;
+        &-search {
+            width: 20%;
+            border-radius: 5px 0 0 5px;
+            border: none;
+            cursor: pointer;
+            @media (max-width: $break-narrow){
+                border-radius: 5px 0 0 0;
+                width: 50%;
+            }
+        }
+        &-sort {
+            width: 20%;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            border: none;
+            @media (max-width: $break-narrow){
+                border-radius: 0 5px 0 0;
+                width: 50%;
+            }
         }
     }
     
-    input[type=text] {
+    [type=text] {
         border: none;
-        width: 55%;
-        padding: 7px;
+        width: 60%;
+        padding: rem(5px) rem(10px);
+        border-left: 1px solid $clr-black;
+        border-right: 1px solid $clr-black;
 
         @media (max-width: $break-narrow){
             order: 1;
             width: 100%;
+            border: none;
+            border-top: 1px solid $clr-black;
             border-radius: 0 0 5px 5px;
         }
     }

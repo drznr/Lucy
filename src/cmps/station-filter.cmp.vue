@@ -3,10 +3,9 @@
     <select
       v-model="filterBy.searchIn"
       @change="emitFilter"
-      class="station-filter-search-select select-arrow"
-      name="seachBy"
+      class="station-filter-select-search"
     >
-      <option value="all">Search by</option>
+      <option value="">Search by</option>
       <option value="genres">Genres</option>
       <option value="titles">Titles</option>
     </select>
@@ -17,12 +16,11 @@
       placeholder="Search in stations..."
     />
     <select
-      v-model="sortBy"
-      @change="emitSort"
-      class="station-filter-sort-select select-arrow"
-      name="sortBy"
+      v-model="filterBy.sortBy"
+      @change="emitFilter"
+      class="station-filter-select-sort"
     >
-      <option value="title">Sort by</option>
+      <option value="">Sort by</option>
       <option value="title">Title</option>
       <option value="date">Date</option>
     </select>
@@ -30,6 +28,8 @@
 </template>
 
 <script>
+import { stationService } from '@/services/station.service';
+
 export default {
   props: {
     initialFilterBy: {
@@ -38,16 +38,12 @@ export default {
   },
   data() {
     return {
-      filterBy: { txt: "", searchIn: "all", page: "" },
-      sortBy: "title"
+      filterBy: stationService.getEmptyCritirea()
     };
   },
   methods: {
     emitFilter() {
       this.$emit("emitingFilter", JSON.parse(JSON.stringify(this.filterBy)));
-    },
-    emitSort() {
-      this.$emit("emitingSort", JSON.parse(JSON.stringify(this.sortBy)));
     },
     setInitalFilter() {
       // so that the page opens on the chosen filter

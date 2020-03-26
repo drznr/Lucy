@@ -62,17 +62,22 @@ export const stationStore = {
         }
     }, 
     actions: {
-        async loadStations(context) { ///// get critirea from state later
+        async loadStations(context, { filterBy }) {  
             context.commit({ type: 'setInProgress', inProgress: true })
-            const stations = await stationService.query({});
+            const stations = await stationService.query(filterBy);
             context.commit('setStations', stations);
             context.commit({ type: 'setInProgress', inProgress: false })
         },
         async loadStation(context, { stationId }) {
-            context.commit({ type: 'setInProgress', inProgress: true })
-            let station = await stationService.getById(stationId) || stationService.getNewStation();
-            context.commit('setCurrStation', station);
-            context.commit({ type: 'setInProgress', inProgress: false })
+            let station;
+            if (stationId === 'new') {
+                station = stationService.getNewStation();
+            } else {
+                context.commit({ type: 'setInProgress', inProgress: true });
+                station = await stationService.getById(stationId);
+                context.commit('setCurrStation', station);
+                context.commit({ type: 'setInProgress', inProgress: false });
+            }
             return station;
         },
         async addStation(context, { station }) {

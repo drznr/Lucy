@@ -37,6 +37,12 @@ button {
         outline: none;
     }
 }
+select {
+    color: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    font-size: inherit;
+}
 input {
     font-size: inherit;
     color: inherit;

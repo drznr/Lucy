@@ -174,9 +174,7 @@ export default {
       if (ev === 3) {
         this.isBuffering = true // Buffering
         this.isPlaying = false;
-      }
-      console.log(this.isBuffering);
-      
+      }      
     },
     async setTimeElapsed() {
       // this function runs the digital clock

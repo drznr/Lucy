@@ -4,7 +4,6 @@
       <loader-small v-if="elPlayer"></loader-small>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
-    <h2>{{ videoTitle }}</h2>
     <div class="youtube-iframe-controller">
       <button @click.prevent="emitSwitchSong(-1)">
         <img src="@/assets/imgs/icons/prev.png" alt="previous song" title="Previous song" />
@@ -51,11 +50,6 @@ export default {
         controls: 0
       }
     };
-  },
-  computed: {
-    videoTitle() {
-      return (this.currSong) ? this.currSong.title.trim(): '';
-    }
   },
   methods: {
     setPlayer() {
