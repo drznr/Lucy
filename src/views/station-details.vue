@@ -35,6 +35,7 @@
           @station-updated="setStation"
           @station-removed="removeStation"
           @clear-chat="clearChat"
+          @chat-destroyed="saveChatHistory"
         ></router-view>
       </aside>
     </div>
@@ -73,14 +74,15 @@ export default {
         case "chat-room": 
             return {
               station: this.station,
-              loggedInUser: this.loggedInUser
+              loggedInUser: this.loggedInUser,
+              isStationOwner: this.isStationOwner
             }
           break;
         default:
           break;
       }
     },
-    loggedInUser() {
+    loggedInUser() {  
       return this.$store.getters.loggedUser;    
     }
   },
@@ -93,11 +95,8 @@ export default {
           this.currSong = JSON.parse(JSON.stringify(this.station.songs[0]));
       }
     },
-    'station.chatHistory'() {
-      this.$store.dispatch({
-        type: "updateStation",
-        station: JSON.parse(JSON.stringify(this.station))
-      });
+    'loggedInUser'() {
+      this.isStationOwner = (this.loggedInUser && this.station.owner._id === this.loggedInUser._id);
     }
   },
   methods: {
@@ -121,6 +120,12 @@ export default {
         station: JSON.parse(JSON.stringify(this.station))
       });
       this.station = JSON.parse(JSON.stringify(savedStation));
+    },
+    saveChatHistory() {
+      this.$store.dispatch({
+        type: 'saveStaionChat',
+        history: JSON.parse(JSON.stringify(this.station.chatHistory))
+        });
     },
     setStation(updatedStation) {
       this.station = updatedStation;

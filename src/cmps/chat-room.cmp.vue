@@ -1,19 +1,19 @@
 <template>
     <section class="chat-room">
         <header>
-            Chat-room
+            Logged in as {{ msg.from }}
             <span v-if="someoneTyping">{{ someone }} is typing...</span>
         </header>
         <main>
             <ul class="chat" v-if="routesProps.station">
-                <li v-for="(msg, idx) in routesProps.station.chatHistory" :key="idx">
-                    {{ msg.txt }}
+                <li v-for="(msg, idx) in routesProps.station.chatHistory" :key="idx" class="chat-msg">
+                    <span>{{ msg.from }}:</span> {{ msg.txt }}
                 </li>
             </ul>
             <form @submit.prevent="sendMsg">
                 <input type="text" placeholder="Type here..." v-model="msg.txt" @input="emitTyping" @blur="emitStopTyping" />
                 <button>Send</button>
-                <button @click.prevent="clearChat">Clear chat</button>
+                <button v-if="routesProps.isStationOwner" @click.prevent="clearChat">Clear chat</button>
             </form>
         </main>
     </section>
@@ -69,6 +69,7 @@ export default {
     },
     destroyed() {
         socketService.terminate();
+        this.$emit('chat-destroyed')
     }
 };
 </script>

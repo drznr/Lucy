@@ -2,8 +2,8 @@
   <section class="station-app-player">
 
     <section class="station-app-player-now-playing">
-      <img class="station-app-player-now-playing-img" v-if="currStation" :src="this.currStation.imgUrl"/>
-      <p v-if="currStation">{{currStation.title}}</p>
+      <img class="station-app-player-now-playing-img" v-if="currStation" :src="currStation.imgUrl" />
+      <p class="station-app-player-title" v-if="currStation">{{currStation.title}}</p>
       <p v-if="currSong">{{currSong.title}}</p>
     </section>
 
@@ -219,7 +219,7 @@ export default {
     // this.isPlaying = false
     // this.setTimeElapsed()
   },
-  mounted() {
+  mounted() {  
     if(this.currStation) this.emitSongChange()
   },
   components: {

@@ -5,9 +5,13 @@
       <station-filter @emitingFilter="setFilter" class="station-app-header-filter-cmp"></station-filter>
     </header>
     <div class="container">
-      <h2 class="station-app-list-title">Browse {{chosenLable}} Stations!</h2>
+      <h2 class="station-app-list-title">Browse Stations!</h2>
       <loader v-if="inProgress"></loader>
-      <station-list :stations="stations"></station-list>
+      <span>
+        <station-list :stations="stations"></station-list>
+        <h2 v-if="userStations.length" class="station-app-list-title">My Stations!</h2>
+        <station-slider v-if="userStations.length" :stations="userStations"></station-slider>
+      </span>
     </div>
 
 <!-- Controler and Player -->
@@ -36,6 +40,7 @@
 import stationList from "../cmps/station-list.cmp";
 import stationFilter from "../cmps/station-filter.cmp";
 import stationAppPlayer from "@/cmps/station-app-player.cmp";
+import stationSlider from "@/cmps/station-slider.cmp";
 import loader from "../cmps/icons/loader.cmp";
 import { eventBusService } from "@/services/event-bus.service";
 
@@ -56,14 +61,25 @@ export default {
     currStation() {
       return this.$store.getters.currStation;
     },
-    chosenLable() {
-      return "All"; 
-    },
     inProgress() {
       return this.$store.getters.inProgress;
     },
     currSong(){
       return this.$store.getters.currSong;
+    },
+    loggedInUser() {
+      return this.$store.getters.loggedUser;
+    },
+    userStations() {
+      if (this.loggedInUser) return this.$store.getters.stations.filter(station => station.owner && station.owner._id === this.loggedInUser._id);
+      else {
+        const stationIds = this.$store.getters.LocalOwnerStationIds;
+        return stationIds.reduce((acc, id) => {
+            const ownStation = this.$store.getters.stations.find(station => station._id === id);  
+            if (ownStation) acc.push(ownStation);
+            return acc;
+        }, []); 
+      };
     }
   },
   methods: {
@@ -104,6 +120,7 @@ export default {
     stationList,
     stationAppPlayer,
     stationFilter,
+    stationSlider,
     loader
   }
 };

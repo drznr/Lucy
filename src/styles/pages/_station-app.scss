@@ -4,7 +4,7 @@
     min-height: 100vh;
     
     &-header {
-        height: 35vh;
+        height: rem(350px);
         background-image: url('../assets/imgs/app-bg-default.jpg');
         background-color: $clr3;
         background-blend-mode: soft-light; 
@@ -55,7 +55,8 @@
     &-list {
 
         &-title{
-            text-align: center;
+            text-align: left;
+            font-size: rem(24px);
             text-transform: uppercase;
         }
     }

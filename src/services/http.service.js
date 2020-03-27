@@ -31,7 +31,7 @@ async function ajax(endpoint, method = 'get', data = null) {
             data
         })
         return res.data;
-    } catch (err) {
+    } catch (err) {                 
         switch (err.response.status) {
             case 401:
                 console.log(err); //////////////////////////////// < handle error

@@ -1,7 +1,7 @@
 <template>
   <section class="station-preview">
     <div @click.self="stationDetails" :style="setBgi" class="station-preview-img ratio-square">
-      <button @click.stop="sendSongsList">
+      <button @click.stop="sendSongsList" v-if="station.songs.length">
         <play-btn class="play-btn"></play-btn>
       </button>
       <span class="station-preview-info">
