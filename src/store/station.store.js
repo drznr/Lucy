@@ -81,6 +81,7 @@ export const stationStore = {
             let station;
             if (stationId === 'new') {
                 station = stationService.getNewStation();
+                context.commit('setCurrStation', station);
             } else {
                 context.commit({ type: 'setInProgress', inProgress: true });
                 station = await stationService.getById(stationId);

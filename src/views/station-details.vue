@@ -50,7 +50,6 @@
           @songChanged="setCurrSong"
           @timeElapsed="sendNewTime"
         ></player-controller>
-
         <!-- ** WORKING ** -->
       
   </section>
