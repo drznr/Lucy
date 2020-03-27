@@ -161,7 +161,7 @@ export default {
         this.currSong = null
       }
 
-     if (!this.station._id) eventBusService.$emit('station-opened');   
+        
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       } else {
@@ -223,20 +223,22 @@ export default {
       });
     },
   created() {
-    const stationId = this.$route.params.id;
-    this.loadStation(stationId);
-    eventBusService.$on('create-station', async ({ type, title }) => {
-      console.log('in bus on', this.station);
-      this.station.type = type;
-      this.station.title = title;
-      const newStation = await this.$store.dispatch({
-        type: "addStation",
-        station: JSON.parse(JSON.stringify(this.station))
+    const stationId = this.$route.params.id; 
+    if (stationId === 'new') {    
+      eventBusService.$emit('station-opened');       
+      this.station = stationService.getNewStation();                   
+      eventBusService.$on('create-station', async ({ type, title }) => {  
+        this.station.type = type;
+        this.station.title = title;
+        const newStation = await this.$store.dispatch({
+          type: "addStation",
+          station: JSON.parse(JSON.stringify(this.station))
+        });
+        this.$router.push("/station/" + newStation._id);
+        this.isStationOwner = true;
+        this.loadStation(newStation._id);
       });
-      this.$router.push("/station/" + newStation._id);
-      this.isStationOwner = true;
-      this.loadStation(newStation._id);
-    });
+    } else this.loadStation(stationId); 
     eventBusService.$on("updateRate", this.updateRate);
   },
   components: {
