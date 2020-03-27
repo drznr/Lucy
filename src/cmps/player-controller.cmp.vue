@@ -218,7 +218,7 @@ export default {
     }
   },
   destroyed() {
-    this.updateTimeElapsed()
+    if (this.currSong) this.updateTimeElapsed()
 
     // clearing the interval
     // this.isPlaying = false
