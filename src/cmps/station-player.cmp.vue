@@ -4,7 +4,6 @@
         :currSong="currSong" 
         :stationRate="stationRate" 
         :isPlaylistEmpty="isPlaylistEmpty"
-        @switch-song="switchSong"
         ></youtube-iframe>
       <div class="station-player-playlist">
         <ul>
@@ -69,16 +68,16 @@ export default {
     playSong(song) {
       this.$emit('switched-song', song);
     },
-    switchSong(data) { 
-      if (data.diff === -1) { 
-        data.idx--;
-        data.idx = (data.idx < 0) ? (this.station.songs.length - 1) : data.idx;
-      } else {
-        data.idx++;
-        data.idx = (data.idx === this.station.songs.length) ? 0 : data.idx;
-      };
-      this.$emit('switched-song', {embedId: this.station.songs[data.idx].embedId, idx: data.idx, title: this.station.songs[data.idx].title});
-    }
+    // switchSong(data) { 
+    //   if (data.diff === -1) { 
+    //     data.idx--;
+    //     data.idx = (data.idx < 0) ? (this.station.songs.length - 1) : data.idx;
+    //   } else {
+    //     data.idx++;
+    //     data.idx = (data.idx === this.station.songs.length) ? 0 : data.idx;
+    //   };
+    //   this.$emit('switched-song', {embedId: this.station.songs[data.idx].embedId, idx: data.idx, title: this.station.songs[data.idx].title});
+    // }
   },
   components: {
     youtubeIframe,

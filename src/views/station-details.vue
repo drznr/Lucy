@@ -11,7 +11,6 @@
         @song-removed="removeSong"
         @switched-song="setCurrSong"
       ></station-player>
-
       <aside class="station-details-side-window">
         <nav>
           <router-link
@@ -28,16 +27,31 @@
             :to="'/station/' + station._id + '/settings'"
           >Edit</router-link>
         </nav>
-        <router-view
+        <!-- <router-view
           @add-song="addSong"
           :routesProps="routesProps"
           class="station-details-side-window-content"
           @station-updated="setStation"
           @station-removed="removeStation"
           @clear-chat="clearChat"
-        ></router-view>
+        ></router-view> -->
       </aside>
     </div>
+    
+        <!-- ** WORKING ** -->
+        <player-controller v-if="station"
+          class="player-controller"
+          :elPlayer="elPlayer"
+          :currStation="station"
+          :currSong="currSong"
+          :playerEv="playerEvNum"
+          @playingStatusChanged="updatePlayigStatus"
+          @songChanged="setCurrSong"
+          @timeElapsed="sendNewTime"
+        ></player-controller>
+
+        <!-- ** WORKING ** -->
+      
   </section>
 </template>
 
@@ -46,6 +60,7 @@ import { stationService } from "@/services/station.service";
 import { eventBusService } from "@/services/event-bus.service";
 import stationPlayer from "@/cmps/station-player.cmp";
 import { socketService } from "@/services/socket.service";
+import playerController from "@/cmps/player-controller.cmp";
 
 export default {
   data() {
@@ -53,7 +68,12 @@ export default {
       station: null,
       isStationOwner: false,
       currSong: null,
-      isPlaylistEmpty: true
+      isPlaylistEmpty: true,
+      playerEvNum: -1,
+      elPlayer: null,
+      // playerVars: {
+      //   // TODO: make video quality lowest for faster loading time
+      // }
     };
   },
   computed: {
@@ -82,7 +102,10 @@ export default {
     },
     loggedInUser() {
       return this.$store.getters.loggedUser;    
-    }
+    },
+    // getLastPlayingTime(){
+    //   return this.$store.getters.getLastPlayingTime
+    // }
   },
   watch: {
     "station.songs"() {
@@ -101,14 +124,46 @@ export default {
     }
   },
   methods: {
+    // <!-- Controler and Player Functions -->
+
+    // setupYoutubePlayer() {
+    //   this.elPlayer = this.$refs.youtube.player;
+    //   this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
+    // },
+    // handleStateChange(ev) {
+    //   this.playerEvNum = ev.data
+    // },
+    updatePlayigStatus(bool) {
+      this.$store.commit("setIsPlaying", bool);
+    },
+    sendNewTime(timeObj){
+      this.$store.commit("setNewTime", timeObj);
+    },
+
+    // <!-- Controler and Player Functions -->
     async loadStation(stationId) {
       const station = await this.$store.dispatch({
         type: "loadStation",
         stationId
       }); 
-      this.station = JSON.parse(JSON.stringify(station));   
-      this.currSong = (this.station.songs && this.station.songs.length) ? {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title} : null;
-      if (!this.station._id) eventBusService.$emit('station-opened');   
+      this.station = JSON.parse(JSON.stringify(station));
+      if (this.station.songs && this.station.songs.length) {
+        var distroydeVideoInfo = this.$store.getters.getLastPlayingTime
+        if (distroydeVideoInfo) {
+          if (distroydeVideoInfo.inStation === this.station._id) {
+            // eventBusService.$emit('STARTING_POINT', distroydeVideoInfo.timeElapsed) need to get starting time
+            this.currSong = this.station.songs.find(song => song.embedId === distroydeVideoInfo.inSong)
+          } else {
+            this.currSong = {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title}
+          }
+        } else {
+          this.currSong = {embedId: this.station.songs[0].embedId, idx: 0, title: this.station.songs[0].title}
+        }
+      } else {
+        this.currSong = null
+      }
+
+     if (!this.station._id) eventBusService.$emit('station-opened');   
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       } else {
@@ -144,6 +199,7 @@ export default {
     },
     setCurrSong(song) {
       this.currSong = song;
+      this.$store.commit("setCurrSong", song);
     },
     removeStation(stationId) {
       this.$store.dispatch({ type: "removeStation", stationId });
@@ -153,7 +209,15 @@ export default {
       this.updateStation();
     }
   },
+  mounted() {
+    eventBusService.$on("SENDING_ELPLAYER", playerElement => { 
+        this.elPlayer = playerElement
+      });
 
+    eventBusService.$on("PLAYER_EVENT", playerEvent => { 
+        this.playerEvNum = playerEvent
+      });
+    },
   created() {
     const stationId = this.$route.params.id;
     this.loadStation(stationId); 
@@ -172,7 +236,8 @@ export default {
     eventBusService.$on("updateRate", this.updateRate);
   },
   components: {
-    stationPlayer
+    stationPlayer,
+    playerController
   }
 };
 </script>

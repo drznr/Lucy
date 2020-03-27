@@ -4,7 +4,7 @@
       <loader-small v-if="elPlayer"></loader-small>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
-    <div class="youtube-iframe-controller">
+    <!-- <div class="youtube-iframe-controller">
       <button @click.prevent="emitSwitchSong(-1)">
         <img src="@/assets/imgs/icons/prev.png" alt="previous song" title="Previous song" />
       </button>
@@ -19,7 +19,7 @@
       <button @click.prevent="emitSwitchSong(1)">
         <img src="@/assets/imgs/icons/next.png" alt="next song" title="Next song" />
       </button>
-    </div> 
+    </div>  -->
     <div class="youtube-iframe-claps-container">
       <button class="youtube-iframe-claps-container-btn btn-link" @click="emitUpdateRate">
         <img src="../assets/imgs/icons/claps.svg" />
@@ -43,6 +43,7 @@ export default {
   },
   data() {
     return {
+      playerEvNum: -1,
       elPlayer: null,
       isPlaying: false,
       playerVars: {
@@ -52,36 +53,45 @@ export default {
     };
   },
   methods: {
-    setPlayer() {
+    setupYoutubePlayer() {
       this.elPlayer = this.$refs.youtube.player;
+      this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
+      eventBusService.$emit('SENDING_ELPLAYER', this.elPlayer);
     },
-    togglePlaying() {
-      this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
+    handleStateChange(ev) {
+      this.playerEvNum = ev.data
+       eventBusService.$emit('PLAYER_EVENT', this.playerEvNum);
     },
-    emitSwitchSong(diff) {
-      this.$emit("switch-song", { idx: this.currSong.idx, diff });
-    },
+    // setPlayer() {
+    //   this.elPlayer = this.$refs.youtube.player;
+    // },
+    // togglePlaying() {
+    //   this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
+    // },
+    // emitSwitchSong(diff) {
+    //   this.$emit("switch-song", { idx: this.currSong.idx, diff });
+    // },
     emitUpdateRate() {
       eventBusService.$emit('updateRate');
     },
-    handleStateChange(ev) {
-      switch (ev.data) {
-        case -1:
-          this.isPlaying = false; // (unstarted)
-          break;
-        case 0:
-          this.emitSwitchSong(1); /// End of song
-          break;
-        case 1:
-          this.isPlaying = true; //play
-          break;
-        case 2:
-          this.isPlaying = false; //paused
-          break;
-        default:
-          break;
-      }
-    }
+    // handleStateChange(ev) {
+    //   switch (ev.data) {
+    //     case -1:
+    //       this.isPlaying = false; // (unstarted)
+    //       break;
+    //     case 0:
+    //       this.emitSwitchSong(1); /// End of song
+    //       break;
+    //     case 1:
+    //       this.isPlaying = true; //play
+    //       break;
+    //     case 2:
+    //       this.isPlaying = false; //paused
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }
   },
   watch: {
     currSong() {
@@ -97,9 +107,9 @@ export default {
     });
   },
   mounted() {
-    this.setPlayer();
-    if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
-    this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
+    this.setupYoutubePlayer();
+    // if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+    // this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
   },
   components: {
     loaderSmall
