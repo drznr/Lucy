@@ -36,6 +36,8 @@ export default {
         emitInfo() {
             eventBusService.$emit('create-station', JSON.parse(JSON.stringify(this.stationInfo)));
             this.isActive = false;
+            this.stationInfo.title = '';
+            this.stationInfo.type = 'playlist';
         }
     },
     created() {

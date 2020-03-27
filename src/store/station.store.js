@@ -89,7 +89,7 @@ export const stationStore = {
             }
             return station;
         },
-        async addStation(context, { station }) {
+        async addStation(context, { station }) {  
             const addedStation = await stationService.save(station);
             context.commit({ type: 'addStation', station: addedStation });
             return addedStation;

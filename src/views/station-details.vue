@@ -177,10 +177,10 @@ export default {
       this.station = JSON.parse(JSON.stringify(savedStation));
     },
     saveChatHistory() {
-      this.$store.dispatch({
-        type: 'saveStaionChat',
-        history: JSON.parse(JSON.stringify(this.station.chatHistory))
-        });
+      // this.$store.dispatch({
+      //   type: 'saveStaionChat',
+      //   history: JSON.parse(JSON.stringify(this.station.chatHistory))
+      //   });
     },
     setStation(updatedStation) {
       this.station = updatedStation;
@@ -225,11 +225,10 @@ export default {
     },
   created() {
     const stationId = this.$route.params.id;
-    this.loadStation(stationId); 
+    this.loadStation(stationId);                                  
     eventBusService.$on('create-station', async ({ type, title }) => {
       this.station.type = type;
       this.station.title = title;
-
       const newStation = await this.$store.dispatch({
         type: "addStation",
         station: JSON.parse(JSON.stringify(this.station))
