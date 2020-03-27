@@ -10,6 +10,7 @@
     </header>
     <main ref="homeContent">
       <station-slider v-if="stationsForDisplay.length" :stations="stationsForDisplay"></station-slider>
+      <genre-cubes v-if="stations.length" :stations="stations"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
@@ -26,7 +27,6 @@
             <p>Get on Lucy to share your sounds, and grow your audience. What are you waiting for?</p>
             <router-link to="/station/new" class="home-teaser-teaser-txt-btn">Share your own</router-link>
           </div>
-          <img src="@/assets/imgs/chapman.jpg" alt="artist" class="home-teaser-teaser-img" />
         </div>
       </article>
     </main>
