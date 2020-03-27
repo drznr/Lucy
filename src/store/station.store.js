@@ -43,7 +43,7 @@ export const stationStore = {
             state.stations = stations;
         },
         setCurrStation(state, station) {
-            state.currStation = JSON.parse(JSON.stringify(station));
+            state.currStation = station;
         },
         setIsPlaying(state, isPlaying) {
             state.isPlaying = isPlaying
@@ -52,7 +52,7 @@ export const stationStore = {
             if(!state.currStation) return
             state.currSong = song
         },
-        addStation(state, { station }) {
+        addStation(state, { station }) { 
             state.stations.push(station);
         },
         updateStation(state, { station }) {
