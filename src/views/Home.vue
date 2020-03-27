@@ -47,6 +47,9 @@ export default {
     stationsForDisplay() {
       return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort('rate'));
     },
+    stations(){
+      return this.$store.getters.stations
+    }
   },
   components: {
     scrollDownArrow,
