@@ -3,8 +3,8 @@
 
     <section class="player-controller-now-playing">
       <img class="player-controller-now-playing-img" v-if="currStation" :src="this.currStation.imgUrl"/>
-      <p v-if="currStation">{{currStation.title}}</p>
-      <p v-if="currSong">{{currSong.title}}</p>
+      <p v-if="currStation" class="player-controller-title">{{currStation.title}}</p>
+      <p v-if="currSong" class="player-controller-song">{{currSong.title}}</p>
     </section>
 
     <div class="player-controller-controler">  

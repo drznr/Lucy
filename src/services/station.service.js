@@ -23,7 +23,7 @@ function getById(id) {
 function remove(id) {
     return httpService.delete(`station/${id}`);
 }
-async function save(station) {  /////  add owner from session in server
+async function save(station) {                             
     let prm;
     if (station._id) prm = httpService.put(`station/${station._id}`, station);
     else {

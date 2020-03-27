@@ -27,6 +27,22 @@
     &-title {
         text-transform: uppercase;
     }
+    &-song {
+        width: 5ch;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        
+        @include for-moblie-layout {
+            width: 16ch;
+        }
+        @include for-narrow-layout {
+            width: 24ch;
+        }
+        @include for-normal-layout {
+            width: 32ch;
+        }
+    }
     &-controler {
         border-radius: 25px;
         max-width: 1060px;
