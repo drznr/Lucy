@@ -10,7 +10,7 @@
     </header>
     <main>
       <station-slider :stations="stations"></station-slider>
-      <genre-cubes v-if="stations" :stations="stations"></genre-cubes>
+      <genre-cubes v-if="stations.length" :stations="stations"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>

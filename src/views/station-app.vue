@@ -10,25 +10,26 @@
       <station-list :stations="stations"></station-list>
     </div>
 
-<!-- Controler and Player -->
+    <!-- Controler and Player -->
     <div class="station-app-youtube">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
 
-<!-- TODO upgrade fade into slide up with fade (?) -->
-<transition name="fade">
-    <station-app-player v-if="currStation"
-      class="station-app-player"
-      :elPlayer="elPlayer"
-      :currStation="currStation"
-      :currSong="currSong"
-      :playerEv="playerEvNum"
-      @playingStatusChanged="updatePlayigStatus"
-      @songChanged="sendCurrSong"
-      @timeElapsed="sendNewTime"
-    ></station-app-player>
-</transition>
-<!-- Controler and Player -->
+    <!-- TODO upgrade fade into slide up with fade (?) -->
+    <transition name="fade">
+      <station-app-player
+        v-if="currStation"
+        class="station-app-player"
+        :elPlayer="elPlayer"
+        :currStation="currStation"
+        :currSong="currSong"
+        :playerEv="playerEvNum"
+        @playingStatusChanged="updatePlayigStatus"
+        @songChanged="sendCurrSong"
+        @timeElapsed="sendNewTime"
+      ></station-app-player>
+    </transition>
+    <!-- Controler and Player -->
   </section>
 </template>
  
@@ -57,12 +58,12 @@ export default {
       return this.$store.getters.currStation;
     },
     chosenLable() {
-      return "All"; 
+      return "All";
     },
     inProgress() {
       return this.$store.getters.inProgress;
     },
-    currSong(){
+    currSong() {
       return this.$store.getters.currSong;
     }
   },
@@ -74,30 +75,30 @@ export default {
       this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
     },
     handleStateChange(ev) {
-      this.playerEvNum = ev.data
+      this.playerEvNum = ev.data;
     },
     updatePlayigStatus(bool) {
       this.$store.commit("setIsPlaying", bool);
     },
-    sendNewTime(timeObj){
+    sendNewTime(timeObj) {
       this.$store.commit("setNewTime", timeObj);
     },
-    sendCurrSong(song) {      
+    sendCurrSong(song) {
       this.$store.commit("setCurrSong", song);
     },
     // <!-- Controler and Player Functions -->
-    setFilter(filterBy){
+    setFilter(filterBy) {
       this.$store.dispatch({
-        type: 'loadStations',
+        type: "loadStations",
         filterBy
       });
     }
   },
-  mounted(){
-    this.setupYoutubePlayer()
-    
+  mounted() {
+    this.setupYoutubePlayer();
+
     eventBusService.$on("UPDATE_CURR_STATION", currStation => {
-       this.$store.commit("setCurrStation", currStation)
+      this.$store.commit("setCurrStation", currStation);
     });
   },
   components: {
@@ -110,9 +111,7 @@ export default {
 </script> 
 
 <style scoped>
-
-.station-app-youtube{
+.station-app-youtube {
   display: none;
 }
-
 </style>
