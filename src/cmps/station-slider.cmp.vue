@@ -1,7 +1,7 @@
 <template>
   <section>
     <swiper :options="swiperOptions" class="swiper">
-      <swiper-slide v-for="station in stations" :key="station._id">
+      <swiper-slide v-for="(station, idx) in stations" :key="idx">
         <station-preview :station="station"></station-preview>
       </swiper-slide>
 
