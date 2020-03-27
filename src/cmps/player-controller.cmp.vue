@@ -1,19 +1,19 @@
 <template>
-  <section class="station-app-player">
+  <section class="player-controller">
 
-    <section class="station-app-player-now-playing">
-      <img class="station-app-player-now-playing-img" v-if="currStation" :src="currStation.imgUrl" />
-      <p class="station-app-player-title" v-if="currStation">{{currStation.title}}</p>
+    <section class="player-controller-now-playing">
+      <img class="player-controller-now-playing-img" v-if="currStation" :src="this.currStation.imgUrl"/>
+      <p v-if="currStation">{{currStation.title}}</p>
       <p v-if="currSong">{{currSong.title}}</p>
     </section>
 
-    <div class="station-app-player-controler"> 
-      <section class="station-app-player-controler-volume">
+    <div class="player-controller-controler">  
+      <section class="player-controller-controler-volume">
         <img
           src="../assets/imgs/icons/speaker.svg"
-          class="station-app-player-controler-volume-icon"
+          class="player-controller-controler-volume-icon"
         />
-        <div class="station-app-player-controler-volume-range-wrap">
+        <div class="player-controller-controler-volume-range-wrap">
           <input
             type="range"
             id="volume"
@@ -26,23 +26,23 @@
         </div>
       </section>
 
-      <section class="station-app-player-controler-btns">
+      <section class="player-controller-controler-btns">
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(-1)" />
-        <loader-small class="station-app-player-controler-btns-loader" v-if="isBuffering"></loader-small>
+        <loader-small class="player-controller-controler-btns-loader" v-if="isBuffering"></loader-small>
         <img v-else :src="playPause" @click.prevent="togglePlaying" />
         <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(1)" />
         <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
       </section>
 
-      <section class="station-app-player-controler-playback">
+      <section class="player-controller-controler-playback">
         <span
-          class="station-app-player-controler-playback-time-elapsed-digital"
+          class="player-controller-controler-playback-time-elapsed-digital"
         >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
-        <div class="station-app-player-controler-playback-timeline">
+        <div class="player-controller-controler-playback-timeline">
           <div
             :style="playbackTimelineStyle"
-            class="station-app-player-controler-playback-timeline-progress-bar"
+            class="player-controller-controler-playback-timeline-progress-bar"
           ></div>
         </div>
       </section>
@@ -74,6 +74,7 @@ export default {
     return {
       isBuffering: false,
       miniStation: null,
+      startingPoint: 0,
       // idx: 0,
       volume: 50,
       timeElapsed: 0,
@@ -136,7 +137,7 @@ export default {
       if(diff) {
         if (diff === -1) {
           idx--
-          idx = (idx < 0) ? this.currStation.songs.length : idx
+          idx = (idx < 0) ? (this.currStation.songs.length - 1) : idx
         } else {
           idx++;
           idx = (idx === this.currStation.songs.length) ? 0 : idx;
@@ -208,8 +209,12 @@ export default {
     currStation(){
       this.emitSongChange()
     },
-    currSong(){
+    currSong(){      
       this.elPlayer.loadVideoById(this.currSong.embedId);
+    },
+    elPlayer(){
+      // incase the song comes before the player
+      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
     }
   },
   destroyed() {

@@ -15,14 +15,14 @@
     </div>
 
 <!-- Controler and Player -->
-    <div class="station-app-youtube">
+    <div class="station-app-player">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
 
 <!-- TODO upgrade fade into slide up with fade (?) -->
 <transition name="fade">
-    <station-app-player v-if="currStation"
-      class="station-app-player"
+    <player-controller v-if="currStation"
+      class="player-controller"
       :elPlayer="elPlayer"
       :currStation="currStation"
       :currSong="currSong"
@@ -30,7 +30,7 @@
       @playingStatusChanged="updatePlayigStatus"
       @songChanged="sendCurrSong"
       @timeElapsed="sendNewTime"
-    ></station-app-player>
+    ></player-controller>
 </transition>
 <!-- Controler and Player -->
   </section>
@@ -39,8 +39,8 @@
 <script>
 import stationList from "../cmps/station-list.cmp";
 import stationFilter from "../cmps/station-filter.cmp";
-import stationAppPlayer from "@/cmps/station-app-player.cmp";
 import stationSlider from "@/cmps/station-slider.cmp";
+import playerController from "@/cmps/player-controller.cmp";
 import loader from "../cmps/icons/loader.cmp";
 import { eventBusService } from "@/services/event-bus.service";
 
@@ -118,7 +118,7 @@ export default {
   },
   components: {
     stationList,
-    stationAppPlayer,
+    playerController,
     stationFilter,
     stationSlider,
     loader
@@ -128,7 +128,7 @@ export default {
 
 <style scoped>
 
-.station-app-youtube{
+.station-app-player {
   display: none;
 }
 

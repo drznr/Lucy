@@ -1,4 +1,4 @@
-.station-app-player {
+.player-controller {
     background-color: $clr-black;
     color: $clr-white;
     position: fixed;
@@ -54,7 +54,7 @@
                 transition: filter .3s;
             }
 
-            &:hover .station-app-player-controler-volume-icon {
+            &:hover .player-controller-controler-volume-icon {
                 filter: invert(50%) sepia(30%) saturate(18%) hue-rotate(8deg) brightness(94%) contrast(87%);
             }
 
@@ -93,7 +93,7 @@
                 }
             }
 
-            &:hover .station-app-player-controler-volume-range-wrap{
+            &:hover .player-controller-controler-volume-range-wrap{
                 opacity: .9;
             }
         }
@@ -104,7 +104,7 @@
 
             @media (max-width: $break-mobile){
                 margin: 0 15px 8px 15px;
-            }
+            } 
 
             >*{
                 margin: 0 5px 0 5px;
