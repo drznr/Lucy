@@ -210,11 +210,15 @@ export default {
       if (newStation._id !== oldStation._id) this.emitSongChange()
     },
     currSong(){      
-      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+      if(this.currSong && this.elPlayer) {
+        this.elPlayer.loadVideoById(this.currSong.embedId);
+      }
     },
     elPlayer(){
       // incase the song comes before the player
-      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+      if(this.currSong) {
+        this.elPlayer.loadVideoById(this.currSong.embedId);
+      } 
     }
   },
   destroyed() {

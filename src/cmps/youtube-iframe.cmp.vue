@@ -4,22 +4,6 @@
       <loader-small v-if="elPlayer"></loader-small>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
-    <!-- <div class="youtube-iframe-controller">
-      <button @click.prevent="emitSwitchSong(-1)">
-        <img src="@/assets/imgs/icons/prev.png" alt="previous song" title="Previous song" />
-      </button>
-      <button @click.prevent="togglePlaying">
-        <img 
-            class="youtube-iframe-controller-play"
-            :src="(isPlaying) ? require('@/assets/imgs/icons/pause.png') : require('@/assets/imgs/icons/play.png')"  
-            :alt="(isPlaying) ? 'pause song' : 'play song'"
-            :title="(isPlaying) ? 'Pause song' : 'Play song'"
-        />
-      </button>
-      <button @click.prevent="emitSwitchSong(1)">
-        <img src="@/assets/imgs/icons/next.png" alt="next song" title="Next song" />
-      </button>
-    </div>  -->
     <div class="youtube-iframe-claps-container">
       <button class="youtube-iframe-claps-container-btn btn-link" @click="emitUpdateRate">
         <img src="../assets/imgs/icons/claps.svg" />
@@ -62,54 +46,27 @@ export default {
       this.playerEvNum = ev.data
        eventBusService.$emit('PLAYER_EVENT', this.playerEvNum);
     },
-    // setPlayer() {
-    //   this.elPlayer = this.$refs.youtube.player;
-    // },
-    // togglePlaying() {
-    //   this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
-    // },
-    // emitSwitchSong(diff) {
-    //   this.$emit("switch-song", { idx: this.currSong.idx, diff });
-    // },
     emitUpdateRate() {
       eventBusService.$emit('updateRate');
     },
-    // handleStateChange(ev) {
-    //   switch (ev.data) {
-    //     case -1:
-    //       this.isPlaying = false; // (unstarted)
-    //       break;
-    //     case 0:
-    //       this.emitSwitchSong(1); /// End of song
-    //       break;
-    //     case 1:
-    //       this.isPlaying = true; //play
-    //       break;
-    //     case 2:
-    //       this.isPlaying = false; //paused
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // }
   },
   watch: {
     currSong() {
+      // this may need to go
       if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
     },
     isPlaylistEmpty() {
       this.elPlayer.stopVideo();
     }
   },
-  created() {
-    eventBusService.$on("play-song", song => { 
-    this.elPlayer.loadVideoById(song.embedId);
-    });
-  },
+  // created() {
+  //   eventBusService.$on("play-song", song => { 
+  //   this.elPlayer.loadVideoById(song.embedId);
+  //   });
+  // },
   mounted() {
     this.setupYoutubePlayer();
-    // if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
-    // this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
+    
   },
   components: {
     loaderSmall
