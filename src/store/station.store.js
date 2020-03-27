@@ -49,8 +49,8 @@ export const stationStore = {
             state.isPlaying = isPlaying
         },
         setCurrSong(state, song){
-            if(!state.currStation) return;
-            state.currSong = song;
+            if(!state.currStation) return
+            state.currSong = song
         },
         addStation(state, { station }) {
             state.stations.push(station);
@@ -119,10 +119,8 @@ export const stationStore = {
             context.commit('removeStation', stationId);
         },
         async getLabelsMap(context) {
-            context.commit({ type: 'setInProgress', inProgress: true })
-            const labelsMap = await stationService.getLabelsMap();
+            const labelsMap = stationService.getLabelsMap(this.stations);
             context.commit('setLabelsMap', labelsMap);
-            context.commit({ type: 'setInProgress', inProgress: false })
         },
         async saveStaionChat(context, { history }) {
             context.commit({ type: 'saveChatHistory', history });

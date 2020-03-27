@@ -9,8 +9,7 @@
       <scroll-down-arrow></scroll-down-arrow>
     </header>
     <main>
-      <station-slider :stations="stationsForDisplay" :isHomePage="true"></station-slider>
-      <genre-cubes v-if="labelsMap" :labelsMap="labelsMap"></genre-cubes>
+      <station-slider :stations="stationsForDisplay"></station-slider>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
@@ -47,9 +46,6 @@ export default {
     stationsForDisplay() {
       return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort('rate'));
     },
-    labelsMap() {
-      return this.$store.getters.labelsMap;
-    }
   },
   components: {
     scrollDownArrow,

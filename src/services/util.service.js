@@ -1,6 +1,7 @@
 export const utilService = {
   getYoutubeEmbedId,
-  dynamicSort
+  dynamicSort,
+  orderMap
 }
 
 
@@ -21,4 +22,12 @@ function dynamicSort(property) {
       var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
       return result * sortOrder;
   }
+}
+
+function orderMap(map){
+  var orderedMap = {};
+  let orderedKeys = Object.keys(map)
+   .sort((a, b) => (map[a] < map[b] ? 1 : -1))
+   .forEach(key => (orderedMap[key] = map[key]));
+   return orderedMap
 }
