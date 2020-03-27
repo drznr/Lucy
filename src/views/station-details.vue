@@ -27,14 +27,14 @@
             :to="'/station/' + station._id + '/settings'"
           >Edit</router-link>
         </nav>
-        <!-- <router-view
+        <router-view
           @add-song="addSong"
           :routesProps="routesProps"
           class="station-details-side-window-content"
           @station-updated="setStation"
           @station-removed="removeStation"
           @clear-chat="clearChat"
-        ></router-view> -->
+        ></router-view>
       </aside>
     </div>
     
