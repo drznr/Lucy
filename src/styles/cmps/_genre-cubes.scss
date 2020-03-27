@@ -1,8 +1,11 @@
 .genre-cubes {
   background-color: $clr1;
   color: $clr-white;
+  margin-bottom: rem(20px);
+  padding: rem(10px);
   &-header {
     text-align: center;
+    margin: 0;
   }
   &-container {
     display: flex;
@@ -22,7 +25,6 @@
           text-align: center;
           font-size: rem(32px);
           text-transform: capitalize;
-          margin: 0;
       }
     }
   }
