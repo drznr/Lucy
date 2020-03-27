@@ -206,11 +206,11 @@ export default {
     playerEv(){
       this.stateChanged(this.playerEv)
     },
-    currStation(){
-      this.emitSongChange()
+    currStation(newStation, oldStation) {
+      if (newStation._id !== oldStation._id) this.emitSongChange()
     },
     currSong(){      
-      this.elPlayer.loadVideoById(this.currSong.embedId);
+      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
     },
     elPlayer(){
       // incase the song comes before the player

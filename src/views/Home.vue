@@ -14,7 +14,7 @@
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
-          <figure></figure> 
+          <figure></figure>  
         </div>
         <div class="home-teaser-info">
           <h2>Never stop listening</h2>
@@ -47,6 +47,9 @@ export default {
     stationsForDisplay() {
       return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort('rate'));
     },
+    stations(){
+      return this.$store.getters.stations
+    }
   },
   components: {
     scrollDownArrow,
