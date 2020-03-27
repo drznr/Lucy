@@ -139,12 +139,13 @@ export default {
     },
 
     // <!-- Controler and Player Functions -->
-    async loadStation(stationId) {
+    async loadStation(stationId) {                    
       const station = await this.$store.dispatch({
         type: "loadStation",
         stationId
       }); 
       this.station = JSON.parse(JSON.stringify(station));
+
       if (this.station.songs && this.station.songs.length) {
         var distroydeVideoInfo = this.$store.getters.getLastPlayingTime
         if (distroydeVideoInfo) {
@@ -160,7 +161,6 @@ export default {
       } else {
         this.currSong = null
       }
-
         
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
@@ -222,12 +222,12 @@ export default {
         this.playerEvNum = playerEvent
       });
     },
-  created() {
+  created() {   
     const stationId = this.$route.params.id; 
     if (stationId === 'new') {    
       eventBusService.$emit('station-opened');       
       this.station = stationService.getNewStation();                   
-      eventBusService.$on('create-station', async ({ type, title }) => {  
+      eventBusService.$on('create-station', async ({ type, title }) => {   console.log('Here...')
         this.station.type = type;
         this.station.title = title;                
         const newStation = await this.$store.dispatch({
@@ -240,6 +240,9 @@ export default {
       });
     } else this.loadStation(stationId); 
     eventBusService.$on("updateRate", this.updateRate);
+  },
+  destroyed() {
+    eventBusService.$off('create-station');
   },
   components: {
     stationPlayer,

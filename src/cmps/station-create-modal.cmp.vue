@@ -33,7 +33,7 @@ export default {
         }
     },
     methods: {
-        emitInfo() {
+        emitInfo() { 
             eventBusService.$emit('create-station', JSON.parse(JSON.stringify(this.stationInfo)));
             this.isActive = false;
             this.stationInfo.title = '';
