@@ -34,6 +34,7 @@
           @station-updated="setStation"
           @station-removed="removeStation"
           @clear-chat="clearChat"
+          @chat-destroyed="saveChatHistory"
         ></router-view>
       </aside>
     </div>
@@ -49,7 +50,6 @@
           @songChanged="setCurrSong"
           @timeElapsed="sendNewTime"
         ></player-controller>
-
         <!-- ** WORKING ** -->
       
   </section>
@@ -174,6 +174,12 @@ export default {
         station: JSON.parse(JSON.stringify(this.station))
       });
       this.station = JSON.parse(JSON.stringify(savedStation));
+    },
+    saveChatHistory() {
+      this.$store.dispatch({
+        type: 'saveStaionChat',
+        history: JSON.parse(JSON.stringify(this.station.chatHistory))
+        });
     },
     setStation(updatedStation) {
       this.station = updatedStation;

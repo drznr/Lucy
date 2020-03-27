@@ -16,7 +16,7 @@
             <input type="text" placeholder="Station's Name" v-model="stationInfo.title" class="station-info-inp" />
             <button class="station-info-btn btn">Publish</button>
         </form>
-    </section>
+    </section> 
 </template>
 
 <script>
