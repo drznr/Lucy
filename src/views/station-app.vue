@@ -5,38 +5,42 @@
       <station-filter @emitingFilter="setFilter" class="station-app-header-filter-cmp"></station-filter>
     </header>
     <div class="container">
-      <h2 class="station-app-list-title">Browse {{chosenLable}} Stations!</h2>
+      <h2 class="station-app-list-title">Browse Stations!</h2>
       <loader v-if="inProgress"></loader>
-      <station-list :stations="stations"></station-list>
+      <span>
+        <station-list :stations="stations"></station-list>
+        <h2 v-if="userStations.length" class="station-app-list-title">My Stations!</h2>
+        <station-slider v-if="userStations.length" :stations="userStations"></station-slider>
+      </span>
     </div>
 
-    <!-- Controler and Player -->
-    <div class="station-app-youtube">
+<!-- Controler and Player -->
+    <div class="station-app-player">
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
 
-    <!-- TODO upgrade fade into slide up with fade (?) -->
-    <transition name="fade">
-      <station-app-player
-        v-if="currStation"
-        class="station-app-player"
-        :elPlayer="elPlayer"
-        :currStation="currStation"
-        :currSong="currSong"
-        :playerEv="playerEvNum"
-        @playingStatusChanged="updatePlayigStatus"
-        @songChanged="sendCurrSong"
-        @timeElapsed="sendNewTime"
-      ></station-app-player>
-    </transition>
-    <!-- Controler and Player -->
+<!-- TODO upgrade fade into slide up with fade (?) -->
+<transition name="fade">
+    <player-controller v-if="currStation"
+      class="player-controller"
+      :elPlayer="elPlayer"
+      :currStation="currStation"
+      :currSong="currSong"
+      :playerEv="playerEvNum"
+      @playingStatusChanged="updatePlayigStatus"
+      @songChanged="sendCurrSong"
+      @timeElapsed="sendNewTime"
+    ></player-controller>
+</transition>
+<!-- Controler and Player -->
   </section>
 </template>
  
 <script>
 import stationList from "../cmps/station-list.cmp";
 import stationFilter from "../cmps/station-filter.cmp";
-import stationAppPlayer from "@/cmps/station-app-player.cmp";
+import stationSlider from "@/cmps/station-slider.cmp";
+import playerController from "@/cmps/player-controller.cmp";
 import loader from "../cmps/icons/loader.cmp";
 import { eventBusService } from "@/services/event-bus.service";
 
@@ -57,14 +61,25 @@ export default {
     currStation() {
       return this.$store.getters.currStation;
     },
-    chosenLable() {
-      return "All";
-    },
     inProgress() {
       return this.$store.getters.inProgress;
     },
     currSong() {
       return this.$store.getters.currSong;
+    },
+    loggedInUser() {
+      return this.$store.getters.loggedUser;
+    },
+    userStations() {
+      if (this.loggedInUser) return this.$store.getters.stations.filter(station => station.owner && station.owner._id === this.loggedInUser._id);
+      else {
+        const stationIds = this.$store.getters.LocalOwnerStationIds;
+        return stationIds.reduce((acc, id) => {
+            const ownStation = this.$store.getters.stations.find(station => station._id === id);  
+            if (ownStation) acc.push(ownStation);
+            return acc;
+        }, []); 
+      };
     }
   },
   methods: {
@@ -103,15 +118,17 @@ export default {
   },
   components: {
     stationList,
-    stationAppPlayer,
+    playerController,
     stationFilter,
+    stationSlider,
     loader
   }
 };
 </script> 
 
 <style scoped>
-.station-app-youtube {
+
+.station-app-player {
   display: none;
 }
 </style>

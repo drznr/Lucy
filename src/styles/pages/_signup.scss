@@ -70,7 +70,6 @@
                     }
                 }
             }
-            
             button {
                 align-self: center;
                 padding: rem(3px) rem(20px); 
@@ -121,6 +120,15 @@
                   background-color: $clr2;
                   color: $clr-white;
                 }
+            }
+        }
+        &-msg {
+            text-align: center;
+            color: transparent;
+            margin-bottom: rem(40px);
+
+            &.active {
+                color: red;
             }
         }
     }

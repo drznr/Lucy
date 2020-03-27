@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
-// const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/api/';
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/api/';
+// const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/';
 
 const axios = Axios.create({
     withCredentials: true
@@ -30,7 +30,7 @@ async function ajax(endpoint, method = 'get', data = null) {
             data
         })
         return res.data;
-    } catch (err) {
+    } catch (err) {                 
         switch (err.response.status) {
             case 401:
                 console.log(err); //////////////////////////////// < handle error

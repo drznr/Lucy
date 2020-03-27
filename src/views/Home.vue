@@ -9,7 +9,7 @@
       <scroll-down-arrow></scroll-down-arrow>
     </header>
     <main>
-      <station-slider :stations="stations"></station-slider>
+      <station-slider :stations="stationsForDisplay"></station-slider>
       <genre-cubes v-if="stations.length" :stations="stations"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
@@ -40,11 +40,12 @@ import stationSlider from "@/cmps/station-slider.cmp";
 import mainFooter from "@/cmps/main-footer.cmp";
 import scrollDownArrow from "@/cmps/icons/scroll-down-arrow.cmp";
 import genreCubes from "@/cmps/genre-cubes.cmp";
+import { utilService } from '@/services/util.service';
 
 export default {
   computed: {
-    stations() {
-      return this.$store.getters.stations;
+    stationsForDisplay() {
+      return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort('rate'));
     },
   },
   components: {

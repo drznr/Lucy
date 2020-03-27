@@ -6,16 +6,52 @@
             background-color: darken($clr-white, 10%);
         }
         .chat {
-            height: rem(742px);
+            height: rem(735px);
             width: 100%;
             position: relative;
             overflow-y: auto;
+            padding: rem(20px) rem(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            &-msg {
+                border: 1px solid $clr-black;
+                border-radius: 1rem;
+                padding: rem(3px) rem(5px);
+
+                &:not(:last-child) {
+                    margin-bottom: rem(10px);
+                }
+                &:nth-of-type(odd) {
+                    background-color: $clr4;
+                }
+                span {
+                    font-weight: 700;
+                }
+            }
         }
         form {
             display: flex;
 
             [type=text] {
                 flex-grow: 1;
+                padding: rem(5px) rem(10px);
+                text-transform: capitalize;
+
+                &:focus {
+                    border-color: $clr4;
+                }
+            }
+            button {
+                background-color: $clr-white;
+                border: 1px solid #c9c9c9;
+                transition: background-color .3s linear;
+                text-transform: capitalize;
+
+                @include hover-supported {
+                    background-color: darken($clr-white, 15%);
+                }
             }
         }
 }

@@ -64,9 +64,11 @@ export const stationStore = {
             state.stations.splice(idx, 1);
         },
         setLabelsMap(state, labelsMap) {
-            console.log('inside store mutations, labels map is:', labelsMap)
             state.labelsMap = labelsMap;
-        }
+        },
+        saveChatHistory(state, { history }) {
+            state.currStation.chatHistory = history;
+        } 
     },
     actions: {
         async loadStations(context, { filterBy }) {  
@@ -92,20 +94,22 @@ export const stationStore = {
             context.commit({ type: 'addStation', station: addedStation });
             return addedStation;
         },
-        async updateStation(context, { station }) {
+        async saveStation(context, { station }) {     
+            const updatedStation = await stationService.save(station);
+            context.commit({ type: 'updateStation', station: updatedStation });
+            return updatedStation;
+        },
+        async updateStation(context, { station }) { 
             if (!station.owner) {
                 let guestStationIds = storageService.load(STATION_KEY);
                 if (guestStationIds && guestStationIds.includes(station._id)) {
-                    const updatedStation = await stationService.save(station);
-                    context.commit({ type: 'updateStation', station: updatedStation });
-                    return updatedStation;
+                    return await context.dispatch({type: 'saveStation', station});
                 }
                 return station;
-            } else {
-                if (context.getters.loggedUser && station.owner._id === context.getters.loggedUser._id) {
-                    const updatedStation = await stationService.save(station);
-                    context.commit({type: 'updateStation', station: updatedStation});
-                    return updatedStation;
+            } else { 
+                if (context.getters.loggedUser && station.owner._id === context.getters.loggedUser._id) { 
+                    context.dispatch({type: 'saveStation', station});
+                    return await context.dispatch({type: 'saveStation', station});
                 }
             }
             return station;
@@ -113,12 +117,15 @@ export const stationStore = {
         async removeStation(context, { stationId }) {
             await stationService.remove(stationId);
             context.commit('removeStation', stationId);
-            //// SWAL to confirm and $router.push('/station')
         },
         async getLabelsMap(context) {
             const labelsMap = stationService.getLabelsMap(this.stations);
             context.commit('setLabelsMap', labelsMap);
         },
+        async saveStaionChat(context, { history }) {
+            context.commit({ type: 'saveChatHistory', history });
+            context.dispatch({type: 'saveStation', station :context.state.currStation});
+        }
     }
 }
 

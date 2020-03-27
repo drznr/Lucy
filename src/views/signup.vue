@@ -45,7 +45,7 @@
           <input type="file" @change="uploadImage" class="signup-main-inp-file" />
         </label>
         <loader-small v-else></loader-small>
-
+        <p class="signup-main-msg" :class="{active: msgActive}">Username, Password and full name are required.</p>
         <button class="btn" :disabled="$store.getters.inProgress">Sign Up</button>
       </form>
     </main>
@@ -63,7 +63,8 @@ export default {
   props: {},
   data() {
     return {
-      credentials: null
+      credentials: null,
+      msgActive: false
     };
   },
   computed: {
@@ -84,7 +85,7 @@ export default {
       this.$store.commit({ type: "setInProgress", inProgress: false });
     },
     async doSignup() {
-      //// validation before dispatching that the form is filled
+       if(!this.credentials.username || !this.credentials.password|| !this.credentials.fullName) return this.msgActive = true;
       this.$store.dispatch({
         type: 'signup',
         credentials: JSON.parse(JSON.stringify(this.credentials))
@@ -92,7 +93,8 @@ export default {
       this.setEmptyCredentials();
     },
     setEmptyCredentials(){
-        this.credentials = userService.getEmptySignupCredentials();
+      this.msgActive = false;
+      this.credentials = userService.getEmptySignupCredentials();
     }
   },
   mounted() {
