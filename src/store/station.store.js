@@ -116,10 +116,8 @@ export const stationStore = {
             //// SWAL to confirm and $router.push('/station')
         },
         async getLabelsMap(context) {
-            context.commit({ type: 'setInProgress', inProgress: true })
-            const labelsMap = await stationService.getLabelsMap();
+            const labelsMap = stationService.getLabelsMap(this.stations);
             context.commit('setLabelsMap', labelsMap);
-            context.commit({ type: 'setInProgress', inProgress: false })
         },
     }
 }

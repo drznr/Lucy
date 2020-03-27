@@ -10,7 +10,7 @@
     </header>
     <main>
       <station-slider :stations="stations"></station-slider>
-      <genre-cubes v-if="labelsMap" :labelsMap="labelsMap"></genre-cubes>
+      <genre-cubes v-if="stations" :stations="stations"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
@@ -46,9 +46,6 @@ export default {
     stations() {
       return this.$store.getters.stations;
     },
-    labelsMap() {
-      return this.$store.getters.labelsMap;
-    }
   },
   components: {
     scrollDownArrow,

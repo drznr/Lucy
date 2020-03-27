@@ -1,5 +1,5 @@
 <template>
-  <section v-if="topLabels" class="genre-cubes container">
+  <section class="genre-cubes container" v-if="topLabels.length">
     <h3 class="genre-cubes-header">Most Poupular Genres</h3>
     <div class="genre-cubes-container">
       <div
@@ -7,8 +7,7 @@
         :key="idx"
         class="genre-cubes-container-card ratio-square"
         :style="labelImg(label)"
-        @click="stationAppFiltered"
-      >
+        @click="stationAppFiltered">
         <h4 class="genre-cubes-container-card-title">{{label}}</h4>
       </div>
     </div>
@@ -16,23 +15,42 @@
 </template>
 
 <script>
+import { utilService } from "@/services/util.service";
 export default {
-  props: { labelsMap: Object },
-  computed: {
-    topLabels() {
-      return Object.keys(this.labelsMap).slice(0, 3);
-    }
+  props: { stations: Array },
+  data() {
+    return {
+      topLabels: []
+    };
   },
   methods: {
     labelImg(label) {
+      console.log('entered labelImg')
       const imgUrl =
         require(`@/assets/imgs/labels/${label}.jpg`) ||
         require("@/assets/imgs/labels/default.jpg");
       return `background-image: url(${imgUrl});`;
     },
-    stationAppFiltered(){
-      console.log('aaaaa')
+    getTopLabels(stations) {
+      var labelsMap = stations.reduce((acc, station) => {
+        station.labels.forEach(label => {
+          if (!acc[label]) acc[label] = 0;
+          acc[label]++;
+        });
+        return acc;
+      }, {});
+      labelsMap = utilService.orderMap(labelsMap);
+      let topLabels = Object.keys(labelsMap).slice(0, 3);
+      // return topLabels;
+      return ['rock', 'rap', 'disco']
+    },
+    stationAppFiltered() {
+      this.$router.push(`/station`);
     }
+  },
+  created() {
+    this.topLabels = this.getTopLabels(this.stations);
+    console.log('topLabels',this.topLabels)
   }
 };
 </script>
