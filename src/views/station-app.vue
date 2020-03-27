@@ -64,7 +64,7 @@ export default {
     inProgress() {
       return this.$store.getters.inProgress;
     },
-    currSong(){
+    currSong() {
       return this.$store.getters.currSong;
     },
     loggedInUser() {
@@ -90,30 +90,30 @@ export default {
       this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
     },
     handleStateChange(ev) {
-      this.playerEvNum = ev.data
+      this.playerEvNum = ev.data;
     },
     updatePlayigStatus(bool) {
       this.$store.commit("setIsPlaying", bool);
     },
-    sendNewTime(timeObj){
+    sendNewTime(timeObj) {
       this.$store.commit("setNewTime", timeObj);
     },
-    sendCurrSong(song) {      
+    sendCurrSong(song) {
       this.$store.commit("setCurrSong", song);
     },
     // <!-- Controler and Player Functions -->
-    setFilter(filterBy){
+    setFilter(filterBy) {
       this.$store.dispatch({
-        type: 'loadStations',
+        type: "loadStations",
         filterBy
       });
     }
   },
-  mounted(){
-    this.setupYoutubePlayer()
-    
+  mounted() {
+    this.setupYoutubePlayer();
+
     eventBusService.$on("UPDATE_CURR_STATION", currStation => {
-       this.$store.commit("setCurrStation", currStation)
+      this.$store.commit("setCurrStation", currStation);
     });
   },
   components: {
@@ -131,5 +131,4 @@ export default {
 .station-app-player {
   display: none;
 }
-
 </style>
