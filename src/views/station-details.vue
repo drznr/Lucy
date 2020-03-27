@@ -226,6 +226,7 @@ export default {
     const stationId = this.$route.params.id;
     this.loadStation(stationId);                                  
     eventBusService.$on('create-station', async ({ type, title }) => {
+      console.log(this.station)
       this.station.type = type;
       this.station.title = title;
       const newStation = await this.$store.dispatch({
