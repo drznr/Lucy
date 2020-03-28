@@ -70,7 +70,7 @@ export default {
     }
   },
   components: {
-    youtubeIframe,
+    youtubeIframe, 
     draggable
   }
 };

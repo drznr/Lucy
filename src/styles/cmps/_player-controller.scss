@@ -29,11 +29,11 @@
     &-song {
         width: 5ch;
         overflow: hidden;
-        white-space: nowrap;
+        white-space: nowrap; 
         text-overflow: ellipsis;
         
         @include for-moblie-layout {
-            width: 16ch;
+            width: 16ch; 
         }
         @include for-narrow-layout {
             width: 24ch;
