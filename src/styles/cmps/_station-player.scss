@@ -24,6 +24,11 @@
         .youtube-container {
             width: 100%;
         }
+        &-loader {
+            height: 100px;
+            width: 100px;
+            margin: auto;
+        }
         &-claps-container {
             position: absolute;
             right: 5px;

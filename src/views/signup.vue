@@ -15,33 +15,34 @@
             placeholder="Username"
             class="signup-main-inp form-inp"
             v-model="credentials.username"
-            required
+            id="inpUsername"
           />
-          <label>Username</label>
+          <label for="inpUsername">Username</label>
           <input
             type="password"
             placeholder="Password"
             class="signup-main-inp form-inp"
             v-model="credentials.password"
-            required
+            id="inpPassword"
           />
-          <label>Password</label>
+          <label for="inpPassword">Password</label>
         </section>
         <input
           type="text"
           placeholder="Full Name"
           class="signup-main-inp form-inp"
           v-model="credentials.fullName"
-          required
+          id="inpFullName"
         />
-        <label>Full Name</label>
+        <label for="inpFullName">Full Name</label>
         <input
           type="text"
           placeholder="Favorate genre?"
           v-model="credentials.prefs.favGenre"
           class="signup-main-inp form-inp"
+          id="inpGenre"
         />
-        <label>Favorate genre?</label>
+        <label for="inpGenre">Favorate genre?</label>
 
         <label class="signup-main-inp-label-file" v-if="!$store.getters.inProgress">
           UserAvatar:
