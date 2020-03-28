@@ -79,7 +79,8 @@ export default {
       this.$store.commit({ type: "setInProgress", inProgress: false });
     },
     removeStation() {
-      this.$emit("station-removed", this.currStation._id);
+      this.$emit('station-removed', this.currStation._id);
+      this.$router.push('/station');
     }
   },
   components: {

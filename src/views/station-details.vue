@@ -61,6 +61,7 @@ import { eventBusService } from "@/services/event-bus.service";
 import stationPlayer from "@/cmps/station-player.cmp";
 import { socketService } from "@/services/socket.service";
 import playerController from "@/cmps/player-controller.cmp";
+import { storageService } from '@/services/storage.service';
 
 export default {
   data() {
@@ -155,8 +156,9 @@ export default {
         this.currSong = null
       }
       
-      if (!this.station.owner) { 
-        if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
+      if (!this.station.owner) {    
+        const stationIds = storageService.getStationIds();
+        if (stationIds && stationIds.includes(this.station._id)) this.isStationOwner = true;
       } else {
         if (this.loggedInUser && station.owner._id === this.loggedInUser._id) this.isStationOwner = true;
       }
@@ -172,7 +174,7 @@ export default {
       this.$store.dispatch({
         type: 'saveStaionChat',
         history: JSON.parse(JSON.stringify(this.station.chatHistory))
-        });
+      });
     },
     setStation(updatedStation) {
       this.station = updatedStation;
@@ -216,8 +218,8 @@ export default {
     eventBusService.$on("PLAYER_EVENT", playerEvent => { 
         this.playerEvNum = playerEvent
       });
-  //   },
-  // created() {   
+   },
+   created() {   
     const stationId = this.$route.params.id; 
     if (stationId === 'new') {    
       eventBusService.$emit('station-opened');       

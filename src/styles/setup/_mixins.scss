@@ -29,7 +29,13 @@
 @mixin nav-clearfix {
   padding-top: 120px;
 }
-
+@mixin player-controller-ghost {
+  padding-bottom: rem(100px);
+  
+  @include for-normal-layout {
+    padding-bottom: rem(126px);
+  }
+}
 
 /* Media  Mixins */
 

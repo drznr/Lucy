@@ -1,6 +1,9 @@
+const STATION_KEY = 'guest-stations';
+
 export const storageService = {
     store,
-    load
+    load,
+    getStationIds
 }
 
 
@@ -12,3 +15,6 @@ function load(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
+function getStationIds() {
+    return JSON.parse(localStorage.getItem(STATION_KEY));
+}
