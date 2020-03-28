@@ -19,12 +19,19 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      margin-bottom: rem(5px);
+      // margin-bottom: rem(5px);
       width: 205px;
+      margin: 0 5px rem(5px) 5px;
       &-title{
           text-align: center;
-          font-size: rem(32px);
+          font-size: 1rem;
           text-transform: capitalize;
+          @include for-narrow-layout {
+            font-size: rem(24px);
+          }
+          @include for-normal-layout {
+            font-size: rem(32px);
+          }
       }
     }
   }
