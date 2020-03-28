@@ -10,8 +10,8 @@
       <scroll-down-arrow @click.native="scrollDown"></scroll-down-arrow>
     </header>
     <main ref="homeContent">
-      <station-slider v-if="stationsForDisplay.length" :stations="stationsForDisplay"></station-slider>
-      <genre-cubes v-if="stations.length" :stations="stations"></genre-cubes>
+      <station-slider class="home-slider" v-if="stationsForDisplay.length" :stations="stationsForDisplay"></station-slider>
+      <genre-cubes v-if="stations.length" :stations="stations" class="home-genres"></genre-cubes>
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     scrollDown() {
-      window.scrollTo(this.$refs.homeContent, this.$refs.homeContent.offsetTop);
+      window.scrollTo(this.$refs.homeContent, (this.$refs.homeContent.offsetTop - 100));
     }
   },
   components: {

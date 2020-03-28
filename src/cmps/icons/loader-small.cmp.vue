@@ -3,9 +3,7 @@
       class="loader-small"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      style="margin: auto; background: none; display: block; shape-rendering: auto;"
-      width="100px"
-      height="100px"
+      style="background: none; display: block; shape-rendering: auto;"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >
