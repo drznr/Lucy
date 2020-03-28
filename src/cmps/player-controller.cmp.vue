@@ -16,6 +16,7 @@
         <volume-speaker 
           class="player-controller-controler-volume-icon"
           @click.native="toggleMute"
+          :isMuted="isMuted"
         ></volume-speaker>
        
         <div class="player-controller-controler-volume-range-wrap">
@@ -25,7 +26,7 @@
             name="volume"
             min="0"
             max="100"
-            v-model="volume"
+            v-model.number="volume"
             @input="handleVolume"
           />
         </div>
@@ -81,7 +82,7 @@ export default {
   data() {
     return {
       isBuffering: false,
-      miniStation: null,
+      isMuted: false,
       startingPoint: 0,
       volume: 50,
       lastVolume: 0,
@@ -94,12 +95,12 @@ export default {
     playbackTimelineStyle() {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
-    playPause() {
-      // TODO: Add loader while buffering @@@@@@@@@@  this function does nothing never been called
-      return this.isPlaying
-        ? require("@/assets/imgs/icons/pause.png")
-        : require("@/assets/imgs/icons/play.png");
-    },
+    // playPause() {
+    //   // TODO: Add loader while buffering @@@@@@@@@@  this function does nothing never been called
+    //   return this.isPlaying
+    //     ? require("@/assets/imgs/icons/pause.png")
+    //     : require("@/assets/imgs/icons/play.png");
+    // },
     timeElapsedForDisplay() {
       var minutes = Math.floor(this.timeElapsed / 60);
       var seconds = this.timeElapsed - minutes * 60;
@@ -248,6 +249,9 @@ export default {
       if (this.currSong) {
         this.elPlayer.loadVideoById(this.currSong.embedId);
       }
+    },
+    volume(newVolume) {
+      (newVolume === 0) ? this.isMuted = true : this.isMuted = false;
     }
   },
   destroyed() {
