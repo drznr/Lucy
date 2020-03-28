@@ -71,6 +71,7 @@ export default {
         "station-updated",
         JSON.parse(JSON.stringify(this.currStation))
       );
+      this.$swal("Station updated successfully");
     },
     async uploadImage(ev) {
       this.$store.commit({ type: "setInProgress", inProgress: true });

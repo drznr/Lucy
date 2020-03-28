@@ -2,9 +2,10 @@
   <section class="home">
     <header class="home-header">
       <div class="home-header-heading">
-        <h1>Meet Lucy</h1>
+        <h1 v-if="loggedUser">welcome {{loggedUser.username}}</h1>
+        <h1 v-else>nice to meet you</h1>
         <span>Discover our live jukeboxes & playlist's and share your own with the world</span>
-        <router-link to="/station" class="home-header-heading-link">Get started</router-link>                                                                                                 
+        <router-link to="/station" class="home-header-heading-link">Get started</router-link>
       </div>
       <scroll-down-arrow @click.native="scrollDown"></scroll-down-arrow>
     </header>
@@ -14,7 +15,7 @@
       <article class="home-teaser">
         <div class="home-teaser-figures">
           <figure></figure>
-          <figure></figure>  
+          <figure></figure>
         </div>
         <div class="home-teaser-info">
           <h2>Never stop listening</h2>
@@ -39,15 +40,20 @@ import stationSlider from "@/cmps/station-slider.cmp";
 import mainFooter from "@/cmps/main-footer.cmp";
 import scrollDownArrow from "@/cmps/icons/scroll-down-arrow.cmp";
 import genreCubes from "@/cmps/genre-cubes.cmp";
-import { utilService } from '@/services/util.service';
+import { utilService } from "@/services/util.service";
 
 export default {
   computed: {
     stationsForDisplay() {
-      return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort('rate'));
+      return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(
+        utilService.dynamicSort("rate")
+      );
     },
-    stations(){
-      return this.$store.getters.stations
+    stations() {
+      return this.$store.getters.stations;
+    },
+    loggedUser() {
+      return this.$store.getters.loggedUser;
     }
   },
   methods: {

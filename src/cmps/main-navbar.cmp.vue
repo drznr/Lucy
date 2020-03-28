@@ -1,7 +1,7 @@
 <template>
   <nav class="main-nav" :class="{colored: isColored}">
     <div class="nav-container container">
-      <router-link to="/" class="main-logo">Lucy</router-link>
+      <router-link to="/" class="main-logo">wave<span class="main-logo-o">O</span>n</router-link>
       <input type="checkbox" id="mobileNav" ref="navToggle" v-show="false" />
       <label for="mobileNav" class="main-nav-mobile-btn">
         <span>|</span>
