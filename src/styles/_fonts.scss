@@ -14,10 +14,20 @@
 
 /// Logo Fonts
 @font-face {
-    font-family: monoton;  /// monospace, ---- first-letter logo
+    font-family: monoton;  /// monospace, ---- O-letter logo
     src: url('../assets/fonts/Monoton-Regular.ttf');
 }
 @font-face {
-    font-family: courgette;  /// serif  ----  rest of logo
-    src: url('../assets/fonts/Courgette-Regular.ttf');
+    font-family: odibee;  /// sans seriff  ----  rest of logo
+    src: url('../assets/fonts/OdibeeSans-Regular.ttf');
 }
+
+
+
+
+// @font-face {
+//     font-family: coiny;  /// sans seriff  ----  try logo
+//     src: url('../assets/fonts/Coiny-Regular.ttf');
+// }
+
+
