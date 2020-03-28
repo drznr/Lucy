@@ -124,13 +124,6 @@ export default {
   methods: {
     // <!-- Controler and Player Functions -->
 
-    // setupYoutubePlayer() {
-    //   this.elPlayer = this.$refs.youtube.player;
-    //   this.elPlayer.addEventListener("onStateChange", this.handleStateChange);
-    // },
-    // handleStateChange(ev) {
-    //   this.playerEvNum = ev.data
-    // },
     updatePlayigStatus(bool) {
       this.$store.commit("setIsPlaying", bool);
     },
@@ -190,6 +183,8 @@ export default {
       this.updateStation();
     },
     addSong(song) {
+      console.log('adding song', song);
+      
       this.station.songs.push(song);
       this.updateStation();
     },
@@ -221,15 +216,15 @@ export default {
     eventBusService.$on("PLAYER_EVENT", playerEvent => { 
         this.playerEvNum = playerEvent
       });
-    },
-  created() {   
+  //   },
+  // created() {   
     const stationId = this.$route.params.id; 
     if (stationId === 'new') {    
       eventBusService.$emit('station-opened');       
       this.station = stationService.getNewStation();                   
-      eventBusService.$on('create-station', async ({ type, title }) => {  
+      eventBusService.$on('create-station', async ({ type, title }) => {
         this.station.type = type;
-        this.station.title = title;                
+        this.station.title = title;
         const newStation = await this.$store.dispatch({
           type: "addStation",
           station: JSON.parse(JSON.stringify(this.station))

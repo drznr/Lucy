@@ -1,17 +1,21 @@
 <template>
   <section class="player-controller">
-
     <section class="player-controller-now-playing">
-      <img class="player-controller-now-playing-img" v-if="currStation" :src="this.currStation.imgUrl"/>
+      <img
+        class="player-controller-now-playing-img"
+        v-if="currStation"
+        :src="this.currStation.imgUrl"
+      />
       <p v-if="currStation" class="player-controller-title">{{currStation.title}}</p>
       <p v-if="currSong" class="player-controller-song">{{currSong.title}}</p>
     </section>
 
-    <div class="player-controller-controler">  
+    <div class="player-controller-controler">
       <section class="player-controller-controler-volume">
         <img
           src="../assets/imgs/icons/speaker.svg"
           class="player-controller-controler-volume-icon"
+          @click="toggleMute"
         />
         <div class="player-controller-controler-volume-range-wrap">
           <input
@@ -21,7 +25,7 @@
             min="0"
             max="100"
             v-model="volume"
-            @input="handleVolume" 
+            @input="handleVolume"
           />
         </div>
       </section>
@@ -39,21 +43,20 @@
         <span
           class="player-controller-controler-playback-time-elapsed-digital"
         >{{timeElapsedForDisplay}}/{{fullRunTimeForDisplay}}</span>
-        <div class="player-controller-controler-playback-timeline">
+        <div class="player-controller-controler-playback-timeline" @click.prevent="jumpTo($event)">
           <div
             :style="playbackTimelineStyle"
             class="player-controller-controler-playback-timeline-progress-bar"
           ></div>
         </div>
       </section>
-
     </div>
   </section>
 </template>
 
 <script>
 import { eventBusService } from "@/services/event-bus.service";
-import loaderSmall from '@/cmps/icons/loader-small.cmp';
+import loaderSmall from "@/cmps/icons/loader-small.cmp";
 
 export default {
   props: {
@@ -68,7 +71,7 @@ export default {
     },
     playerEv: {
       type: Number
-    },
+    }
   },
   data() {
     return {
@@ -77,9 +80,10 @@ export default {
       startingPoint: 0,
       // idx: 0,
       volume: 50,
+      lastVolume: 0,
       timeElapsed: 0,
       fullRunTime: 0,
-      isPlaying: false,
+      isPlaying: false
     };
   },
   computed: {
@@ -112,6 +116,21 @@ export default {
     }
   },
   methods: {
+    jumpTo(ev) {
+      if (!this.currSong) return;
+      var skipTo = ev.offsetX; // inital offset
+      if (ev.offsetX < 0) skipTo = 0;
+      skipTo = (skipTo / ev.toElement.scrollWidth) * 100; // percent of perent
+      skipTo = (skipTo / 100) * this.fullRunTime; // what the corisponding percent is from the playing song
+      this.elPlayer.seekTo(skipTo, true);
+    },
+    toggleMute() {
+      if (this.volume > 0) {
+        this.lastVolume = this.volume;
+        this.volume = 0;
+      } else this.volume = this.lastVolume;
+      this.handleVolume();
+    },
     handleVolume() {
       this.elPlayer.setVolume(this.volume);
     },
@@ -122,60 +141,67 @@ export default {
       this.isPlaying ? this.elPlayer.pauseVideo() : this.elPlayer.playVideo();
     },
     handleSongChange(diff) {
-      this.emitSongChange(diff)
+      this.emitSongChange(diff);
     },
     emitSongChange(diff) {
       var idx;
 
-      if(this.currSong) {
-        idx = this.currStation.songs.findIndex(song => song.embedId === this.currSong.embedId);
-        if(idx === -1 || !idx) idx = 0;
+      if (this.currSong) {
+        idx = this.currStation.songs.findIndex(
+          song => song.embedId === this.currSong.embedId
+        );
+        if (idx === -1 || !idx) idx = 0;
       } else {
         idx = 0;
       }
 
-      if(diff) {
+      if (diff) {
         if (diff === -1) {
-          idx--
-          idx = (idx < 0) ? (this.currStation.songs.length - 1) : idx
+          idx--;
+          idx = idx < 0 ? this.currStation.songs.length - 1 : idx;
         } else {
           idx++;
-          idx = (idx === this.currStation.songs.length) ? 0 : idx;
+          idx = idx === this.currStation.songs.length ? 0 : idx;
         }
       }
 
-       this.$emit("songChanged", this.currStation.songs[idx]);
+      this.$emit("songChanged", this.currStation.songs[idx]);
     },
     updateTimeElapsed() {
       var timeObj = {
         timeElapsed: this.timeElapsed,
         inSong: this.currSong.embedId,
-        inStation: this.currStation._id,
-      }
+        inStation: this.currStation._id
+      };
       this.$emit("timeElapsed", timeObj);
     },
     stateChanged(ev) {
-      if (ev === -1) {  // unstarted
-        this.isPlaying = false;
-        this.isBuffering = false
-      }
-      if (ev === 0) { // ended
-        this.isPlaying = false;
-        this.isBuffering = false
-      }
-      if (ev === 1) { // playing
-        this.isPlaying = true;
-        this.isBuffering = false
-        this.setTimeElapsed();
-      }
-      if (ev === 2) { // paused
+      if (ev === -1) {
+        // unstarted
         this.isPlaying = false;
         this.isBuffering = false;
-      } 
-      if (ev === 3) {
-        this.isBuffering = true // Buffering
+      }
+      if (ev === 0) {
+        // ended
         this.isPlaying = false;
-      }      
+        this.isBuffering = false;
+        this.handleSongChange(1);
+      }
+      if (ev === 1) {
+        // playing
+        this.isPlaying = true;
+        this.isBuffering = false;
+        this.setTimeElapsed();
+      }
+      if (ev === 2) {
+        // paused
+        this.isPlaying = false;
+        this.isBuffering = false;
+      }
+      if (ev === 3) {
+        this.isBuffering = true; // Buffering
+        this.isPlaying = false;
+      }
     },
     async setTimeElapsed() {
       // this function runs the digital clock
@@ -186,7 +212,7 @@ export default {
           const timeElapsed = await this.elPlayer.getCurrentTime();
           // When songs change this prevents .toFixed of undefined
           if (!timeElapsed) return;
-          if (this.timeElapsed !== timeElapsed.toFixed() ) { 
+          if (this.timeElapsed !== timeElapsed.toFixed()) {
             // this makes the timeElapsed update every second and not constantly
             this.timeElapsed = timeElapsed.toFixed();
           }
@@ -194,7 +220,7 @@ export default {
       } else {
         clearInterval(incTime);
       }
-    },
+    }
   },
   watch: {
     isPlaying() {
@@ -203,29 +229,32 @@ export default {
         JSON.parse(JSON.stringify(this.isPlaying))
       );
     },
-    playerEv(){
-      this.stateChanged(this.playerEv)
+    playerEv() {
+      this.stateChanged(this.playerEv);
     },
     currStation(newStation, oldStation) {
-      if (newStation._id !== oldStation._id) this.emitSongChange()
+      if (newStation._id !== oldStation._id) this.emitSongChange();
     },
-    currSong(){      
-      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+    currSong() {
+      if (this.currSong && this.elPlayer) {
+        this.elPlayer.loadVideoById(this.currSong.embedId);
+      }
     },
-    elPlayer(){
-      // incase the song comes before the player
-      if(this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+    elPlayer() {
+      if (this.currSong) {
+        this.elPlayer.loadVideoById(this.currSong.embedId);
+      }
     }
   },
   destroyed() {
-    if (this.currSong) this.updateTimeElapsed()
+    if (this.currSong) this.updateTimeElapsed();
 
     // clearing the interval
     // this.isPlaying = false
     // this.setTimeElapsed()
   },
-  mounted() {  
-    if(this.currStation) this.emitSongChange()
+  mounted() {
+    if (this.currStation) this.emitSongChange();
   },
   components: {
     loaderSmall

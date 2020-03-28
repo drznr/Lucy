@@ -10,26 +10,29 @@
 
       <form @submit.prevent="doSignup" v-if="credentials">
         <section class="signup-main-userpass-inp-wrap">
-            <input
-              type="text"
-              placeholder="Username"
-              class="signup-main-inp form-inp"
-              v-model="credentials.username"
-            />
-            <label>Username</label>
-            <input
-              type="password"
-              placeholder="Password"
-              class="signup-main-inp form-inp"
-              v-model="credentials.password"
-            />
-        <label>Password</label>
+          <input
+            type="text"
+            placeholder="Username"
+            class="signup-main-inp form-inp"
+            v-model="credentials.username"
+            required
+          />
+          <label>Username</label>
+          <input
+            type="password"
+            placeholder="Password"
+            class="signup-main-inp form-inp"
+            v-model="credentials.password"
+            required
+          />
+          <label>Password</label>
         </section>
         <input
           type="text"
           placeholder="Full Name"
           class="signup-main-inp form-inp"
           v-model="credentials.fullName"
+          required
         />
         <label>Full Name</label>
         <input
@@ -40,12 +43,19 @@
         />
         <label>Favorate genre?</label>
 
-        <label class="signup-main-inp-label-file" v-if="!$store.getters.inProgress"> 
+        <label class="signup-main-inp-label-file" v-if="!$store.getters.inProgress">
           UserAvatar:
-          <input type="file" @change="uploadImage" class="signup-main-inp-file" />
+          <upload-img
+            class="signup-main-inp-label-file-upload-icon"
+            :class="{'uploaded': this.credentials.avatar}"
+          ></upload-img>
+          <input type="file" @change="uploadImage" class="signup-main-inp-file" hidden />
         </label>
         <loader-small v-else></loader-small>
-        <p class="signup-main-msg" :class="{active: msgActive}">Username, Password and full name are required.</p>
+        <p
+          class="signup-main-msg"
+          :class="{active: msgActive}"
+        >Username, Password and full name are required.</p>
         <button class="btn" :disabled="$store.getters.inProgress">Sign Up</button>
       </form>
     </main>
@@ -54,10 +64,11 @@
 </template>
 
 <script>
-import { userService } from '@/services/user.service.js';
-import { uploadService } from '@/services/upload.service.js';
-import mainFooter from '@/cmps/main-footer.cmp';
-import loaderSmall from '@/cmps/icons/loader-small.cmp';
+import { userService } from "@/services/user.service.js";
+import { uploadService } from "@/services/upload.service.js";
+import mainFooter from "@/cmps/main-footer.cmp";
+import loaderSmall from "@/cmps/icons/loader-small.cmp";
+import uploadImg from "@/cmps/icons/upload-img.cmp";
 
 export default {
   props: {},
@@ -70,10 +81,10 @@ export default {
   computed: {
     labels: {
       get() {
-        return this.credentials.labels.join(' ');
+        return this.credentials.labels.join(" ");
       },
       set(val) {
-        this.credentials.labels = val.split(' ');
+        this.credentials.labels = val.split(" ");
       }
     }
   },
@@ -85,14 +96,20 @@ export default {
       this.$store.commit({ type: "setInProgress", inProgress: false });
     },
     async doSignup() {
-       if(!this.credentials.username || !this.credentials.password|| !this.credentials.fullName) return this.msgActive = true;
+      if (
+        !this.credentials.username ||
+        !this.credentials.password ||
+        !this.credentials.fullName
+      )
+        return (this.msgActive = true);
       this.$store.dispatch({
-        type: 'signup',
+        type: "signup",
         credentials: JSON.parse(JSON.stringify(this.credentials))
       });
       this.setEmptyCredentials();
+      this.$router.push('/station')
     },
-    setEmptyCredentials(){
+    setEmptyCredentials() {
       this.msgActive = false;
       this.credentials = userService.getEmptySignupCredentials();
     }
@@ -102,7 +119,8 @@ export default {
   },
   components: {
     mainFooter,
-    loaderSmall
+    loaderSmall,
+    uploadImg
   }
 };
 </script> 

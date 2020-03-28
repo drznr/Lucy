@@ -21,12 +21,19 @@
       <loader-small class="station-settings-loader" v-if="inProgress"></loader-small>
       <label class="station-settings-form-label" v-else>
         Station Thumbnail:
-        <upload-img class="station-settings-form-label-upload-icon" :class="{'uploaded': this.currStation.imgUrl}"></upload-img>
+        <upload-img
+          class="station-settings-form-label-upload-icon"
+          :class="{'uploaded': this.currStation.imgUrl}"
+        ></upload-img>
         <input type="file" class="station-settings-form-inp-file" @change="uploadImage" hidden />
       </label>
       <button :disabled="inProgress" class="station-settings-form-btn">Save</button>
     </form>
-    <button v-if="routesProps.isStationOwner" class="station-settings-delete" @click="removeStation">Delete Station</button>
+    <button
+      v-if="routesProps.isStationOwner"
+      class="station-settings-delete"
+      @click="removeStation"
+    >Delete Station</button>
   </section>
 </template>
 
@@ -40,7 +47,7 @@ export default {
   props: {
     routesProps: Object
   },
-  data() { 
+  data() {
     return {
       currStation: JSON.parse(JSON.stringify(this.routesProps.station))
     };

@@ -1,5 +1,6 @@
 import { stationService } from '@/services/station.service';
 import { storageService } from '@/services/storage.service';
+import router from '../router'
 
 const STATION_KEY = 'guest-stations';
 
@@ -62,6 +63,7 @@ export const stationStore = {
         removeStation(state, { stationId }) {
             const idx = state.stations.findIndex(station => station._id === stationId);
             state.stations.splice(idx, 1);
+            router.push("/station/");
         },
         setLabelsMap(state, labelsMap) {
             state.labelsMap = labelsMap;
