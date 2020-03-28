@@ -133,12 +133,6 @@
                     transform: scale(1.1);
                 }
             }
-
-            &-loader {
-                margin: 0 5px 0 5px;
-                height: 30px;
-                width: 30px;
-            }
         }
 
         &-playback {
@@ -156,6 +150,7 @@
                 height: 7px;
                 border-radius: 10px;
                 border: 1px inset;
+                cursor: pointer;
             }
      
             &-timeline-progress-bar {
