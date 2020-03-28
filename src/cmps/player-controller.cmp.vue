@@ -12,28 +12,28 @@
 
     <div class="player-controller-controler">
       <section class="player-controller-controler-btns">
-      <div class="player-controller-controler-volume">
-        <volume-speaker 
-          class="player-controller-controler-volume-icon"
-          @click="toggleMute"
-        ></volume-speaker>
-        <!-- <img
+        <div class="player-controller-controler-volume">
+          <volume-speaker
+            class="player-controller-controler-volume-icon"
+            @click.native="toggleMute"
+          ></volume-speaker>
+          <!-- <img
           src="../assets/imgs/icons/speaker.svg"
           class="player-controller-controler-volume-icon"
           @click="toggleMute"
-        /> -->
-        <div class="player-controller-controler-volume-range-wrap">
-          <input
-            type="range"
-            id="volume"
-            name="volume"
-            min="0"
-            max="100"
-            v-model="volume"
-            @input="handleVolume"
-          />
+          />-->
+          <div class="player-controller-controler-volume-range-wrap">
+            <input
+              type="range"
+              id="volume"
+              name="volume"
+              min="0"
+              max="100"
+              v-model="volume"
+              @input="handleVolume"
+            />
+          </div>
         </div>
-      </div>
 
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(-1)" />
@@ -83,7 +83,6 @@ export default {
       isBuffering: false,
       miniStation: null,
       startingPoint: 0,
-      // idx: 0,
       volume: 50,
       lastVolume: 0,
       timeElapsed: 0,
@@ -96,7 +95,6 @@ export default {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
     playPause() {
-      // TODO: Add loader while buffering
       return this.isPlaying
         ? require("@/assets/imgs/icons/pause.png")
         : require("@/assets/imgs/icons/play.png");

@@ -56,7 +56,7 @@
   border: 2px solid $clr2;
 
   @include hover-supported {
-    background-color: $clr2;
+    background-color: $clr2; 
     color: $clr-white;
     transform: translateY(-3px);
   }
@@ -65,3 +65,44 @@
   }
 }
 
+.select{ 
+
+  font: inherit;
+  padding: 5px;
+  margin: 0;      
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, $clr1 50%),
+    linear-gradient(135deg, $clr1 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+
+   &:focus {
+    background-image:
+      linear-gradient(45deg, $clr2 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, $clr2 50%);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: $clr1;
+    outline: 0;
+   }
+}
