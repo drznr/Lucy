@@ -13,19 +13,20 @@
       <station-slider class="home-slider" v-if="stationsForDisplay.length" :stations="stationsForDisplay"></station-slider>
       <genre-cubes v-if="stations.length" :stations="stations" class="home-genres"></genre-cubes>
       <article class="home-teaser">
-        <div class="home-teaser-figures">
+        <div class="home-teaser-figures"> 
           <figure></figure>
           <figure></figure>
         </div>
         <div class="home-teaser-info">
           <h2>Never stop listening</h2>
-          <p>Lucy let's you hear music as playlist or jukebox and share your own playlists with the world.</p>
+          <p>WaveOn let's you hear music as a playlist or jukebox and share your own playlists with the world.</p>
         </div>
         <div class="home-teaser-teaser">
           <figure></figure>
           <div class="home-teaser-teaser-txt">
             <h2>Calling all creators</h2>
-            <p>Get on Lucy to share your sounds, and grow your audience. What are you waiting for?</p>
+            
+            <p>Make your very own station to share your sounds, and grow your audience. What are you waiting for?</p>
             <router-link to="/station/new" class="home-teaser-teaser-txt-btn">Share your own</router-link>
           </div>
           <img src="@/assets/imgs/chapman.jpg" class="home-teaser-teaser-img" />
