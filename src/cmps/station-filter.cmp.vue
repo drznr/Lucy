@@ -16,7 +16,7 @@
       placeholder="Search in stations..." 
     />
     <select
-      v-model="filterBy.sortBy"
+      v-model="filterBy.sortBy" 
       @change="emitFilter"
       class="station-filter-select-sort select"
     >

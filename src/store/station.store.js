@@ -62,6 +62,7 @@ export const stationStore = {
         removeStation(state, { stationId }) {
             const idx = state.stations.findIndex(station => station._id === stationId);
             state.stations.splice(idx, 1);
+            state.currStation = null
         },
         setLabelsMap(state, labelsMap) {
             state.labelsMap = labelsMap;

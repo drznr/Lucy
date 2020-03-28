@@ -29,7 +29,7 @@
     &-song {
         width: 5ch;
         overflow: hidden;
-        white-space: nowrap;
+        white-space: nowrap; 
         text-overflow: ellipsis;
         
         @include for-mobile-layout {

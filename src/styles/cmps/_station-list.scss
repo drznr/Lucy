@@ -1,6 +1,10 @@
 .station-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
     gap: rem(20px);
     padding-bottom: 50px;
+    
+    @include for-narrow-layout {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 } 

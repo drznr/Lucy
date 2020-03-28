@@ -52,7 +52,7 @@ export default {
     },
     updateRate(){
       this.rateToAdd++
-    }
+    } 
   },
   watch: {
     currSong() {

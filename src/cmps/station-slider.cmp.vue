@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       swiperOptions: {
-        slidesPerView: 5,
+        slidesPerView: this.numOfSlides(),
         spaceBetween: 60,
         grabCursor: true,
         loop: true,
@@ -39,6 +39,15 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    numOfSlides(){
+      var slides = 5
+      if (window.innerWidth < 900 && window.innerWidth > 700) slides = 4
+      if (window.innerWidth < 700 && window.innerWidth > 550) slides = 3
+      if (window.innerWidth < 550) slides = 2
+      return slides
+    }
   },
   components: {
     Swiper,
