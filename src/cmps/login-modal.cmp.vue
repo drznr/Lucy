@@ -53,6 +53,9 @@ export default {
         eventBusService.$on('open-login', () => {
             this.isActive = true;
         });
+    },
+    destroyed() {
+        eventBusService.$off('open-login');
     }
 };
 </script>

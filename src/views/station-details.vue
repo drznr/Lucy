@@ -252,6 +252,9 @@ export default {
   },
   destroyed() {
     eventBusService.$off("create-station");
+    eventBusService.$off("SENDING_ELPLAYER");
+    eventBusService.$off("PLAYER_EVENT");
+    eventBusService.$off("updateRate");
   },
   components: {
     stationPlayer,
