@@ -1,4 +1,4 @@
-.main-footer{
+.main-footer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -7,11 +7,14 @@
     padding: 5px 0;
     color: $clr-white;
     border-top: 1px solid black;
-    &-logo{
+    &-logo {
       font-size: rem(36px);
       font-family: odibee, sans-serif;
       text-transform: none;
       margin-bottom: 0;
+      span:first-child {
+        color: $clr3;
+      }
       &-o {
         font-family: monoton, monospace;
       }

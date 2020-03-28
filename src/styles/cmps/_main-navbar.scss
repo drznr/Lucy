@@ -17,6 +17,9 @@
     font-size: rem(48px);
     font-family: odibee, sans-serif;
 
+    span:first-child {
+      color: $clr3;
+    }
     &-o {
       font-family: monoton, monospace;
     }
@@ -48,13 +51,13 @@
 
         
       @include hover-supported {
-        color: lighten($clr1, 15%);
-        border-color: lighten($clr1, 15%);
+        color: $clr4;
+        border-color: $clr4;
       }
     }
     .router-link-exact-active {
-      color: lighten($clr1, 15%);
-      border-color: lighten($clr1, 15%);
+      color: $clr4;
+      border-color: $clr4;
     }
   }
   &-mobile-btn {

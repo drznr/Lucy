@@ -1,7 +1,7 @@
 <template>
   <section class="youtube-iframe">
     <div class="youtube-container ratio-16-9">
-      <loader-small v-if="elPlayer"></loader-small>
+      <loader-small class="youtube-iframe-loader" v-if="elPlayer"></loader-small>
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <div class="youtube-iframe-claps-container">
