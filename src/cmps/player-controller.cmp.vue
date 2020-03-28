@@ -30,7 +30,6 @@
           />
         </div>
       </div>
-
         <rewind @click.native.prevent="seek(-10)"></rewind>
         <previous-track @click.native.prevent="handleSongChange(-1)"></previous-track>
         <loader-small class="player-controller-controler-btns-loader" v-if="isBuffering"></loader-small>
@@ -84,7 +83,6 @@ export default {
       isBuffering: false,
       miniStation: null,
       startingPoint: 0,
-      // idx: 0,
       volume: 50,
       lastVolume: 0,
       timeElapsed: 0,

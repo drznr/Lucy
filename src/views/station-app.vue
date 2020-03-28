@@ -97,7 +97,7 @@ export default {
       this.$store.commit("setIsPlaying", bool);
     },
     sendNewTime(timeObj) {
-      this.$store.commit("setNewTime", timeObj);
+      this.$store.commit("setNewTime", timeObj); 
     },
     sendCurrSong(song) {
       this.$store.commit("setCurrSong", song);

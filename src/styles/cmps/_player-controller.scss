@@ -55,7 +55,7 @@
         @include for-normal-layout {
             flex-direction: row;       
         }
-        &-volume {
+        &-volume { 
             display: inline-flex;
             align-items: center;
             flex-direction: row-reverse;
