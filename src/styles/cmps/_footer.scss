@@ -3,12 +3,13 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: $clr3;
+    background-color: $clr-black;
     padding: 5px 0;
+    color: $clr-white;
+    border-top: 1px solid black;
     &-logo{
       font-size: rem(36px);
       font-family: odibee, sans-serif;
-      color: $clr1;
       text-transform: none;
       margin-bottom: 0;
       &-o {
