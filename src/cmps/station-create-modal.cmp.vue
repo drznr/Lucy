@@ -13,7 +13,7 @@
                 <span>Jukebox</span>
             </label>
             </div>
-            <input type="text" placeholder="Station's Name" v-model="stationInfo.title" class="station-info-inp" />
+            <input type="text" placeholder="Station's Name" v-model="stationInfo.title" class="station-info-inp" required />
             <button class="station-info-btn btn">Publish</button>
         </form>
     </section> 

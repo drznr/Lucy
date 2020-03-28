@@ -26,13 +26,13 @@ export const stationStore = {
             return storageService.load(STATION_KEY);
         },
         currSong(state) {
-            return state.currSong
+            return state.currSong;
         },
         labelsMap(state) {
-            return state.labelsMap
+            return state.labelsMap;
         },
         getLastPlayingTime(state) {
-            return state.lastPlayingTime
+            return state.lastPlayingTime;
         }
     },
     mutations: {

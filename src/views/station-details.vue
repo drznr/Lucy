@@ -161,7 +161,7 @@ export default {
       } else {
         this.currSong = null
       }
-        
+      
       if (!this.station.owner) { 
         if (this.$store.getters.LocalOwnerStationIds && this.$store.getters.LocalOwnerStationIds.includes(this.station._id)) this.isStationOwner = true;
       } else {
@@ -227,7 +227,7 @@ export default {
     if (stationId === 'new') {    
       eventBusService.$emit('station-opened');       
       this.station = stationService.getNewStation();                   
-      eventBusService.$on('create-station', async ({ type, title }) => {   console.log('Here...')
+      eventBusService.$on('create-station', async ({ type, title }) => {  
         this.station.type = type;
         this.station.title = title;                
         const newStation = await this.$store.dispatch({

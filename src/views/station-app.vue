@@ -74,6 +74,7 @@ export default {
       if (this.loggedInUser) return this.$store.getters.stations.filter(station => station.owner && station.owner._id === this.loggedInUser._id);
       else {
         const stationIds = this.$store.getters.LocalOwnerStationIds;
+        if (!stationIds) return [];
         return stationIds.reduce((acc, id) => {
             const ownStation = this.$store.getters.stations.find(station => station._id === id);  
             if (ownStation) acc.push(ownStation);
