@@ -32,7 +32,7 @@
       </div>
         <rewind @click.native.prevent="seek(-10)"></rewind>
         <previous-track @click.native.prevent="handleSongChange(-1)"></previous-track>
-        <loader-small class="player-controller-controler-btns-loader" v-if="isBuffering"></loader-small>
+        <loader-small v-if="isBuffering"></loader-small>
         <pause-play v-else :isPlaying="isPlaying" @click.native.prevent="togglePlaying"></pause-play>
         <next-track @click.native.prevent="handleSongChange(1)"></next-track>
         <fast-forward  @click.native.prevent="seek(10)"></fast-forward>

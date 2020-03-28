@@ -10,15 +10,15 @@
         <li>
           <router-link to="/" class="main-nav-nav-link">Home</router-link>
         </li>
-        <li>
-          <router-link to="/signup" class="main-nav-nav-link">Signup</router-link>
+          <li>
+          <router-link to="/station" class="main-nav-nav-link">Stations</router-link>
         </li>
         <li>
           <button class="main-nav-nav-link btn-link" v-if="!loggedUser" @click="openLogin">Login</button>
           <button class="main-nav-nav-link btn-link" v-else @click="doLogout">Logout</button>
         </li>
-        <li>
-          <router-link to="/station" class="main-nav-nav-link">Stations</router-link>
+         <li>
+          <router-link  to="/signup" class="main-nav-nav-link"  v-if="!loggedUser">Signup</router-link>
         </li>
       </ul>
     </div>
