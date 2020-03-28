@@ -3,8 +3,26 @@
     color: $clr-black;
     padding: rem(100px) rem(20px) 0;
     overflow-y: hidden;
+    position: relative;
     @include player-controller-ghost;
 
+    &-menu-icon {
+        width: 65px;
+        height: 65px;
+        position: absolute;
+        top: 0;
+        left: -20px;
+        z-index: 9;
+        fill: $clr-black;
+        cursor: pointer;
+        background-color: $clr3;
+        border-radius: 0 50% 50% 0;
+        padding: 10px;
+
+        @include for-normal-layout {
+           display: none;
+        }
+    }
     h2 {
         padding-top: 10px;
         border-top: 1px solid $clr-black;
@@ -14,6 +32,9 @@
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
         height: rem(710px);
+        width: 100%;
+        //overflow-x: hidden;
+        position: relative;
         
         @include for-normal-layout {
             height: rem(720px);
@@ -27,11 +48,30 @@
         margin: 0;
     }
     &-side-window {
-        grid-column: 3 / -1;
+        grid-column: 1 / -1;
         grid-row: 1 / -1;
         display: flex;
+        height: rem(690px);
+        width: calc(100% - 60px);
         flex-direction: column;
-
+        position: absolute;
+        left: 60px;
+        bottom: 10px;
+        background-color: $clr-white;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform .6s linear;
+        
+        &.active {
+            transform: scaleY(1);
+        }
+        @include for-normal-layout {
+            grid-column: 3 / -1;
+            height: rem(710px);
+            width: unset;
+            position: initial;
+            transform: none;
+        }
         nav {
             width: 100%;
             display: flex;

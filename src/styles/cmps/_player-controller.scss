@@ -32,7 +32,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         
-        @include for-moblie-layout {
+        @include for-mobile-layout {
             width: 16ch;
         }
         @include for-narrow-layout {
@@ -114,6 +114,7 @@
             transform: translateX(-80px);
             
             @include for-normal-layout {
+                transform: translateX(-180px);
                 justify-content: space-between;
                 width: 50%;
             }
@@ -138,7 +139,14 @@
         &-playback {
             display: flex;
             align-items: center;
+            width: 100%;
+            justify-content: center;
+            padding: 0 20px;
 
+            @include for-normal-layout {
+                padding: 0;
+                width: unset;
+            }
             &-time-elapsed-digital {
                 font-family: monospace;
                 margin: 0 5px 0 5px;
