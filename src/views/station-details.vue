@@ -2,6 +2,7 @@
   <section v-if="station" class="station-details">
     <h2 class="station-details-header">{{ station.title }}</h2>
     <div class="station-details-container">
+      <side-menu-icon class="station-details-menu-icon" @click.native="toggleSidebar"></side-menu-icon>
       <station-player
         :station="station"
         :currSong="currSong"
@@ -11,7 +12,7 @@
         @song-removed="removeSong"
         @switched-song="setCurrSong"
       ></station-player>
-      <aside class="station-details-side-window">
+      <aside class="station-details-side-window" :class="{active: isSideMenuActive}">
         <nav>
           <router-link
             class="station-details-side-window-link chat"
@@ -62,6 +63,7 @@ import stationPlayer from "@/cmps/station-player.cmp";
 import { socketService } from "@/services/socket.service";
 import playerController from "@/cmps/player-controller.cmp";
 import { storageService } from '@/services/storage.service';
+import sideMenuIcon from "@/cmps/icons/side-menu-icon.cmp.vue";
 
 export default {
   data() {
@@ -71,7 +73,8 @@ export default {
       currSong: null,
       isPlaylistEmpty: true,
       playerEvNum: -1,
-      elPlayer: null
+      elPlayer: null,
+      isSideMenuActive: false
       // playerVars: {
       //   // TODO: make video quality lowest for faster loading time
       // }
@@ -88,8 +91,6 @@ export default {
             };
           }
           break;
-        case "search-song":
-          return;
           break;
         case "chat-room":
           return {
@@ -197,8 +198,6 @@ export default {
       this.updateStation();
     },
     addSong(song) {
-      console.log("adding song", song);
-
       this.station.songs.push(song);
       this.updateStation();
     },
@@ -216,6 +215,9 @@ export default {
     },
     removeStation(stationId) {
       this.$store.dispatch({ type: "removeStation", stationId });
+    },
+    toggleSidebar() {
+      this.isSideMenuActive = !this.isSideMenuActive;
     },
     clearChat() {
       this.station.chatHistory = [];
@@ -258,7 +260,8 @@ export default {
   },
   components: {
     stationPlayer,
-    playerController
+    playerController,
+    sideMenuIcon
   }
 };
 </script>

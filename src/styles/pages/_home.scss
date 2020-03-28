@@ -88,103 +88,145 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(2, 1fr);
-
     &-figures {
-      grid-column: 2 / 8;
-      grid-row: 1 / 2;
-      display: flex;
-
-      figure:first-child {
-        flex-basis: 50%;
-        background-image: url("../assets/imgs/player.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 100%;
-      }
-      figure:last-child {
-        flex-basis: 50%;
-        background-image: url("../assets/imgs/jukebox.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 0;
-      }
+        grid-column: 2 / 5;
+        grid-row: 1 / 2;
+        display: none;
+        @include for-wide-layout {
+            display: flex;
+            grid-column: 2 / 8;
+        }
+        figure:first-child {
+            flex-basis: 100%;
+            background-image: url('../assets/imgs/player.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 100%;
+            margin-right: 20px;
+            @include for-wide-layout {
+                flex-basis: 50%;
+                margin-right: 0;
+            }
+        }
+        figure:last-child  {
+            flex-basis: 50%;
+            background-image: url('../assets/imgs/jukebox.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 0;
+            display: none;
+            @include for-wide-layout {
+                display: initial;
+                flex-basis: 50%;
+            }
+        }
     }
     &-info {
-      grid-column: 8 / 11;
-      grid-row: 1 / 2;
-      text-align: left;
-
-      h2 {
-        white-space: pre;
-      }
-      p {
-        width: 24ch;
-        font-size: rem(28px);
-      }
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        text-align: center;
+        padding: 0 30px;
+        @include for-narrow-layout {
+            padding: 0 20%;
+        }
+        @include for-wide-layout {
+            padding: 0;
+            grid-column: 8 / 11;
+            text-align: left;
+        }
+        h2 {
+            color: $clr2;
+            white-space: wrap;
+            font-size: 2rem;
+            @include for-narrow-layout {
+                font-size: 2.25rem;
+                white-space: pre;
+            }
+        }
+        p {
+            width: unset;
+            font-size: rem(28px);
+            @include for-narrow-layout {
+                font-size: 1.5rem;
+            }
+            @include for-wide-layout {
+                width: 24ch;
+            }
+        }
     }
     &-teaser {
-      grid-column: 2 / 12;
-      grid-row: 2 / -1;
-      height: 350px;
-      background-color: #303841;
-      padding: 0 40px;
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-
-      figure {
-        background-image: url("../assets/imgs/crowd.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        opacity: 0.1;
-        mix-blend-mode: color-dodge;
-      }
-      &-img {
-        height: 90%;
-        align-self: flex-end;
-        display: none;
-
-        @include for-wide-layout {
-          display: initial;
-        }
-      }
-      &-txt {
-        z-index: 9;
-        color: $clr-white;
-        align-self: center;
+        grid-column: 1 / -1;
+        grid-row: 2 / -1;
+        height: 350px;
+        background-color:  #303841;
+        padding: 0 40px;
+        position: relative;
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        p {
-          margin-bottom: 40px;
-          width: 30ch;
-          font-size: rem(24px);
+        justify-content: space-between;
+        @include for-wide-layout {
+            grid-column: 2 / 12;
         }
-        &-btn {
-          font-size: rem(18px);
-          border: 2px solid $clr-white;
-          padding: rem(15px) rem(20px);
-          border-radius: 3px;
-          transition: all 0.3s;
-
-          @include hover-supported {
-            background-color: $clr-white;
-            color: $clr-black;
-            transform: translateY(-3px);
-          }
-          &:active {
-            transform: translateY(0);
-          }
+        figure {
+            background-image: url('../assets/imgs/crowd.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            opacity: .1;
+            mix-blend-mode: color-dodge;
         }
-      }
+        &-img {
+            height: 90%;
+            align-self: flex-end;
+            display: none;
+            @include for-wide-layout {
+                display: initial;
+            }
+        }
+        &-txt {
+            z-index: 9;
+            color: $clr-white;
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            h2 {
+                font-size: 2rem;
+                @include for-mobile-layout {
+                    font-size: 2.25rem;
+                }
+            }
+            p {
+                margin-bottom: 40px;
+                font-size: 1rem;
+                width: 20ch;
+                @include for-mobile-layout {
+                    width: 30ch;
+                    font-size: rem(24px);
+                }
+            }
+            &-btn {
+                font-size: rem(18px);
+                border: 2px solid $clr-white;
+                padding: rem(15px) rem(20px);
+                border-radius: 3px;
+                transition: all .3s;
+                @include hover-supported {
+                    background-color: $clr-white;
+                    color: $clr-black;
+                    transform: translateY(-3px);
+                }
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
     }
-  }
 }
+}
+
 
