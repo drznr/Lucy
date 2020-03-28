@@ -184,6 +184,7 @@ export default {
       this.station = JSON.parse(JSON.stringify(savedStation));
     },
     saveChatHistory() {
+      if (!this.station) return;
       this.$store.dispatch({
         type: "saveStaionChat",
         history: JSON.parse(JSON.stringify(this.station.chatHistory))
