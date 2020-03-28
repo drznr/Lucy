@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', name: 'home', component: home },
   { path: '/station', name: 'station-app', component: stationApp },
-  { path: '/station/:id',name: 'station-details', component: stationDetails,
+  { path: '/station/:id', component: stationDetails, // removed  - ,name: 'station-details' - because the console told me to
     children:[
       { path: '', name: 'chat-room', component: chatRoom },
       { path: 'search', name: 'search-song', component: searchSong },
@@ -24,7 +24,7 @@ const routes = [
     ]
   },
   { path: '/signup', name: 'signup', component: signUp },
-  { path: '/user/:id', name: 'user-details', component: userDetails,
+  { path: '/user/:id', component: userDetails, // removed name: 'user-details',  - because the console told me to
     children:[
       { path: '', name: 'user-profile', component: userProfile }, // crudl on user stations ( admin has extra options )
       { path: 'stats', name: 'user-stats', component: userStats },
