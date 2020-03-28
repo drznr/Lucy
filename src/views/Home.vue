@@ -28,6 +28,7 @@
             <p>Get on Lucy to share your sounds, and grow your audience. What are you waiting for?</p>
             <router-link to="/station/new" class="home-teaser-teaser-txt-btn">Share your own</router-link>
           </div>
+          <img src="@/assets/imgs/chapman.jpg" class="home-teaser-teaser-img" />
         </div>
       </article>
     </main>

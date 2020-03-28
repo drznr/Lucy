@@ -1,7 +1,7 @@
 <template>
   <nav class="main-nav" :class="{colored: isColored}">
     <div class="nav-container container">
-      <router-link to="/" class="main-logo">wave<span class="main-logo-o">O</span>n</router-link>
+      <router-link to="/" class="main-logo"><span>wave</span><span class="main-logo-o">O</span>n</router-link>
       <input type="checkbox" id="mobileNav" ref="navToggle" v-show="false" />
       <label for="mobileNav" class="main-nav-mobile-btn">
         <span>|</span>
@@ -31,7 +31,7 @@ import { eventBusService } from '@/services/event-bus.service';
 export default {
   data() {
     return {
-      isColored: false
+      isColored: true
     };
   },
   computed: {
@@ -42,6 +42,7 @@ export default {
   watch: {
     '$route.params'() {
       if (this.$refs.navToggle.checked) this.$refs.navToggle.checked = false;
+      this.isColored = !(this.$route.name === 'home' || this.$route.name === 'station-app');
     }
   },
   methods: {
@@ -57,6 +58,7 @@ export default {
   },
   created() {
     window.addEventListener("scroll", this.animateNavbar);
+    this.isColored = !(this.$route.name === 'home' || this.$route.name === 'station-app');
   },
   destroyed() {
     window.removeEventListener("scroll", this.animateNavbar);

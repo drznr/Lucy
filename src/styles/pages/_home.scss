@@ -3,7 +3,7 @@
     &-header {
         min-height: 100vh;
         background-image: url('../assets/imgs/home-bg-default.jpg');
-        background-color: $clr3;
+        background-color: $clr2;
         background-blend-mode: multiply; 
         background-repeat: no-repeat;
         background-size: cover;
@@ -69,10 +69,9 @@
         margin: 100px 0;
     }
     &-genres {
-        margin-bottom: 100px;
+        margin-bottom: 200px;
     }
     &-teaser {
-        // padding: $pad-small-x;
         width: 100%;
         display: grid;
         grid-template-columns: repeat(12, 1fr);
@@ -82,7 +81,6 @@
             grid-column: 2 / 8;
             grid-row: 1 / 2;
             display: flex;
-            margin-bottom: rem(20px);
 
             figure:first-child {
                 flex-basis: 50%;
@@ -102,7 +100,6 @@
         &-info {
             grid-column: 8 / 11;
             grid-row: 1 / 2;
-            margin-bottom: 40px;
             text-align: left;
 
             h2 {
@@ -114,7 +111,7 @@
             }
         }
         &-teaser {
-            grid-column: 1 / -1;
+            grid-column: 2 / 12;
             grid-row: 2 / -1;
             height: 350px;
             background-color:  #303841;
@@ -122,7 +119,7 @@
             position: relative;
             display: flex;
             justify-content: space-between;
-            // margin-bottom: rem(20px);
+            
             figure {
                 background-image: url('../assets/imgs/crowd.jpg');
                 background-repeat: no-repeat;
@@ -139,6 +136,11 @@
             &-img {
                 height: 90%;
                 align-self: flex-end;
+                display: none;
+
+                @include for-wide-layout {
+                    display: initial;
+                }
             }
             &-txt {
                 z-index: 9;
