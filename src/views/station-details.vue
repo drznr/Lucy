@@ -61,6 +61,7 @@ import { eventBusService } from "@/services/event-bus.service";
 import stationPlayer from "@/cmps/station-player.cmp";
 import { socketService } from "@/services/socket.service";
 import playerController from "@/cmps/player-controller.cmp";
+import { storageService } from '@/services/storage.service';
 
 export default {
   data() {
@@ -165,13 +166,10 @@ export default {
       } else {
         this.currSong = null;
       }
-
-      if (!this.station.owner) {
-        if (
-          this.$store.getters.LocalOwnerStationIds &&
-          this.$store.getters.LocalOwnerStationIds.includes(this.station._id)
-        )
-          this.isStationOwner = true;
+      
+      if (!this.station.owner) {    
+        const stationIds = storageService.getStationIds();
+        if (stationIds && stationIds.includes(this.station._id)) this.isStationOwner = true;
       } else {
         if (this.loggedInUser && station.owner._id === this.loggedInUser._id)
           this.isStationOwner = true;
@@ -229,16 +227,16 @@ export default {
       this.elPlayer = playerElement;
     });
 
-    eventBusService.$on("PLAYER_EVENT", playerEvent => {
-      this.playerEvNum = playerEvent;
-    });
-    //   },
-    // created() {
-    const stationId = this.$route.params.id;
-    if (stationId === "new") {
-      eventBusService.$emit("station-opened");
-      this.station = stationService.getNewStation();
-      eventBusService.$on("create-station", async ({ type, title }) => {
+    eventBusService.$on("PLAYER_EVENT", playerEvent => { 
+        this.playerEvNum = playerEvent
+      });
+   },
+   created() {   
+    const stationId = this.$route.params.id; 
+    if (stationId === 'new') {    
+      eventBusService.$emit('station-opened');       
+      this.station = stationService.getNewStation();                   
+      eventBusService.$on('create-station', async ({ type, title }) => {
         this.station.type = type;
         this.station.title = title;
         const newStation = await this.$store.dispatch({

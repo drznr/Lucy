@@ -1,7 +1,7 @@
 .station-app {
     background-color: $clr-white;
-    padding-bottom: 60px;
     min-height: 100vh;
+    @include player-controller-ghost;
     
     &-header {
         height: rem(350px);

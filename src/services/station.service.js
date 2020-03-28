@@ -59,7 +59,7 @@ function getEmptyCritirea() {
 }
 
 
-function _saveStationIdLocaly(station) {
+function _saveStationIdLocaly(station) {   
     if (!station.owner) {
         let guestStationIds = storageService.load(STATION_KEY);
         if (guestStationIds) {

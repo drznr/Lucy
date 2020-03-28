@@ -3,20 +3,25 @@
     <section class="player-controller-now-playing">
       <img
         class="player-controller-now-playing-img"
-        v-if="currStation"
-        :src="this.currStation.imgUrl"
+        v-if="currStation && currStation.imgUrl"
+        :src="currStation.imgUrl"
       />
       <p v-if="currStation" class="player-controller-title">{{currStation.title}}</p>
       <p v-if="currSong" class="player-controller-song">{{currSong.title}}</p>
     </section>
 
     <div class="player-controller-controler">
-      <section class="player-controller-controler-volume">
-        <img
+      <section class="player-controller-controler-btns">
+      <div class="player-controller-controler-volume">
+        <volume-speaker 
+          class="player-controller-controler-volume-icon"
+          @click="toggleMute"
+        ></volume-speaker>
+        <!-- <img
           src="../assets/imgs/icons/speaker.svg"
           class="player-controller-controler-volume-icon"
           @click="toggleMute"
-        />
+        /> -->
         <div class="player-controller-controler-volume-range-wrap">
           <input
             type="range"
@@ -28,9 +33,8 @@
             @input="handleVolume"
           />
         </div>
-      </section>
+      </div>
 
-      <section class="player-controller-controler-btns">
         <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
         <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(-1)" />
         <loader-small class="player-controller-controler-btns-loader" v-if="isBuffering"></loader-small>
@@ -57,6 +61,7 @@
 <script>
 import { eventBusService } from "@/services/event-bus.service";
 import loaderSmall from "@/cmps/icons/loader-small.cmp";
+import volumeSpeaker from "@/cmps/icons/volume-speaker.cmp";
 
 export default {
   props: {
@@ -257,7 +262,8 @@ export default {
     if (this.currStation) this.emitSongChange();
   },
   components: {
-    loaderSmall
+    loaderSmall,
+    volumeSpeaker
   }
 };
 </script>

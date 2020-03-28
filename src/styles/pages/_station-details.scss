@@ -1,9 +1,9 @@
 .station-details {
     background-color: $clr-white;
     color: $clr-black;
-    padding: rem(80px) 0 rem(20px) 0;
+    padding: rem(100px) rem(20px) 0;
     overflow-y: hidden;
-    padding-bottom: 180px;
+    @include player-controller-ghost;
 
     h2 {
         padding-top: 10px;
@@ -11,10 +11,13 @@
     }
     &-container {
         display: grid;
-        padding: 0 rem(20px);
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
-        height: rem(700px);
+        height: rem(710px);
+        
+        @include for-normal-layout {
+            height: rem(720px);
+        }
     }
     &-header {
         text-align: right;
@@ -24,6 +27,11 @@
         margin: 0;
     }
     &-side-window {
+        grid-column: 3 / -1;
+        grid-row: 1 / -1;
+        display: flex;
+        flex-direction: column;
+
         nav {
             width: 100%;
             display: flex;
@@ -38,6 +46,9 @@
         &-link {
             padding: rem(3px) rem(30px);
             clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
 
             @include hover-supported {
                 color: lighten($clr-black, 20%);
@@ -55,9 +66,7 @@
             background-color: darken($clr-white, 30%);
         }
         &-content {
-            grid-column: 3 / -1;
-            height: 100%;
-            overflow: hidden;
+            flex-grow: 1;
             border: 1px solid $clr-black;
             border-radius: 3px;
         }
