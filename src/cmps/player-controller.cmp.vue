@@ -15,13 +15,9 @@
       <div class="player-controller-controler-volume">
         <volume-speaker 
           class="player-controller-controler-volume-icon"
-          @click="toggleMute"
+          @click.native="toggleMute"
         ></volume-speaker>
-        <!-- <img
-          src="../assets/imgs/icons/speaker.svg"
-          class="player-controller-controler-volume-icon"
-          @click="toggleMute"
-        /> -->
+       
         <div class="player-controller-controler-volume-range-wrap">
           <input
             type="range"
@@ -34,13 +30,12 @@
           />
         </div>
       </div>
-
-        <img src="../assets/imgs/icons/skip-back.png" @click.prevent="seek(-15)" />
-        <img src="../assets/imgs/icons/prev.png" @click.prevent="handleSongChange(-1)" />
+        <rewind @click.native.prevent="seek(-10)"></rewind>
+        <previous-track @click.native.prevent="handleSongChange(-1)"></previous-track>
         <loader-small class="player-controller-controler-btns-loader" v-if="isBuffering"></loader-small>
-        <img v-else :src="playPause" @click.prevent="togglePlaying" />
-        <img src="../assets/imgs/icons/next.png" @click.prevent="handleSongChange(1)" />
-        <img src="../assets/imgs/icons/skip-forward.png" @click.prevent="seek(15)" />
+        <pause-play v-else :isPlaying="isPlaying" @click.native.prevent="togglePlaying"></pause-play>
+        <next-track @click.native.prevent="handleSongChange(1)"></next-track>
+        <fast-forward  @click.native.prevent="seek(10)"></fast-forward>
       </section>
 
       <section class="player-controller-controler-playback">
@@ -62,6 +57,11 @@
 import { eventBusService } from "@/services/event-bus.service";
 import loaderSmall from "@/cmps/icons/loader-small.cmp";
 import volumeSpeaker from "@/cmps/icons/volume-speaker.cmp";
+import rewind from "@/cmps/icons/rewind.cmp";
+import fastForward from "@/cmps/icons/fast-forward.cmp";
+import previousTrack from "@/cmps/icons/previous-track.cmp";
+import nextTrack from "@/cmps/icons/next-track.cmp";
+import pausePlay from "@/cmps/icons/pause-play.cmp";
 
 export default {
   props: {
@@ -83,7 +83,6 @@ export default {
       isBuffering: false,
       miniStation: null,
       startingPoint: 0,
-      // idx: 0,
       volume: 50,
       lastVolume: 0,
       timeElapsed: 0,
@@ -96,7 +95,7 @@ export default {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
     playPause() {
-      // TODO: Add loader while buffering
+      // TODO: Add loader while buffering @@@@@@@@@@  this function does nothing never been called
       return this.isPlaying
         ? require("@/assets/imgs/icons/pause.png")
         : require("@/assets/imgs/icons/play.png");
@@ -263,7 +262,12 @@ export default {
   },
   components: {
     loaderSmall,
-    volumeSpeaker
+    volumeSpeaker,
+    rewind,
+    fastForward,
+    previousTrack,
+    nextTrack,
+    pausePlay
   }
 };
 </script>

@@ -3,7 +3,7 @@
     <select
       v-model="filterBy.searchIn"
       @change="emitFilter"
-      class="station-filter-select-search"
+      class="station-filter-select-search select"
     >
       <option value="">Search by</option>
       <option value="genres">Genres</option>
@@ -13,12 +13,12 @@
       type="text"
       v-model="filterBy.txt"
       v-debounce:500ms="emitFilter"
-      placeholder="Search in stations..."
+      placeholder="Search in stations..." 
     />
     <select
       v-model="filterBy.sortBy"
       @change="emitFilter"
-      class="station-filter-select-sort"
+      class="station-filter-select-sort select"
     >
       <option value="">Sort by</option>
       <option value="title">Title</option>

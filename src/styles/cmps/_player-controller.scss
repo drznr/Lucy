@@ -18,7 +18,7 @@
         width: 100%;
         padding-top: 10px;
         
-        &-img{
+        &-img {
             height: 40px;
             border-radius: 50%;
         }
@@ -48,17 +48,18 @@
         padding-bottom: 10px;
         margin: 0 auto;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-direction: column;       
         align-items: center;
         
         @include for-normal-layout {
             flex-direction: row;       
         }
-        &-volume {
+        &-volume { 
             display: inline-flex;
             align-items: center;
             flex-direction: row-reverse;
+            transform: translateY(-5px);
             
             
             &-icon {
@@ -71,7 +72,7 @@
                 border-radius: 15px;
                 padding: 11px 8px 11px 8px;
                 background-color: $clr4;
-                transform: rotateZ(-90deg) translate(100px, 85px);
+                transform: rotateZ(-90deg) translate(100px, 90px);
                 position: relative;
                 opacity: 0;
                 transition: opacity .3s;
@@ -108,23 +109,28 @@
 
         &-btns {
             display: flex;
-            margin: 0 15px 0px 15px;
-
-            @media (max-width: $break-mobile){
-                margin: 0 15px 8px 15px;
-            } 
-
+            width: 100%;
+            justify-content: space-around;
+            transform: translateX(-80px);
+            
+            @include for-normal-layout {
+                justify-content: space-between;
+                width: 50%;
+            }
             >*{
-                margin: 0 5px 0 5px;
+                margin: 0 5px;
             }
             
-            img{
+            svg {
                 cursor: pointer;
                 height: 30px;
-                transition: filter .3s;
-                
-                &:hover {
-                    filter: invert(50%) sepia(30%) saturate(18%) hue-rotate(8deg) brightness(34%) contrast(87%);
+                width: 30px;
+                fill: $clr-white;
+                transition: transform .3s;
+
+                @include hover-supported {
+                    fill: $clr4;
+                    transform: scale(1.1);
                 }
             }
 
