@@ -117,6 +117,9 @@ export default {
       this.$store.commit("setCurrStation", currStation);
     });
   },
+  destroyed() {
+    eventBusService.$off("UPDATE_CURR_STATION");
+  },
   components: {
     stationList,
     playerController,

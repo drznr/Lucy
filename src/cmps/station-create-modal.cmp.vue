@@ -44,6 +44,9 @@ export default {
         eventBusService.$on('station-opened', () => {
             this.isActive = true;
         });
+    },
+    destroyed() {
+        eventBusService.$off('station-opened');
     }
 };
 </script>
