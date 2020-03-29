@@ -125,10 +125,10 @@ export const stationStore = {
             const labelsMap = stationService.getLabelsMap(this.stations);
             context.commit('setLabelsMap', labelsMap);
         },
-        async saveStaionChat(context, { history }) {
-            context.commit({ type: 'saveChatHistory', history });
-            context.dispatch({type: 'saveStation', station :context.state.currStation});
-        }
+        // async saveStaionChat(context, { history }) {
+        //     context.commit({ type: 'saveChatHistory', history });
+        //     context.dispatch({type: 'saveStation', station :context.state.currStation});
+        // }
     }
 }
 
