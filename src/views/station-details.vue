@@ -207,7 +207,6 @@ export default {
       this.$store.commit("setCurrSong", song);
     },
     removeStation(stationId) {
-      debugger
       this.$store.dispatch({ type: "removeStation", stationId });
     },
     toggleSidebar() {

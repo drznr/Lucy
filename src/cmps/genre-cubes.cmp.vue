@@ -1,5 +1,5 @@
 <template>
-  <section class="genre-cubes container">
+  <section class="genre-cubes">
     <h3 class="genre-cubes-header">Most Poupular Genres</h3>
     <div class="genre-cubes-container">
       <div
