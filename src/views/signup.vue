@@ -52,7 +52,7 @@
           ></upload-img>
           <input type="file" @change="uploadImage" class="signup-main-inp-file" hidden />
         </label>
-        <loader-small v-else></loader-small>
+        <loader-small class="signup-main-loader" v-else></loader-small>
         <p
           class="signup-main-msg"
           :class="{active: msgActive}"
