@@ -43,7 +43,7 @@ export const stationStore = {
             state.stations = stations;
         },
         setCurrStation(state, station) {
-            state.currStation = station;
+            state.currStation = station; 
         },
         setIsPlaying(state, isPlaying) {
             state.isPlaying = isPlaying
