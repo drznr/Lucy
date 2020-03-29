@@ -69,7 +69,7 @@ export default {
     },
     destroyed() {
         socketService.terminate();
-        this.$emit('chat-destroyed')
+        //this.$emit('chat-destroyed')
     }
 };
 </script>
