@@ -59,7 +59,7 @@ export const stationStore = {
             const idx = state.stations.findIndex(currStation => currStation._id === station._id);
             state.stations.splice(idx, 1, station);
         },
-        removeStation(state, { stationId }) {
+        removeStation(state, stationId) {
             const idx = state.stations.findIndex(station => station._id === stationId);
             state.stations.splice(idx, 1);
             state.currStation = null
