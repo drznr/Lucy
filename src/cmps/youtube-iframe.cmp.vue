@@ -5,7 +5,7 @@
       <youtube ref="youtube" :fitParent="true" :player-vars="playerVars"></youtube>
     </div>
     <div class="youtube-iframe-claps-container">
-      <button class="youtube-iframe-claps-container-btn btn-link" @click="updateRate">
+      <button class="youtube-iframe-claps-container-btn btn-link" @click="emitRate">
         <img src="../assets/imgs/icons/claps.svg" />
       </button>
       <span class="youtube-iframe-claps-container-rate">{{stationRate}}</span>
@@ -34,7 +34,6 @@ export default {
         autoplay: 1,
         controls: 0
       },
-      rateToAdd: 0
     };
   },
   methods: {
@@ -47,12 +46,9 @@ export default {
       this.playerEvNum = ev.data
        eventBusService.$emit('PLAYER_EVENT', this.playerEvNum);
     },
-    debounceRate() {
-      eventBusService.$emit('updateRate', rateToAdd);
-    },
-    updateRate(){
-      this.rateToAdd++
-    } 
+    emitRate() {
+      eventBusService.$emit('updateRate');
+    }
   },
   watch: {
     // currSong() {

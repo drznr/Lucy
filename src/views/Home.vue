@@ -47,9 +47,8 @@ import { utilService } from "@/services/util.service";
 export default {
   computed: {
     stationsForDisplay() {
-      return JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(
-        utilService.dynamicSort("rate")
-      );
+      return (this.$store.getters.stations) ? 
+        JSON.parse(JSON.stringify(this.$store.getters.stations)).sort(utilService.dynamicSort("rate")) : [];
     },
     stations() {
       return this.$store.getters.stations;

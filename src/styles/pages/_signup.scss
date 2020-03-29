@@ -121,7 +121,7 @@
           filter: none;
         }
       }
- 
+      
       // &-inp-file {
       //   &::-webkit-file-upload-button {
       //     background-color: transparent;
@@ -139,7 +139,10 @@
       //     }
       //   }
       // }
-     
+    }
+    &-loader{
+      width: 50px;
+      margin: 0 auto;
     }
     &-msg {
       text-align: center;

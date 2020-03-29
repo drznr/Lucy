@@ -35,7 +35,6 @@
           @station-updated="setStation"
           @station-removed="removeStation"
           @clear-chat="clearChat"
-          @chat-destroyed="saveChatHistory"
         ></router-view>
       </aside>
     </div>
@@ -183,12 +182,6 @@ export default {
       });
       this.station = JSON.parse(JSON.stringify(savedStation));
     },
-    saveChatHistory() {
-      this.$store.dispatch({
-        type: "saveStaionChat",
-        history: JSON.parse(JSON.stringify(this.station.chatHistory))
-      });
-    },
     setStation(updatedStation) {
       this.station = updatedStation;
       this.updateStation();
@@ -207,7 +200,7 @@ export default {
     },
     updateRate() {
       this.station.rate++;
-      socketService.emit("updateRate", this.station); //@@@@ more soon @@@///dont send the whole station
+      this.updateStation();
     },
     setCurrSong(song) {
       this.currSong = song;
