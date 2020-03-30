@@ -55,7 +55,9 @@ export default {
   },
   methods: {
     animateNavbar(ev) {
-      this.isColored = window.scrollY > 60;
+      if (this.$route.name === 'home' || this.$route.name === 'station-app') {
+        this.isColored = (window.scrollY > 60); 
+      }
     },
     openLogin() {
       eventBusService.$emit("open-login");
