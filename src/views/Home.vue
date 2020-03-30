@@ -3,8 +3,8 @@
     <header class="home-header">
       <div class="home-header-heading">
         <h1 v-if="loggedUser">welcome {{loggedUser.username}}</h1>
-        <h1 v-else>nice to meet you</h1>
-        <span>Discover our live jukeboxes & playlist's and share your own with the world</span>
+        <h1 v-else>Lets listen together</h1>
+        <span>Discover our live jukeboxes & playlist's and share your own</span>
         <router-link to="/station" class="home-header-heading-link">Get started</router-link>
       </div>
       <scroll-down-arrow @click.native="scrollDown"></scroll-down-arrow>

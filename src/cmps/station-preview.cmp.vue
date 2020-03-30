@@ -9,8 +9,8 @@
         <img :src="stationOwnerAvatar" alt="station owner avatar" :title="stationOwnerTitle" class="station-preview-info-avatar">
       </span>
     </div>
-    <h3 class="station-preview-title">{{station.title}}</h3>
-    <p class="station-preview-description">{{station.description}}</p>
+    <h3 @click.self="stationDetails" class="station-preview-title">{{station.title}}</h3>
+    <p @click.self="stationDetails" class="station-preview-description">{{station.description}}</p>
   </section>
 </template>
 
