@@ -13,7 +13,7 @@
             <form @submit.prevent="sendMsg">
                 <input type="text" placeholder="Type here..." v-model="msg.txt" @input="emitTyping" @blur="emitStopTyping" />
                 <button>Send</button>
-                <button v-if="routesProps.isStationOwner" @click.prevent="clearChat">Clear chat</button>
+                <button v-if="routesProps.isStationOwner" @click.prevent="clearChat">Clear</button>
             </form>
         </main>
     </section>
