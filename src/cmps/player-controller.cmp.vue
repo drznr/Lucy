@@ -3,16 +3,16 @@
     <section class="player-controller-now-playing">
       <img
         class="player-controller-now-playing-img"
-        v-if="currStation && currStation.imgUrl"
+        v-if="currStation && currStation.imgUrl && isNotMobile"
         :src="currStation.imgUrl"
       />
       <p v-if="currStation" class="player-controller-title">{{currStation.title}}</p>
       <p v-if="currSong" class="player-controller-song">{{currSong.title}}</p>
-    </section>
+    </section> 
 
     <div class="player-controller-controler">
       <section class="player-controller-controler-btns">
-        <div class="player-controller-controler-volume">
+        <div class="player-controller-controler-volume" v-if="isNotMobile">
           <volume-speaker
             class="player-controller-controler-volume-icon"
             @click.native="toggleMute"
@@ -31,12 +31,12 @@
             />
           </div>
         </div>
-        <rewind @click.native.prevent="seek(-10)"></rewind>
+        <rewind @click.native.prevent="seek(-10)" v-if="isNotMobile"></rewind>
         <previous-track @click.native.prevent="handleSongChange(-1)"></previous-track>
         <loader-small v-if="isBuffering"></loader-small>
         <pause-play v-else :isPlaying="isPlaying" @click.native.prevent="togglePlaying"></pause-play>
         <next-track @click.native.prevent="handleSongChange(1)"></next-track>
-        <fast-forward @click.native.prevent="seek(10)"></fast-forward>
+        <fast-forward @click.native.prevent="seek(10)" v-if="isNotMobile"></fast-forward>
       </section>
 
       <section class="player-controller-controler-playback">
@@ -88,7 +88,8 @@ export default {
       lastVolume: 0,
       timeElapsed: 0,
       fullRunTime: 0,
-      isPlaying: false
+      isPlaying: false,
+      isNotMobile: true,
     };
   },
   computed: {
@@ -211,7 +212,7 @@ export default {
       if (this.isPlaying) {
         const incTime = setInterval(async () => {
           const timeElapsed = await this.elPlayer.getCurrentTime();
-          // When songs change this prevents .toFixed of undefined
+           //When songs change this prevents .toFixed of undefined
           if (!timeElapsed) return;
           if (this.timeElapsed !== timeElapsed.toFixed()) {
             // this makes the timeElapsed update every second and not constantly
@@ -221,6 +222,14 @@ export default {
       } else {
         clearInterval(incTime);
       }
+    },
+    checkForMobile() {
+      if (window.innerWidth < 550) {
+        this.isNotMobile = false
+        // this.$refs.volume.style = 'display: none;'
+        // this.$refs.seekF.style = 'display: none;'
+        // this.$refs.seekB.style = 'display: none;'
+      } 
     }
   },
   watch: {
@@ -259,6 +268,7 @@ export default {
   },
   mounted() {
     if (this.currStation) this.emitSongChange();
+    this.checkForMobile()
   },
   components: {
     loaderSmall,
