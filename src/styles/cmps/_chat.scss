@@ -36,11 +36,12 @@
   }
   form {
     display: flex;
+    justify-content: space-evenly;
     height: 40px;
     border-radius: 10px;
 
     [type="text"] {
-      flex-grow: 1;
+      flex-grow: .75;
       padding: rem(5px) rem(10px);
       text-transform: capitalize;
 
@@ -58,7 +59,7 @@
       transition: background-color 0.3s linear;
       text-transform: capitalize;
       white-space: nowrap;
-      border-radius: 2px;
+      border-radius: 10px;
 
       @include hover-supported {
         background-color: darken($clr-white, 15%);
