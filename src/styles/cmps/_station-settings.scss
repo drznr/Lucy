@@ -49,6 +49,7 @@
       border-radius: 3px;
       border: 1px solid #c9c9c9;
       transition: background-color .3s linear;
+      margin-bottom: 8px;
 
       @include hover-supported {
         background-color: lighten(rgba(green, .7), 10%);
