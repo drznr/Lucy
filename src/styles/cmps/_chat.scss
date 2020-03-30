@@ -10,9 +10,9 @@
     }
     .chat {
         width: 100%;
-        height: calc(100% - 40px);
-        position: relative;
+        height: 400px;
         overflow-y: auto;
+        position: relative;
         padding: rem(20px) rem(10px);
         display: flex;
         flex-direction: column;
@@ -27,7 +27,7 @@
         margin-bottom: rem(10px);
       }
       &:nth-of-type(odd) {
-        background-color: $clr4;
+        background-color: rgba($clr4, .1);
       }
       span {
         font-weight: 700;
