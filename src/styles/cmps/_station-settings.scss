@@ -13,7 +13,7 @@
       padding-right: rem(40px);
       text-transform: capitalize;
       border-radius: 3px;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
     &-text-area {
       margin: 3px;
@@ -24,7 +24,7 @@
       resize: vertical;
       font-family: inherit;
       font-size: 1em;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
     &-label {
       font-size: rem(18px);
@@ -32,7 +32,7 @@
       justify-content: space-around;
       align-items: center;
       padding: 0 14px;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
 
       &-upload-icon {
         width: 30px;
@@ -45,14 +45,13 @@
       }
     }
     &-btn {
-      background-color: $clr-white;
+      background-color: rgba(green, .7);
       border-radius: 3px;
       border: 1px solid #c9c9c9;
-      margin: 0 3px;
       transition: background-color .3s linear;
 
       @include hover-supported {
-        background-color: darken($clr-white, 15%);
+        background-color: lighten(rgba(green, .7), 10%);
       }
     }
   }
@@ -60,13 +59,13 @@
     width: 15px;
   }
   &-delete {
-    background-color: red;
+    background-color: rgba(red, .7);
     border-radius: 3px;
     border: 1px solid $clr-black;
     transition: background-color .3s linear;
 
     @include hover-supported {
-      background-color: lighten(red, 15%);
+      background-color: lighten(rgba(red, .7), 10%);
     }  
   }
 }

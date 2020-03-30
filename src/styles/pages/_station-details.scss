@@ -2,7 +2,6 @@
     background-color: $clr-white;
     color: $clr-black;
     padding: rem(100px) rem(20px) 0;
-    overflow-y: hidden;
     position: relative;
     @include player-controller-ghost;
 
@@ -51,8 +50,8 @@
         grid-column: 1 / -1;
         grid-row: 1 / -1;
         display: flex;
-        height: rem(690px);
         width: calc(100% - 60px);
+        height: 700px;
         flex-direction: column;
         position: absolute;
         left: 60px;
@@ -67,8 +66,9 @@
         }
         @include for-normal-layout {
             grid-column: 3 / -1;
-            height: rem(710px);
+            grid-row: 1 / 2;
             width: unset;
+            height: unset;
             position: initial;
             transform: none;
         }
@@ -106,7 +106,6 @@
             background-color: darken($clr-white, 30%);
         }
         &-content {
-            flex-grow: 1;
             border: 1px solid $clr3;
             border-radius: 3px;
         }
