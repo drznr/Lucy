@@ -10,7 +10,7 @@
         <popular v-if="station.rate >= 10" class="station-preview-info-icon"></popular>
         <img :src="stationOwnerAvatar" alt="station owner avatar" :title="stationOwnerTitle" class="station-preview-info-avatar">
       </span>
-    <p class="station-preview-description">{{station.description}}</p>
+    <p @click.self="stationDetails" class="station-preview-description">{{station.description}}</p>
   </section>
 </template>
 

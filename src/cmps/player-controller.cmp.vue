@@ -12,31 +12,31 @@
 
     <div class="player-controller-controler">
       <section class="player-controller-controler-btns">
-      <div class="player-controller-controler-volume">
-        <volume-speaker 
-          class="player-controller-controler-volume-icon"
-          @click.native="toggleMute"
-          :isMuted="isMuted"
-        ></volume-speaker>
-       
-        <div class="player-controller-controler-volume-range-wrap">
-          <input
-            type="range"
-            id="volume"
-            name="volume"
-            min="0"
-            max="100"
-            v-model.number="volume"
-            @input="handleVolume"
-          />
+        <div class="player-controller-controler-volume">
+          <volume-speaker
+            class="player-controller-controler-volume-icon"
+            @click.native="toggleMute"
+            :isMuted="isMuted"
+          ></volume-speaker>
+
+          <div class="player-controller-controler-volume-range-wrap">
+            <input
+              type="range"
+              id="volume"
+              name="volume"
+              min="0"
+              max="100"
+              v-model.number="volume"
+              @input="handleVolume"
+            />
+          </div>
         </div>
-      </div>
         <rewind @click.native.prevent="seek(-10)"></rewind>
         <previous-track @click.native.prevent="handleSongChange(-1)"></previous-track>
         <loader-small v-if="isBuffering"></loader-small>
         <pause-play v-else :isPlaying="isPlaying" @click.native.prevent="togglePlaying"></pause-play>
         <next-track @click.native.prevent="handleSongChange(1)"></next-track>
-        <fast-forward  @click.native.prevent="seek(10)"></fast-forward>
+        <fast-forward @click.native.prevent="seek(10)"></fast-forward>
       </section>
 
       <section class="player-controller-controler-playback">
@@ -181,31 +181,33 @@ export default {
       this.$emit("timeElapsed", timeObj);
     },
     stateChanged(ev) {
-      if (ev === -1) {
-        // unstarted
-        this.isPlaying = false;
-        this.isBuffering = false;
-      }
-      if (ev === 0) {
-        // ended
-        this.isPlaying = false;
-        this.isBuffering = false;
-        this.handleSongChange(1);
-      }
-      if (ev === 1) {
-        // playing
-        this.isPlaying = true;
-        this.isBuffering = false;
-        this.setTimeElapsed();
-      }
-      if (ev === 2) {
-        // paused
-        this.isPlaying = false;
-        this.isBuffering = false;
-      }
-      if (ev === 3) {
-        this.isBuffering = true; // Buffering
-        this.isPlaying = false;
+      switch (ev) {
+        case -1:
+          // unstarted
+          this.isPlaying = false;
+          this.isBuffering = false;
+          break;
+        case 0:
+          // ended
+          this.isPlaying = false;
+          this.isBuffering = false;
+          this.handleSongChange(1);
+          break;
+        case 1:
+          // playing
+          this.isPlaying = true;
+          this.isBuffering = false;
+          this.setTimeElapsed();
+          break;
+        case 2:
+          // paused
+          this.isPlaying = false;
+          this.isBuffering = false;
+          break;
+        case 3:
+          // Buffering
+          this.isBuffering = true; 
+          this.isPlaying = false;
       }
     },
     async setTimeElapsed() {
@@ -251,7 +253,7 @@ export default {
       }
     },
     volume(newVolume) {
-      (newVolume === 0) ? this.isMuted = true : this.isMuted = false;
+      newVolume === 0 ? (this.isMuted = true) : (this.isMuted = false);
     }
   },
   destroyed() {

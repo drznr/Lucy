@@ -1,7 +1,6 @@
 <template>
   <section class="station-app">
     <header class="station-app-header">
-      <router-link to="/station/new" class="station-app-header-link btn">Create A Station</router-link>
       <station-filter @emitingFilter="setFilter" class="station-app-header-filter-cmp"></station-filter>
     </header>
     <div class="container">
