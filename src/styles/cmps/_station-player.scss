@@ -16,8 +16,6 @@
     .youtube-iframe {
         background-color: #fff;
         border-radius: 3px;
-        padding: rem(20px);
-        padding-bottom: rem(50px);
         position: relative;
         display: flex;
         align-items: center;
@@ -36,7 +34,7 @@
         }
         &-claps-container {
             position: absolute;
-            bottom: 50px;
+            bottom: 0;
             display: flex;
             align-items: center;
             &-btn img{
