@@ -37,6 +37,7 @@
   form {
     display: flex;
     height: 40px;
+    border-radius: 10px;
 
     [type="text"] {
       flex-grow: 1;
@@ -47,12 +48,17 @@
         border-color: $clr4;
       }
     }
+    input {
+      border-radius: 2px;
+      border: 1px solid #cacaca;
+    }
     button {
       background-color: $clr-white;
       border: 1px solid #c9c9c9;
       transition: background-color 0.3s linear;
       text-transform: capitalize;
       white-space: nowrap;
+      border-radius: 2px;
 
       @include hover-supported {
         background-color: darken($clr-white, 15%);
