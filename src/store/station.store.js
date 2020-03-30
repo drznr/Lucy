@@ -43,7 +43,7 @@ export const stationStore = {
             state.stations = stations;
         },
         setCurrStation(state, station) {
-            state.currStation = station;
+            state.currStation = station; 
         },
         setIsPlaying(state, isPlaying) {
             state.isPlaying = isPlaying
@@ -125,10 +125,10 @@ export const stationStore = {
             const labelsMap = stationService.getLabelsMap(this.stations);
             context.commit('setLabelsMap', labelsMap);
         },
-        async saveStaionChat(context, { history }) {
-            context.commit({ type: 'saveChatHistory', history });
-            context.dispatch({type: 'saveStation', station :context.state.currStation});
-        }
+        // async saveStaionChat(context, { history }) {
+        //     context.commit({ type: 'saveChatHistory', history });
+        //     context.dispatch({type: 'saveStation', station :context.state.currStation});
+        // }
     }
 }
 

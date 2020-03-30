@@ -51,19 +51,14 @@ export default {
     }
   },
   watch: {
-    currSong() {
-      // this may need to go
-      if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
-    },
+    // currSong() {
+    //   // this may need to go
+    //   if (this.currSong) this.elPlayer.loadVideoById(this.currSong.embedId);
+    // },
     isPlaylistEmpty() {
       this.elPlayer.stopVideo();
     }
   },
-  // created() {
-  //   eventBusService.$on("play-song", song => { 
-  //   this.elPlayer.loadVideoById(song.embedId);
-  //   });
-  // },
   mounted() {
     this.setupYoutubePlayer();
     
