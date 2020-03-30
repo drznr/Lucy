@@ -37,8 +37,7 @@
         }
         &-claps-container {
             position: absolute;
-            right: 5px;
-            bottom: 0;
+            bottom: 50px;
             display: flex;
             align-items: center;
             &-btn img{
@@ -46,7 +45,7 @@
             }
             &-rate{
                 font-size: rem(28px);
-                color: $clr2;
+                color: $clr-white;
             }
         }
         &-cover {

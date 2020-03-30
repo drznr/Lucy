@@ -88,7 +88,8 @@
     }
   }
   &-genres {
-    margin-bottom: 200px;
+    // margin-bottom: 200px;
+    margin-bottom: 100px;
   }
   &-teaser {
     width: 100%;
@@ -102,6 +103,7 @@
         @include for-wide-layout {
             display: flex;
             grid-column: 2 / 8;
+            margin-bottom: 20px;
         }
         figure:first-child {
             flex-basis: 100%;
