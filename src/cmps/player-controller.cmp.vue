@@ -95,12 +95,6 @@ export default {
     playbackTimelineStyle() {
       return `width: ${(this.timeElapsed / this.fullRunTime) * 100}%`;
     },
-    // playPause() {
-    //   // TODO: Add loader while buffering @@@@@@@@@@  this function does nothing never been called
-    //   return this.isPlaying
-    //     ? require("@/assets/imgs/icons/pause.png")
-    //     : require("@/assets/imgs/icons/play.png");
-    // },
     timeElapsedForDisplay() {
       var minutes = Math.floor(this.timeElapsed / 60);
       var seconds = this.timeElapsed - minutes * 60;
@@ -241,7 +235,7 @@ export default {
       if (newStation._id !== oldStation._id) this.emitSongChange();
     },
     currSong() {
-      if (this.currSong && this.elPlayer) {
+      if (this.elPlayer) {
         this.elPlayer.loadVideoById(this.currSong.embedId);
       }
     },
@@ -258,8 +252,8 @@ export default {
     if (this.currSong) this.updateTimeElapsed();
 
     // clearing the interval
-    // this.isPlaying = false
-    // this.setTimeElapsed()
+    this.isPlaying = false
+    this.setTimeElapsed()
   },
   mounted() {
     if (this.currStation) this.emitSongChange();
