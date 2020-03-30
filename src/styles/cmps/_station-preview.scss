@@ -1,7 +1,12 @@
 .station-preview {
+
     &-title{
         font-size: rem(18px);
         margin: 0;
+        max-width: 10ch;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         cursor: pointer;
     }
     
@@ -52,34 +57,29 @@
                 transform: translateY(30%);
                 opacity: 0;
             }
-            .station-preview-info {
-                opacity: 0;
-            }
         }
     }
     &-info {
-        display: inline-block;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        top: unset;
-        left: 0;
-        height: 20%;
         display: flex;
         justify-content: flex-end;
-        padding: 0 rem(10px);
         align-items: center;
+        position: relative;
+        top: -27.5px;
+        right: 5px;
         transition: opacity .3s linear;
         
         &-icon {
-            width: 30px;
+            width: 25px;
+            height: 25px;
             fill: red;
             stroke: none;
             filter: drop-shadow(0 0 1px $clr-black);
             margin-left: rem(10px);
         }
         &-avatar {
-            width: 30px;
+            height: 25px;
+            width: 25px;
+            object-fit: cover;
             border-radius: 50%;
             filter: drop-shadow(0 0 1px $clr-black);
         }

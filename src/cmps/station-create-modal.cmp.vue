@@ -1,5 +1,6 @@
 <template>
     <section class="station-info" v-if="isActive">
+        <button @click="closeModal" class="station-info-link btn-link">&larr;</button>
         <form @submit.prevent="emitInfo">
             <div class="station-info-type">
             <label>
@@ -38,6 +39,12 @@ export default {
             this.isActive = false;
             this.stationInfo.title = '';
             this.stationInfo.type = 'playlist';
+        },
+        closeModal() {
+            this.isActive = false;
+            this.stationInfo.title = '';
+            eventBusService.$off('station-opened');
+            this.$router.go(-1);
         }
     },
     created() {
@@ -46,6 +53,7 @@ export default {
         });
     },
     destroyed() {
+        this.stationInfo.title = '';
         eventBusService.$off('station-opened');
     }
 };

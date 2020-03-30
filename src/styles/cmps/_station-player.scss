@@ -1,7 +1,6 @@
 .station-player {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
-    border: 2px solid #fff;
     border-radius: 3px;
     margin-top: rem(31px);
     position: relative;
@@ -37,8 +36,7 @@
         }
         &-claps-container {
             position: absolute;
-            right: 5px;
-            bottom: 0;
+            bottom: 50px;
             display: flex;
             align-items: center;
             &-btn img{
@@ -46,7 +44,7 @@
             }
             &-rate{
                 font-size: rem(28px);
-                color: $clr2;
+                color: $clr-white;
             }
         }
         &-cover {

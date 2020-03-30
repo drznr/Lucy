@@ -1,6 +1,9 @@
 .search-song {
-    height: 100%;
+    height: rem(650px);
 
+    @include for-normal-layout {
+        height: 100%;
+    }
     &-inp {
         width: calc(100% - 6px);
         margin: 3px;
@@ -18,10 +21,14 @@
         }
     }
     &-list {
-        height: rem(640px);
+        height: rem(600px);
         width: 100%; 
         position: relative;
         overflow-y: auto;
+        
+        @include for-normal-layout {
+            height: rem(640px);
+        }
 
         &-item {
             padding: rem(10px) rem(20px);

@@ -1,5 +1,5 @@
 .genre-cubes {
-  background-color: $clr2;
+  background-color: $clr-black;
   color: $clr-white;
   margin-bottom: rem(20px);
   padding: rem(10px);
@@ -19,7 +19,6 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      // margin-bottom: rem(5px);
       width: 205px;
       margin: 0 5px rem(5px) 5px;
       &-title{
