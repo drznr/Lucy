@@ -1,7 +1,12 @@
 .station-preview {
+
     &-title{
         font-size: rem(18px);
         margin: 0;
+        max-width: 10ch;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         cursor: pointer;
     }
     
@@ -65,6 +70,7 @@
         
         &-icon {
             width: 30px;
+            height: 30px;
             fill: red;
             stroke: none;
             filter: drop-shadow(0 0 1px $clr-black);
@@ -72,6 +78,8 @@
         }
         &-avatar {
             height: 30px;
+            width: 30px;
+            object-fit: cover;
             border-radius: 50%;
             filter: drop-shadow(0 0 1px $clr-black);
         }
