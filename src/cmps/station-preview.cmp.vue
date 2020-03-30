@@ -4,12 +4,12 @@
       <button @click.stop="sendSongsList" v-if="station.songs.length">
         <play-btn class="play-btn"></play-btn>
       </button>
+    </div>
+    <h3 class="station-preview-title">{{station.title}}</h3>
       <span class="station-preview-info">
         <popular v-if="station.rate >= 10" class="station-preview-info-icon"></popular>
         <img :src="stationOwnerAvatar" alt="station owner avatar" :title="stationOwnerTitle" class="station-preview-info-avatar">
       </span>
-    </div>
-    <h3 class="station-preview-title">{{station.title}}</h3>
     <p class="station-preview-description">{{station.description}}</p>
   </section>
 </template>

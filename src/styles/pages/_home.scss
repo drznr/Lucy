@@ -79,6 +79,13 @@
   }
   &-slider {
     margin: 100px 0;
+
+    &-title {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      margin: 20px 0 0;
+      padding: 0 20px;
+    }
   }
   &-genres {
     margin-bottom: 200px;

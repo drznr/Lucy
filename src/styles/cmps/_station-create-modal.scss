@@ -22,6 +22,23 @@
             display: none;
         }
     }
+    &-link {
+        font-size: 36px;
+        font-weight: 700;
+        border: 2px solid $clr-white;
+        border-radius: 50%;
+        padding: 0 10px;
+        line-height: 40px;
+        display: inline-block;
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        transition: transform .2s linear;
+
+        @include hover-supported {
+            transform: scale(1.1);
+        }
+    }
     &-type {
         width: 100%;
         align-self: stretch;

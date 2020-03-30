@@ -10,6 +10,7 @@
       <scroll-down-arrow @click.native="scrollDown"></scroll-down-arrow>
     </header>
     <main ref="homeContent">
+      <h2 class="home-slider-title">Top rated Stations</h2>
       <station-slider class="home-slider" v-if="stationsForDisplay.length" :stations="stationsForDisplay"></station-slider>
       <genre-cubes v-if="stations.length" :stations="stations" class="home-genres"></genre-cubes>
       <article class="home-teaser">
