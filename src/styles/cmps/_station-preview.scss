@@ -22,7 +22,6 @@
         background-position: center;
         background-repeat: no-repeat;
         margin-bottom: rem(5px);
-
         @include hover-supported {
             & button {
                 transform: translateY(0);
@@ -63,11 +62,15 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        position: relative;
-        top: -25.5px;
-        right: 5px;
+        position: absolute;
+        top: unset;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
         transition: opacity .3s linear;
-        
+        padding: 5px;
+        background: linear-gradient(0deg,rgba(0,0,0,.5),transparent);
+        height: 40px;
         &-icon {
             width: 25px;
             height: 25px;
@@ -85,3 +88,4 @@
         }
     }
 }
+
