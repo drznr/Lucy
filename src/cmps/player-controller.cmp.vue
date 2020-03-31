@@ -240,7 +240,7 @@ export default {
       if (newStation._id !== oldStation._id) this.emitSongChange();
     },
     currSong() {
-      if (this.elPlayer) {
+      if (this.elPlayer && this.currSong) {
         this.elPlayer.loadVideoById(this.currSong.embedId);
       }
     },

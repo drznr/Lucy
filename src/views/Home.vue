@@ -4,7 +4,7 @@
       <div class="home-header-heading">
         <h1 v-if="loggedUser">welcome {{loggedUser.username}}</h1>
         <h1 v-else>Lets listen together</h1>
-        <span>Discover our live jukeboxes & playlist's and share your own</span>
+        <span>Discover our live playlist's and share your own</span>
         <router-link to="/station" class="home-header-heading-link">Get started</router-link>
       </div>
       <scroll-down-arrow @click.native="scrollDown"></scroll-down-arrow>
@@ -20,7 +20,7 @@
         </div>
         <div class="home-teaser-info">
           <h2>Never stop listening</h2>
-          <p>WaveOn let's you hear music as a playlist or jukebox and share your own playlists with the world.</p>
+          <p>WaveOn let's you hear music as a playlist and share your own with the world.</p>
         </div>
         <div class="home-teaser-teaser">
           <figure></figure>

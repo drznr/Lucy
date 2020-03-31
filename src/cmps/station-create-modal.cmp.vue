@@ -8,11 +8,11 @@
                 <img src="@/assets/imgs/icons/playlist.svg" alt="playlist" title="Playlist" class="station-info-type-icon" />
                 <span>Playlist</span>
             </label>
-            <label>
+            <!-- <label>
                 <input type="radio" value="jukebox" v-model="stationInfo.type" />
                 <img src="@/assets/imgs/icons/jukebox.svg" alt="jukebox" title="Jukebox" class="station-info-type-icon" />
                 <span>Jukebox</span>
-            </label>
+            </label> -->
             </div>
             <input type="text" placeholder="Station's Name" v-model="stationInfo.title" class="station-info-inp" required />
             <button class="station-info-btn btn">Publish</button>

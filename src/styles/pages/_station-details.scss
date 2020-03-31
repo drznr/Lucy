@@ -43,16 +43,16 @@
             height: rem(720px); 
         }
 
-        @media (min-width: 1000px) {
-            // פלסטר
-            display: flex;
-            justify-content: center;
+        // @media (min-width: 1000px) {
+        //     // פלסטר
+        //     display: flex;
+        //     justify-content: center;
 
-            >* {
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-        }
+        //     >* {
+        //         margin-left: 10px;
+        //         margin-right: 10px;
+        //     }
+        // }
 
     }
     &-header {
@@ -126,10 +126,10 @@
         }
         &-content {
             border-radius: 3px;
-            @media (min-width: 1000px) {
-                // פלסטר
-                width: 450px
-            }
+            // @media (min-width: 1000px) {
+            //     // פלסטר
+            //     width: 450px
+            // }
         }
     }
 }
