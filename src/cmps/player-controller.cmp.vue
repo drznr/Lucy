@@ -226,9 +226,6 @@ export default {
     checkForMobile() {
       if (window.innerWidth < 550) {
         this.isNotMobile = false
-        // this.$refs.volume.style = 'display: none;'
-        // this.$refs.seekF.style = 'display: none;'
-        // this.$refs.seekB.style = 'display: none;'
       } 
     }
   },
@@ -264,7 +261,6 @@ export default {
 
     // clearing the interval
     this.isPlaying = false
-    this.setTimeElapsed()
   },
   mounted() {
     if (this.currStation) this.emitSongChange();

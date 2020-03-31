@@ -225,8 +225,6 @@ export default {
     eventBusService.$on("PLAYER_EVENT", playerEvent => { 
         this.playerEvNum = playerEvent
       });
-  //  },
-  //  created() { ! DONT RE-ADD THE CREATED ! everything in the crated needs to be mounted not created
     const stationId = this.$route.params.id; 
     if (stationId === 'new') {    
       eventBusService.$emit('station-opened');       
