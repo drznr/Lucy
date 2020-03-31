@@ -21,7 +21,7 @@
           <router-link
             class="station-details-side-window-link search"
             :to="'/station/' + station._id + '/search'"
-          >Add Songs</router-link>
+          >Add</router-link>
           <router-link
             class="station-details-side-window-link settings"
             v-if="isStationOwner"

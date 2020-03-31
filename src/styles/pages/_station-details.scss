@@ -41,7 +41,8 @@
     }
     &-header {
         text-align: right;
-        padding: 0 rem(20px);
+        // padding: 0 rem(20px);
+        padding: 0;
         font-size: rem(24px);
         color: darken($clr-white, 50%);
         margin: 0;
@@ -89,7 +90,6 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-
             @include hover-supported {
                 color: lighten($clr-black, 20%);
             }
@@ -97,13 +97,16 @@
                 background-repeat: no-repeat;
                 background-size: 15px;
                 background-position: 5px;
+                cursor: pointer;
             }
             &.chat { background-image: url('../assets/imgs/icons/chat.svg'); }
             &.search { background-image: url('../assets/imgs/icons/plus.svg'); }
             &.settings { background-image: url('../assets/imgs/icons/edit.svg'); }
         }
         .router-link-exact-active {
-            background-color: darken($clr-white, 30%);
+            // background-color: darken($clr-white, 30%);
+            background-color: lighten($clr-black, 30%);
+            color: $clr-white;
         }
         &-content {
             border-radius: 3px;
