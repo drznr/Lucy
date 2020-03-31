@@ -37,6 +37,8 @@
             bottom: 0;
             display: flex;
             align-items: center;
+            background-color: rgba($color: #ffffff, $alpha: 0.1);
+            padding: 5px;
             &-btn img{
                 width: rem(28px);
             }
@@ -68,6 +70,8 @@
             padding: rem(10px) rem(100px);
             font-size: rem(18px);
             position: relative;
+            max-width: 600px;
+            margin: 0 auto;
 
             &:nth-child(odd) {
                 background-color: rgba($clr4, .1);
