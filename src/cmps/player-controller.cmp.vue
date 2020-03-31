@@ -206,16 +206,13 @@ export default {
       }
     },
     async setTimeElapsed() {
-      // this function runs the digital clock
       const fullRunTime = await this.elPlayer.getDuration();
       this.fullRunTime = fullRunTime.toFixed();
       if (this.isPlaying) {
         const incTime = setInterval(async () => {
           const timeElapsed = await this.elPlayer.getCurrentTime();
-           //When songs change this prevents .toFixed of undefined
           if (!timeElapsed) return;
           if (this.timeElapsed !== timeElapsed.toFixed()) {
-            // this makes the timeElapsed update every second and not constantly
             this.timeElapsed = timeElapsed.toFixed();
           }
         }, 0);
@@ -225,7 +222,7 @@ export default {
     },
     checkForMobile() {
       if (window.innerWidth < 550) {
-        this.isNotMobile = false
+        this.isNotMobile = false 
       } 
     }
   },
