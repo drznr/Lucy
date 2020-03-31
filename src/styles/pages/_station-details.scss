@@ -23,7 +23,11 @@
         }
     }
     h2 {
+        color: $clr-black;
+        font-size: rem(32px);
         padding-top: 10px;
+        margin-bottom: 20px;
+        text-align: center;
     }
     &-container {
         display: grid;
@@ -36,8 +40,20 @@
         position: relative;
         
         @include for-normal-layout {
-            height: rem(720px);
+            height: rem(720px); 
         }
+
+        @media (min-width: 1000px) {
+            // פלסטר
+            display: flex;
+            justify-content: center;
+
+            >* {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
     }
     &-header {
         text-align: right;
@@ -104,12 +120,16 @@
             &.settings { background-image: url('../assets/imgs/icons/edit.svg'); }
         }
         .router-link-exact-active {
-            // background-color: darken($clr-white, 30%);
             background-color: lighten($clr-black, 30%);
             color: $clr-white;
+            border-radius: 2px;
         }
         &-content {
             border-radius: 3px;
+            @media (min-width: 1000px) {
+                // פלסטר
+                width: 450px
+            }
         }
     }
 }
