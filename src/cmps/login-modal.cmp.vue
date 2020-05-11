@@ -17,7 +17,7 @@
         </transition>
     </section>
 </template> 
-
+ 
 <script>
 import { eventBusService } from '@/services/event-bus.service';
 import { userService } from '@/services/user.service.js';
